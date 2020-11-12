@@ -54,6 +54,7 @@
     "@typescript-eslint/parser": "^4.7.0",
     "create-react-app": "^4.0.0",
     "eslint": "^7.13.0",
-    "eslint-plugin-react": "^7.21.5"
+    "eslint-plugin-react": "^7.21.5",
+    "husky": "^4.3.0"
   }
 }
