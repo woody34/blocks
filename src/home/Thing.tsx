@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../store/types';
 import { login } from '../store/user/actions';
+import Button from '@material-ui/core/Button'; 
 
 
 const Thing: React.FC = () => {
@@ -18,7 +19,7 @@ const Thing: React.FC = () => {
     return (
         <>
             <h1>useSelector, username: {username}</h1>
-            <button onClick={testLogin}>Set username state</button>
+            <Button onClick={testLogin} variant="contained" color="primary">Set username state</Button>
             <h1>useState, local state example: {input}</h1>
             <input onChange={onLocalStateInputChange} ></input>
         </>
