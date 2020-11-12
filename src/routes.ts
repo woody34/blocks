@@ -1,4 +1,4 @@
 export const authRoutes = {
-    home: '/',
-    thing: '/thing'
+  home: '/',
+  thing: '/thing'
 };

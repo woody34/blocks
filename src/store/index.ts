@@ -1,13 +1,24 @@
  
-import { applyMiddleware, combineReducers, createStore, ReducersMapObject } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { userReducer } from './user/reducer';
-import { Actions, State } from './types';
 import thunk from 'redux-thunk';
+import { podcastReducer } from './podcast/reducer';
+import { loadState, saveState } from '../util/localStorage';
 
-export const reducers: ReducersMapObject<State, Actions> = {
-    user: userReducer,
+export const reducers = {
+  user: userReducer,
+  podcast: podcastReducer,
 };
 
 export const rootReducer = combineReducers(reducers);
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+const persistedState = loadState();
+
+const store = createStore(rootReducer, persistedState, applyMiddleware(thunk));
+store.subscribe(() => {
+  saveState(store.getState());
+});
+
+export default {
+  store
+};

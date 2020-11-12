@@ -7,14 +7,14 @@ import { authRoutes } from './routes';
 
 const App: React.FC = () => {
 
-    return (
-        <div className="App">
-            <Router>
-                <Route exact path={authRoutes.home} component={Home} />
-                <Route exact path={authRoutes.thing} component={Thing} />
-            </Router>
-        </div>
-    );
+  return (
+    <div className="App">
+      <Router>
+        <Route exact path={authRoutes.home} component={Home} />
+        <Route exact path={authRoutes.thing} component={Thing} />
+      </Router>
+    </div>
+  );
 };
 
 export default App;
