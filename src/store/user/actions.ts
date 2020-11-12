@@ -7,17 +7,19 @@ const setUser: ActionCreator<SetUserAction> = (payload: UserState) => ({
     payload,
 });
 
-export const login = (): AppThunkAsync => async (dispatch): Promise<boolean> => {
+export const login = (paylaod: Partial<UserState>): AppThunkAsync => async (dispatch, getState): Promise<void> => {
     try {
-        const user = true; // TODO: Implement Service Request to login and return user payload;
-        dispatch(setUser(user));
-        return true;
+        // TODO: Implement Service Request to login and return user payload;
+        dispatch(setUser(paylaod));
+        return;
     } catch (err) {
         // TODO: Present error with a message
-        return false;
+        return;
     }
 };
 
 export const logoff = (): ResetUserAction => ({
     type: USER_ACTIONS.RESET_USER,
 });
+
+export default { login, logoff };
