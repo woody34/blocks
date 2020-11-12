@@ -2,7 +2,7 @@
 
 ## Tech Stack
 
-### Frontent
+### Frontend
 
 React JS
   - [Functional Composition](https://reactjs.org/docs/components-and-props.html)
