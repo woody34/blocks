@@ -1,7 +1,7 @@
 import { ActionCreator } from '@reduxjs/toolkit';
 import { PodcastData } from '../../common/podcast';
 import { podcastService } from '../../services/podcast';
-import { AppThunkAsync } from '../types';
+import { AppThunkAsync } from '../../store/types';
 import {
   ResetPodcastAction,
   SetPodcastAction,

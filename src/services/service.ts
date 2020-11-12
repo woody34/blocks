@@ -99,10 +99,7 @@ export const makeService = <T extends BaseData>(
     baseRoute,
     http,
     getById: (id: number) => http.get(`/by-id/${id}`),
-    getAll: () => {
-      const task = http.getMany('/');
-      return task;
-    },
+    getAll: () => http.getMany('/'),
     create: (payload: T) => http.post(`/${payload.id}`, payload),
     update: (payload: T) => http.put(`/${payload.id}`, payload),
     delete: (id: number) => http.delete(`/${id}`),

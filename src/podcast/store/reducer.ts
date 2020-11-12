@@ -14,38 +14,55 @@ export const podcastReducer: Reducer<PodcastState, PodcastActions> = (
   case PODCAST_ACTIONS.RESET_PODCAST: {
     return { ...initialPodcastState };
   }
+
   case PODCAST_ACTIONS.SET_PODCAST: {
     return { ...state, ...action.payload };
   }
+
   case PODCAST_ACTIONS.LOAD_PODCASTS: {
     return { ...state, podcasts: action.payload };
   }
+
   case PODCAST_ACTIONS.PAUSE_PODCAST: {
     return { ...state, playing: false };
   }
+
   case PODCAST_ACTIONS.PLAY_PODCAST: {
     return { ...state, playing: true };
   }
+
   case PODCAST_ACTIONS.PREVIOUS_TRACK: {
-    if (!state.selectedPodcast) {
+    const { podcasts, selectedPodcast } = state;
+    if (!selectedPodcast) {
       return { ...state };
     }
-    const index = state.podcasts.indexOf(state.selectedPodcast) || 0;
+
+    const index = state.podcasts.indexOf(selectedPodcast) || 0;
     const previousIndex = index - 1;
-    const selectedPodcast =
-        state.podcasts[previousIndex] || state.selectedPodcast;
-    return { ...state, selectedPodcast };
-  }
-  case PODCAST_ACTIONS.NEXT_TRACK: {
-    if (!state.selectedPodcast) {
+    if (previousIndex < 0) {
       return { ...state };
     }
-    const index = state.podcasts.indexOf(state.selectedPodcast) || 0;
-    const nextIndex = index + 1;
-    const selectedPodcast =
-        state.podcasts[nextIndex] || state.selectedPodcast;
-    return { ...state, selectedPodcast };
+
+    const previousPodcast = podcasts[previousIndex] || selectedPodcast;
+    return { ...state, selectedPodcast: previousPodcast };
   }
+
+  case PODCAST_ACTIONS.NEXT_TRACK: {
+    const { podcasts, selectedPodcast } = state;
+    if (!state.selectedPodcast || !selectedPodcast) {
+      return { ...state };
+    }
+
+    const index = podcasts.indexOf(selectedPodcast) || 0;
+    const nextIndex = index + 1;
+    if (nextIndex >= podcasts.length) {
+      return { ...state };
+    }
+
+    const nextPodcast = podcasts[nextIndex] || state.selectedPodcast;
+    return { ...state, selectedPodcast: nextPodcast };
+  }
+  
   default: {
     return { ...state };
   }

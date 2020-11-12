@@ -1,5 +1,5 @@
 import { Action, ThunkAction } from '@reduxjs/toolkit';
-import { PodcastActions, PodcastState } from './podcast/types';
+import { PodcastActions, PodcastState } from '../podcast/store/types';
 import { UserActions, UserState } from './user/types';
 
 export interface State {

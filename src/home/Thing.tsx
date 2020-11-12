@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../store/types';
 import Button from '@material-ui/core/Button';
-import PodcastActions from '../store/podcast/actions';
+import PodcastActions from '../podcast/store/actions';
 import { PodcastData } from '../common/podcast';
 
 const Thing: React.FC = () => {
