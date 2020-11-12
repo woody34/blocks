@@ -29,15 +29,6 @@ interface Headers<D> {
   align?: 'right' | 'left';
 }
 
-// const headers: Headers<D extends Data>[] = [
-//   {
-//     value: 'name',
-//     label: 'Dessert (100g serving)',
-//     padding: 'none',
-//     sortable: true,
-//   },
-// ];
-
 interface EnhancedTableHeaderProps<D extends Data> {
   headers: Headers<D>[];
   classes: ReturnType<typeof useStyles>;

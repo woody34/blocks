@@ -1,6 +1,57 @@
-# Getting Started with Create React App
+# Getting started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Tech Stack
+
+### Frontent
+
+React JS
+  - [Functional Composition](https://reactjs.org/docs/components-and-props.html)
+  - [Material UI](https://material-ui.com/)
+  - [Redux](https://redux.js.org/introduction/getting-started)
+  - [React Router Dom](https://reactrouter.com/web/guides/quick-start)
+  - [Jest](https://jestjs.io/docs/en/getting-started) & [Testing Library React](https://testing-library.com/docs/react-testing-library/intro/)
+  - [Cypress](https://docs.cypress.io/guides/overview/why-cypress.html)
+
+
+## Project Structure
+
+```sh
+├── public # Public Assets
+├── README.md # Setup Instructions
+├── src # Source Code
+│   ├── App.css # Main app styles
+│   ├── App.tsx # Main app and router
+│   ├── common # Common repo data types
+│   ├── components # Common components
+│   │   └── Component # Folder named after component
+│   │       ├── Component.tsx # Component
+│   │       └── util.ts
+│   ├── index.css
+│   ├── index.tsx
+│   ├── mock # Mock tools and repo data
+│   │   ├── data
+│   │   │   └── podcast.ts
+│   │   └── service.ts # Tools for mocking services
+│   ├── feature # Feature folder example
+│   │   ├── components # Feature specific components
+│   │   │   ├── Component.tsx
+│   │   ├── Page.tsx # Feature page (routable)
+│   │   ├── util.ts
+│   │   └── store # Feature specific store module
+│   │       ├── actions.ts
+│   │       ├── reducer.ts
+│   │       └── types.ts
+│   ├── routes.ts # Routes and route meta data
+│   ├── services # Api services and tools for building crud services
+│   ├── store # Common store modules
+│   │   └── module # Short module name
+│   │       ├── actions.ts
+│   │       ├── reducer.ts
+│   │       └── types.ts
+│   └── util # Common utilities
+└── tsconfig.json # Typescript Config
+
+```
 
 ## Available Scripts
 
@@ -13,6 +64,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+
+### `npm lint`
+
+Performs linting operations against the project using the `./eslintrc.json` config
 
 ### `npm test`
 
@@ -29,18 +84,3 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
