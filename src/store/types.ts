@@ -1,5 +1,5 @@
-import { Action, ThunkAction } from "@reduxjs/toolkit";
-import { UserActions, UserState } from "./user/types";
+import { Action, ThunkAction } from '@reduxjs/toolkit';
+import { UserActions, UserState } from './user/types';
 
 export type State = {
     user: UserState

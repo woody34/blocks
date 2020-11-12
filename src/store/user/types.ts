@@ -1,4 +1,4 @@
-import { Action } from "redux";
+import { Action } from 'redux';
 
 export enum USER_ACTIONS {
     SET_USER = 'user/set',
@@ -11,7 +11,7 @@ export interface UserState {
 
 export const initialUserState: UserState = {
     username: 'not-set',
-}
+};
 
 export interface SetUserAction extends Action<USER_ACTIONS.SET_USER> {
     payload: UserState;

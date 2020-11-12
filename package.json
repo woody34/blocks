@@ -24,8 +24,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run lint && react-scripts build",
     "test": "react-scripts test",
+    "lint": "eslint --fix",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -48,6 +49,10 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.6",
-    "create-react-app": "^4.0.0"
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@typescript-eslint/parser": "^4.7.0",
+    "create-react-app": "^4.0.0",
+    "eslint": "^7.13.0",
+    "eslint-plugin-react": "^7.21.5"
   }
 }

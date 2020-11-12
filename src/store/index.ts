@@ -4,7 +4,7 @@ import { userReducer } from './user/reducer';
 import { Actions, State } from './types';
 
 export const reducers: ReducersMapObject<State, Actions> = {
-	user: userReducer,
+    user: userReducer,
 };
 
 export const rootReducer = combineReducers(reducers);
