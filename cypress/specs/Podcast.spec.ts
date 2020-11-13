@@ -12,8 +12,7 @@ describe('Podcast', () => {
   it('should display and click play buttons', () => {
     cy.get(util.features.podcast.table.playButton) 
       .should('have.length', 5)
-      .each(e => {
-        cy.wrap(e).click();
-      });
+      .first()
+      .click();
   });
 });
