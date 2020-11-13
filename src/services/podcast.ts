@@ -1,10 +1,8 @@
 // import { makeService } from './service';
 import { mockService } from '../mock/service';
 import mockPodcastDocs from '../mock/data/podcast';
+import { makeService } from './service';
 
-// const baseRoute = '/podcast';
+const baseRoute = '/podcast';
 // export const podcastService = makeService(baseRoute);
-const service = mockService(mockPodcastDocs);
-export const podcastService = service;
-
-export default podcastService;
+export const podcastService = mockService(mockPodcastDocs);

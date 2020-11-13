@@ -1,4 +1,4 @@
-import { Action, ThunkAction } from '@reduxjs/toolkit';
+import { Action, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { PodcastActions, PodcastState } from '../podcast/store/types';
 import { UserActions, UserState } from './user/types';
 
@@ -9,10 +9,10 @@ export interface State {
 
 export type Actions = UserActions | PodcastActions;
 
-export type AppThunk = ThunkAction<void, State, unknown, Action<string>>;
+export type AppThunk = ThunkAction<undefined, State, null, Actions>;
 export type AppThunkAsync = ThunkAction<
-  Promise<unknown>,
+  Promise<undefined>,
   State,
-  unknown,
-  Action<string>
+  null,
+  Actions
 >;

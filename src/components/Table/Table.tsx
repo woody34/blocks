@@ -9,27 +9,24 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import { getComparator, Order, stableSort } from './util';
+import { getComparator, Order, stableSort, cyTable } from './util';
+import { BaseData } from '../../common/base';
 
-interface Data {
-  name: string;
-}
-
-interface Headers<D> {
-  value: keyof D;
+export interface Headers<D> {
   label: string;
+  value?: keyof D;
+  filter?: (data: D) => string;
   sortable?: boolean;
-  sortBy: keyof D;
+  sortBy?: keyof D;
   component?: 'th' | 'div';
   id?: string;
   scope?: string;
   padding?: 'none' | 'default';
   align?: 'right' | 'left';
+  hide?: boolean;
 }
 
-interface EnhancedTableHeaderProps<D extends Data> {
+export interface BlocksTableHeaderProps<D> {
   headers: Headers<D>[];
   classes: ReturnType<typeof useStyles>;
   onRequestSort: (
@@ -38,11 +35,9 @@ interface EnhancedTableHeaderProps<D extends Data> {
   ) => void;
   order: Order;
   orderBy: keyof D;
-  prepend?: () => JSX.Element;
-  append?: () => JSX.Element;
 }
 
-const EnhancedTableHead = <D extends Data>(props: EnhancedTableHeaderProps<D>) => {
+const BlocksTableHeader = <D extends BaseData>(props: BlocksTableHeaderProps<D>) => {
   const { classes, order, orderBy, onRequestSort, headers } = props;
   const createSortHandler = (property: keyof D) => (
     event: React.MouseEvent<unknown>
@@ -53,25 +48,27 @@ const EnhancedTableHead = <D extends Data>(props: EnhancedTableHeaderProps<D>) =
   return (
     <TableHead>
       <TableRow>
-        {headers.map((cell, i) => (
+        {headers.map((header, i) => (
           <TableCell
-            key={`${cell.value}-${i}`}
-            align={cell.align}
-            padding={cell.padding}
-            sortDirection={orderBy === cell.value ? order : false}
+            key={`BlocksTableHeader-${i}-${Math.random()}`}
+            align={header.align}
+            padding={header.padding}
+            sortDirection={orderBy === header.value ? order : false}
           >
-            <TableSortLabel
-              active={orderBy === cell.value}
-              direction={orderBy === cell.value ? order : 'asc'}
-              onClick={createSortHandler(cell.value)}
-            >
-              {cell.label}
-              {orderBy === cell.value ? (
-                <span className={classes.visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </span>
-              ) : null}
-            </TableSortLabel>
+            {header.sortable ? 
+              (<TableSortLabel
+                active={orderBy === header.value}
+                direction={orderBy === header.value ? order : 'asc'}
+                onClick={createSortHandler(header.value as any)}
+              >
+                {header.label}
+                {orderBy === header.value ? (
+                  <span className={classes.visuallyHidden}>
+                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  </span>
+                ) : null}
+              </TableSortLabel>) :
+              (<> { header.label } </>)}
           </TableCell>
         ))}
       </TableRow>
@@ -79,20 +76,74 @@ const EnhancedTableHead = <D extends Data>(props: EnhancedTableHeaderProps<D>) =
   );
 };
 
-interface EnhancedTableProps<D extends Data> {
-  headers: Headers<D>[];
-  rows: D[];
+interface MakeTableRowsProps<D extends BaseData> extends BlocksTableProps<D> {
+  orderBy: keyof D;
+  order: Order;
+  page: number;
+  rowsPerPage: number;
 }
 
-export const EnhancedTable = <D extends Data>(
-  props: EnhancedTableProps<D>
+const BlocksTableRows = <D extends BaseData>(props: MakeTableRowsProps<D>): JSX.Element => {
+  const { headers, rows, orderBy, order, page, rowsPerPage, prepend, append, dense } = props;
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  return (
+    <>
+      { 
+        stableSort<any>(rows, getComparator(orderBy as any, order))
+          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .map((row, i) => {
+  
+            return (
+              <TableRow
+                hover
+                tabIndex={i}
+                key={`BlocksTableRow-${i}-${Math.random()}`}
+                data-cy={cyTable.row}
+              >
+                { prepend && prepend(row)}
+                { headers.map((header, i) => !header.hide && (
+                  <TableCell
+                    key={`BlocksTableCell-${i}`}
+                    component={header.component}
+                    id={header.id}
+                    scope={header.scope}
+                    padding={header.padding}
+                    data-cy={cyTable.cell}
+                  >
+                    { header.filter && header.filter(row)}
+                    { !header.filter && row[header.value]}
+                  </TableCell>
+                ))}
+                { append && append(row)}
+              </TableRow>
+            );
+          })}
+      {emptyRows > 0 && (
+        <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
+          <TableCell colSpan={6} />
+        </TableRow>
+      )}
+    </>
+  );
+};
+
+interface BlocksTableProps<D> {
+  headers: Headers<D>[];
+  rows: D[];
+  prepend?: (item: D) => JSX.Element;
+  append?: (item: D) => JSX.Element;
+  dense: boolean;
+}
+
+export const BlocksTable = <D extends BaseData>(
+  props: BlocksTableProps<D>
 ): JSX.Element => {
-  const { headers, rows } = props;
+  const { headers, rows, prepend, append } = props;
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof D>('name');
+  const [orderBy, setOrderBy] = React.useState<keyof D>('id');
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
+  const [dense] = React.useState(props.dense);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (
@@ -116,12 +167,7 @@ export const EnhancedTable = <D extends Data>(
     setPage(0);
   };
 
-  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDense(event.target.checked);
-  };
 
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -132,8 +178,9 @@ export const EnhancedTable = <D extends Data>(
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
+            data-cy={cyTable.table}
           >
-            <EnhancedTableHead
+            <BlocksTableHeader
               headers={headers}
               classes={classes}
               order={order}
@@ -141,34 +188,7 @@ export const EnhancedTable = <D extends Data>(
               onRequestSort={handleRequestSort}
             />
             <TableBody>
-              {stableSort<any>(rows, getComparator(orderBy as any, order))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-
-                  return (
-                    <TableRow
-                      hover
-                      tabIndex={-1}
-                      key={row.name}
-                    >
-                      {headers.map(header => {
-                        <TableCell
-                          component={header.component}
-                          id={header.id}
-                          scope={header.scope}
-                          padding={header.padding}
-                        >
-                          {row[header.value]}
-                        </TableCell>;
-                      })}
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
+              <BlocksTableRows { ...{ headers, rows, prepend, append ,dense, orderBy, order, page, rowsPerPage } }/>
             </TableBody>
           </Table>
         </TableContainer>
@@ -182,10 +202,6 @@ export const EnhancedTable = <D extends Data>(
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </div>
   );
 };

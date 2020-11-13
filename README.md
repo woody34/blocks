@@ -71,8 +71,21 @@ Performs linting operations against the project using the `./eslintrc.json` conf
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
+Launches the jest unit test runner in watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run cypress`
+
+Opens cypress test runner and displays all specs to be ran individually.
+See [test runner](https://docs.cypress.io/guides/core-concepts/test-runner.html#Overview) for more information.
+
+### `npm run test:e2e`
+
+Runs all cypress cypress specs and dislays a report upon completion.
+
+### `npm run test:all`
+
+Lints the entire prokect, runs all unit tests followed by all cypress cypress specs.
 
 ### `npm run build`
 

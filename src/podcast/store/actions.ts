@@ -30,7 +30,7 @@ export const reset = (): ResetPodcastAction => ({
 
 export const loadPodcasts = (): AppThunkAsync => async (
   dispatch
-): Promise<void> => {
+): Promise<undefined> => {
   try {
     const podcasts = await podcastService.getAll();
     dispatch(setPodcasts(podcasts));

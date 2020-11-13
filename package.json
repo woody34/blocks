@@ -10,11 +10,13 @@
     "@testing-library/user-event": "^12.2.2",
     "@types/axios": "^0.14.0",
     "@types/jest": "^26.0.15",
+    "@types/moment": "^2.13.0",
     "@types/node": "^12.19.4",
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.9",
     "@types/react-redux": "^7.1.11",
     "axios": "^0.21.0",
+    "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
@@ -27,14 +29,21 @@
     "start": "react-scripts start",
     "build": "npm run lint && react-scripts build",
     "test": "react-scripts test",
+    "test:all": "npm run lint && npm run test:unit && npm run test:e2e",
+    "test:unit": "react-scripts test --watchAll=false",
+    "test:e2e": "cypress run --browser chrome --project .",
     "lint": "eslint --fix",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress": "cypress open --browser chrome --project ."
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "linebreak-style": 1
+    }
   },
   "browserslist": {
     "production": [
@@ -50,14 +59,20 @@
   },
   "devDependencies": {
     "@types/faker": "^5.1.4",
+    "@types/fetch-mock": "^7.3.3",
     "@types/react-router-dom": "^5.1.6",
+    "@types/redux-mock-store": "^1.0.2",
     "@typescript-eslint/eslint-plugin": "^4.7.0",
     "@typescript-eslint/parser": "^4.7.0",
     "create-react-app": "^4.0.0",
+    "cypress": "^5.6.0",
     "eslint": "^7.13.0",
     "eslint-plugin-react": "^7.21.5",
     "faker": "^5.1.0",
-    "husky": "^4.3.0"
+    "fetch-mock": "^9.10.7",
+    "husky": "^4.3.0",
+    "node-fetch": "^2.6.1",
+    "redux-mock-store": "^1.5.4"
   },
   "husky": {
     "hooks": {
