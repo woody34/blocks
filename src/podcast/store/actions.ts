@@ -9,7 +9,11 @@ import {
   PODCAST_ACTIONS,
   LoadPodcastsAction,
   SelectPodcastAction,
+  SetPodcastVolume,
+  SetPodcastPlay,
+  SelectPodcastByNumber,
 } from './types';
+import { store } from '../../store';
 
 export const setPodcast: ActionCreator<SetPodcastAction> = (
   payload: PodcastState
@@ -32,6 +36,31 @@ export const selectPodCast: ActionCreator<SelectPodcastAction> = (
   payload,
 });
 
+export const selectPodCastByNumber: ActionCreator<SelectPodcastByNumber> = (
+  payload: number
+) => {
+  const state = store.getState().podcast;
+  const podcast = state.podcasts.find(p => p.number === payload) || state.selectedPodcast as PodcastData;
+  return  {
+    type: PODCAST_ACTIONS.SELECT_PODCAST,
+    payload: podcast,
+  };
+};
+
+export const setPodcastVolume: ActionCreator<SetPodcastVolume> = (
+  payload: number
+) => ({
+  type: PODCAST_ACTIONS.SET_VOLUME,
+  payload,
+});
+
+export const setPodcastPlay: ActionCreator<SetPodcastPlay> = (
+  payload: boolean
+) => ({
+  type: PODCAST_ACTIONS.SET_PLAY,
+  payload,
+});
+
 export const reset = (): ResetPodcastAction => ({
   type: PODCAST_ACTIONS.RESET_PODCAST,
 });
@@ -49,4 +78,4 @@ export const loadPodcasts = (): AppThunkAsync => async (
   }
 };
 
-export default { setPodcast, reset, loadPodcasts };
+export default { setPodcast, setPodcasts, setPodcastPlay, selectPodCast, reset, loadPodcasts, selectPodCastByNumber };

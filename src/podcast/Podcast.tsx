@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import PodcastTable from './components/PodcastTable';
 import Container from '@material-ui/core/Container';
-import { Button, Drawer, makeStyles } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { Button, Drawer, Grid, makeStyles } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
 import { PodcastData } from '../common/podcast';
 import { State } from '../store/types';
+import PodcastPlayer from './components/PodcastPlayer';
 
 const useStyles = makeStyles({
+  root: {
+    flexGrow: 1
+  },
   paper: {
     background: 'green',
     color: 'red'
@@ -40,7 +44,14 @@ const Podcast: React.FC = () => {
         color="success"
         classes={{ paper }}
       >
-        <h1>Test</h1>
+        <Grid container item xs={12} justify="space-between">
+          <Grid item xs={4}>
+            <PodcastPlayer></PodcastPlayer>
+          </Grid>
+          <Grid item xs={4}>
+            <PodcastPlayer></PodcastPlayer>
+          </Grid>
+        </Grid>
       </Drawer>
     </React.Fragment>
   );
