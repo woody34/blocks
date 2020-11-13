@@ -46,6 +46,10 @@ export type PreviousTrackAction = Action<PODCAST_ACTIONS.PREVIOUS_TRACK>;
 
 export type NextTrackAction = Action<PODCAST_ACTIONS.NEXT_TRACK>;
 
+export type SelectPodcastAction = Action<PODCAST_ACTIONS.SELECT_PODCAST> & {
+  payload: PodcastData;
+};
+
 export type PodcastActions =
   | ResetPodcastAction
   | SetPodcastAction
@@ -53,4 +57,5 @@ export type PodcastActions =
   | PausePodcastAction
   | PlayPodcastAction
   | PreviousTrackAction
-  | NextTrackAction;
+  | NextTrackAction
+  | SelectPodcastAction;

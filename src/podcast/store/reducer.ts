@@ -63,6 +63,11 @@ export const podcastReducer: Reducer<PodcastState, PodcastActions> = (
     return { ...state, selectedPodcast: nextPodcast };
   }
   
+  case PODCAST_ACTIONS.SELECT_PODCAST: {
+    console.log(action.payload);
+    return { ...state, selectedPodcast: action.payload };
+  }
+
   default: {
     return { ...state };
   }

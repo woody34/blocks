@@ -8,6 +8,7 @@ import {
   PodcastState,
   PODCAST_ACTIONS,
   LoadPodcastsAction,
+  SelectPodcastAction,
 } from './types';
 
 export const setPodcast: ActionCreator<SetPodcastAction> = (
@@ -21,6 +22,13 @@ export const setPodcasts: ActionCreator<LoadPodcastsAction> = (
   payload: PodcastData[]
 ) => ({
   type: PODCAST_ACTIONS.LOAD_PODCASTS,
+  payload,
+});
+
+export const selectPodCast: ActionCreator<SelectPodcastAction> = (
+  payload: PodcastData
+) => ({
+  type: PODCAST_ACTIONS.SELECT_PODCAST,
   payload,
 });
 

@@ -1,11 +1,12 @@
-import { Button, TableCell } from '@material-ui/core';
+import { Fab, TableCell } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PodcastData } from '../../common/podcast';
 import { BlocksTable, Headers } from '../../components/Table/Table';
 import { State } from '../../store/types';
-import { loadPodcasts } from '../store/actions';
+import { loadPodcasts, selectPodCast } from '../store/actions';
 import { cyPodcastTable, filterDuration, filterPublishDate } from './util';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 export const headers: Headers<PodcastData>[] = [
   {
@@ -39,12 +40,16 @@ export const headers: Headers<PodcastData>[] = [
   },
 ];
 
-const prepend = (data: PodcastData) => (
-  <TableCell>
-    <Button onClick={() => console.log(data)} variant="contained" color="primary" data-cy={cyPodcastTable.playButton}>
-        Play
-    </Button>
-  </TableCell>);
+const prepend = (podcast: PodcastData) => {
+  const dispatch = useDispatch();
+  return (
+    <TableCell>
+      <Fab onClick={() => dispatch(selectPodCast(podcast)) } color="primary" data-cy={cyPodcastTable.playButton}>
+        <PlayArrowIcon />
+      </Fab>
+    </TableCell>
+  );
+};
 
 const PodcastTable: React.FC = () => {
   const dispatch = useDispatch();
