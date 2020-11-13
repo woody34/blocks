@@ -6,6 +6,7 @@ const Home: React.FC = () => {
   return (
     <>
       <Link to={authRoutes.thing}>Thing</Link>
+      <Link to={authRoutes.podcast}>Podcast</Link>
     </>
   );
 };
