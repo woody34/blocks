@@ -6,4 +6,5 @@ export const filterPublishDate = (item: PodcastData): string => moment(item.publ
 
 export const cyPodcastTable = {
   playButton: 'podcast-table-play-button',
+  pauseButton: 'podcast-table-pause-button',
 };

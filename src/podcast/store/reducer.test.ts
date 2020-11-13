@@ -1,4 +1,4 @@
-import { reset, setPodcast, selectPodCast, setPodcastPlay, setPodcasts } from './actions';
+import { reset, setPodcast, selectPodcast, setPodcastPlay, setPodcasts } from './actions';
 import { podcastReducer } from './reducer';
 import {
   PodcastState,
@@ -39,7 +39,7 @@ describe('Podcast Reducer', () => {
 
   it('should set selectedPodcast', async () => {
     const [podcast] = podcastDocs;
-    const received =  podcastReducer(initialPodcastState, selectPodCast(podcast));
+    const received =  podcastReducer(initialPodcastState, selectPodcast(podcast));
     const expected = { ...initialPodcastState, selectedPodcast: podcast };
     expect(received).toEqual(expected);
   });

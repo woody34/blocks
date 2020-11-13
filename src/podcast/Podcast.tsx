@@ -1,33 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PodcastTable from './components/PodcastTable';
 import Container from '@material-ui/core/Container';
-import { Button, Drawer, Grid, makeStyles } from '@material-ui/core';
+import {
+  Drawer,
+  Grid,
+  IconButton,
+  makeStyles,
+} from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { PodcastData } from '../common/podcast';
 import { State } from '../store/types';
 import PodcastPlayer from './components/PodcastPlayer';
+import PodcastDetails from './components/PodcastDetails';
+import CloseIcon from '@material-ui/icons/CloseOutlined';
+import { PodcastState } from './store/types';
+import { selectPodcast } from './store/actions';
 
 const useStyles = makeStyles({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
-  paper: {
-    background: 'green',
-    color: 'red'
-  }
+  paper: {},
 });
 
 const Podcast: React.FC = () => {
-  const selectedPodcast = useSelector<State, PodcastData | undefined>(
-    (state) => state.podcast.selectedPodcast
-  );
-  const [showPlayer, setShowPlayer] = useState(false);
+  const { selectedPodcast } = useSelector<State, PodcastState>(({ podcast }) => podcast);
 
-  useEffect(() => {
-    setShowPlayer(Boolean(selectedPodcast));
-  }, [selectedPodcast]);
+  const shouldShowPlayer = () => Boolean(selectedPodcast);
 
-  const togglePlayer = () => setShowPlayer(!showPlayer);
+  const dispatch = useDispatch();
+
+  const closePlayer = () => dispatch(selectPodcast(undefined));
   const { paper } = useStyles();
 
   return (
@@ -35,21 +37,25 @@ const Podcast: React.FC = () => {
       <Container maxWidth="md">
         <PodcastTable />
       </Container>
-      <Button onClick={togglePlayer}>Show Player</Button>
       <Drawer
         anchor="bottom"
-        open={showPlayer}
-        onClose={togglePlayer}
+        open={shouldShowPlayer()}
+        onClose={closePlayer}
         variant="persistent"
         color="success"
         classes={{ paper }}
       >
-        <Grid container item xs={12} justify="space-between">
-          <Grid item xs={4}>
-            <PodcastPlayer></PodcastPlayer>
+        <Grid container item xs={12}>
+          <Grid item xs={6}>
+            <PodcastDetails />
           </Grid>
-          <Grid item xs={4}>
-            <PodcastPlayer></PodcastPlayer>
+          <Grid item xs={5}>
+            <PodcastPlayer />
+          </Grid>
+          <Grid item xs={1}>
+            <IconButton aria-label="close" size="small" onClick={closePlayer}>
+              <CloseIcon />
+            </IconButton>
           </Grid>
         </Grid>
       </Drawer>

@@ -29,12 +29,15 @@ export const setPodcasts: ActionCreator<LoadPodcastsAction> = (
   payload,
 });
 
-export const selectPodCast: ActionCreator<SelectPodcastAction> = (
+export const selectPodcast: ActionCreator<SelectPodcastAction> = (
   payload: PodcastData
-) => ({
-  type: PODCAST_ACTIONS.SELECT_PODCAST,
-  payload,
-});
+) => {
+  store.dispatch(setPodcastPlay(true));
+  return {
+    type: PODCAST_ACTIONS.SELECT_PODCAST,
+    payload,
+  };
+};
 
 export const selectPodCastByNumber: ActionCreator<SelectPodcastByNumber> = (
   payload: number
@@ -78,4 +81,4 @@ export const loadPodcasts = (): AppThunkAsync => async (
   }
 };
 
-export default { setPodcast, setPodcasts, setPodcastPlay, selectPodCast, reset, loadPodcasts, selectPodCastByNumber };
+export default { setPodcast, setPodcasts, setPodcastPlay, selectPodcast, reset, loadPodcasts, selectPodCastByNumber };

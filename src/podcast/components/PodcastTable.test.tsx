@@ -5,7 +5,7 @@ import { cyTable } from '../../components/Table/util';
 import { TestingUtil, testUtil } from '../../util/testing-util';
 import { podcastService } from '../../services/podcast';
 import mockPodcastDocs from '../../mock/data/podcast';
-import { fakeResonseWrapper } from '../../mock/service';
+import { mockAxiosResponse } from '../../mock/service';
 import { filterDuration, filterPublishDate } from './util';
 
 const setup = async (): Promise<TestingUtil> => {
@@ -14,7 +14,7 @@ const setup = async (): Promise<TestingUtil> => {
 
 describe('PodcastTable', () => {
   beforeEach(jest.restoreAllMocks);
-  jest.spyOn(podcastService, 'getAll').mockResolvedValue(fakeResonseWrapper(mockPodcastDocs));
+  jest.spyOn(podcastService, 'getAll').mockResolvedValue(mockAxiosResponse(mockPodcastDocs));
 
   it('should display all labels', async () => {
     const { getByText } = await setup();
