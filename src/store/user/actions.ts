@@ -14,7 +14,7 @@ const setUser: ActionCreator<SetUserAction> = (payload: UserState) => ({
 
 export const login = (paylaod: Partial<UserState>): AppThunkAsync => async (
   dispatch,
-): Promise<void> => {
+): Promise<undefined> => {
   try {
     // TODO: Implement Service Request to login and return user payload;
     dispatch(setUser(paylaod));

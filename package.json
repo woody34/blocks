@@ -29,8 +29,12 @@
     "start": "react-scripts start",
     "build": "npm run lint && react-scripts build",
     "test": "react-scripts test",
+    "test:all": "npm run lint && npm run test:unit && npm run test:e2e",
+    "test:unit": "react-scripts test --watchAll=false",
+    "test:e2e": "cypress run --browser chrome --project .",
     "lint": "eslint --fix",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress": "cypress open --browser chrome --project ."
   },
   "eslintConfig": {
     "extends": [
@@ -61,6 +65,7 @@
     "@typescript-eslint/eslint-plugin": "^4.7.0",
     "@typescript-eslint/parser": "^4.7.0",
     "create-react-app": "^4.0.0",
+    "cypress": "^5.6.0",
     "eslint": "^7.13.0",
     "eslint-plugin-react": "^7.21.5",
     "faker": "^5.1.0",

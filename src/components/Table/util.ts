@@ -35,6 +35,7 @@ export function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
 }
 
 export const cyTable = {
-  row: 'base-table-row',
-  cell: 'base-table-cell',
+  table: 'blocks-table',
+  row: 'blocks-table-row',
+  cell: 'blocks-table-cell',
 };

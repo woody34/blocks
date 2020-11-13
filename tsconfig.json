@@ -20,7 +20,9 @@
     "noEmit": true,
     "jsx": "react"
   },
+  "types": ["cypress"],
   "include": [
     "src"
-  ]
+  ],
+  "exclude": ["cypress/specs"]
 }

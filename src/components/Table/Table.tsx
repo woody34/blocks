@@ -178,6 +178,7 @@ export const BlocksTable = <D extends BaseData>(
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
+            data-cy={cyTable.table}
           >
             <BlocksTableHeader
               headers={headers}

@@ -5,7 +5,7 @@ import { PodcastData } from '../../common/podcast';
 import { BlocksTable, Headers } from '../../components/Table/Table';
 import { State } from '../../store/types';
 import { loadPodcasts } from '../store/actions';
-import { filterDuration, filterPublishDate } from './util';
+import { cyPodcastTable, filterDuration, filterPublishDate } from './util';
 
 export const headers: Headers<PodcastData>[] = [
   {
@@ -41,7 +41,7 @@ export const headers: Headers<PodcastData>[] = [
 
 const prepend = (data: PodcastData) => (
   <TableCell>
-    <Button onClick={() => console.log(data)} variant="contained" color="primary">
+    <Button onClick={() => console.log(data)} variant="contained" color="primary" data-cy={cyPodcastTable.playButton}>
         Play
     </Button>
   </TableCell>);
