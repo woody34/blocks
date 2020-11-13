@@ -23,46 +23,18 @@ export const podcastReducer: Reducer<PodcastState, PodcastActions> = (
     return { ...state, podcasts: action.payload };
   }
 
-  case PODCAST_ACTIONS.PAUSE_PODCAST: {
-    return { ...state, playing: false };
+  case PODCAST_ACTIONS.SET_PLAY: {
+    return { ...state, playing: action.payload };
   }
 
-  case PODCAST_ACTIONS.PLAY_PODCAST: {
-    return { ...state, playing: true };
+  case PODCAST_ACTIONS.SET_VOLUME: {
+    return { ...state, volume: action.payload };
   }
 
-  case PODCAST_ACTIONS.PREVIOUS_TRACK: {
-    const { podcasts, selectedPodcast } = state;
-    if (!selectedPodcast) {
-      return { ...state };
-    }
-
-    const index = state.podcasts.indexOf(selectedPodcast) || 0;
-    const previousIndex = index - 1;
-    if (previousIndex < 0) {
-      return { ...state };
-    }
-
-    const previousPodcast = podcasts[previousIndex] || selectedPodcast;
-    return { ...state, selectedPodcast: previousPodcast };
+  case PODCAST_ACTIONS.SELECT_PODCAST: {
+    return { ...state, selectedPodcast: action.payload };
   }
 
-  case PODCAST_ACTIONS.NEXT_TRACK: {
-    const { podcasts, selectedPodcast } = state;
-    if (!state.selectedPodcast || !selectedPodcast) {
-      return { ...state };
-    }
-
-    const index = podcasts.indexOf(selectedPodcast) || 0;
-    const nextIndex = index + 1;
-    if (nextIndex >= podcasts.length) {
-      return { ...state };
-    }
-
-    const nextPodcast = podcasts[nextIndex] || state.selectedPodcast;
-    return { ...state, selectedPodcast: nextPodcast };
-  }
-  
   default: {
     return { ...state };
   }

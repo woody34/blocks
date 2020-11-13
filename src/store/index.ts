@@ -14,7 +14,7 @@ export const rootReducer = combineReducers(reducers);
 
 const persistedState = loadState();
 
-const store = createStore(rootReducer, persistedState, applyMiddleware(thunk));
+export const store = createStore(rootReducer, persistedState, applyMiddleware(thunk));
 store.subscribe(() => {
   saveState(store.getState());
 });

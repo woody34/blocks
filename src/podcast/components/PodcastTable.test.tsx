@@ -7,6 +7,7 @@ import { podcastService } from '../../services/podcast';
 import mockPodcastDocs from '../../mock/data/podcast';
 import { fakeResonseWrapper } from '../../mock/service';
 import { filterDuration, filterPublishDate } from './util';
+
 const setup = async (): Promise<TestingUtil> => {
   return testUtil(< PodcastTable/>, { provideStore: true });
 };
@@ -14,6 +15,7 @@ const setup = async (): Promise<TestingUtil> => {
 describe('PodcastTable', () => {
   beforeEach(jest.restoreAllMocks);
   jest.spyOn(podcastService, 'getAll').mockResolvedValue(fakeResonseWrapper(mockPodcastDocs));
+
   it('should display all labels', async () => {
     const { getByText } = await setup();
     expect.assertions(headers.length);
@@ -23,6 +25,7 @@ describe('PodcastTable', () => {
       expect(cell).toBeDefined();
     });
   });
+
   it('should display 5 rows podcasts by default', async () => {
     const { getAllByDataCy } = await setup();
     expect.assertions(26);

@@ -3,12 +3,10 @@ import { PodcastData } from '../../common/podcast';
 
 export enum PODCAST_ACTIONS {
   SET_PODCAST = 'podcast/set',
+  SET_PODCASTS = 'podcasts/set',
   RESET_PODCAST = 'podcast/reset',
   LOAD_PODCASTS = 'podcast/load',
-  PAUSE_PODCAST = 'podcast/pause',
-  PLAY_PODCAST = 'podcast/play',
-  NEXT_TRACK = 'podcast/next-track',
-  PREVIOUS_TRACK = 'podcast/previous-track',
+  SET_PLAY = 'podcast/playing',
   SET_VOLUME = 'podcast/set-volume',
   SELECT_PODCAST = 'podcast/select-podcast',
 }
@@ -32,25 +30,38 @@ export type SetPodcastAction = Action<PODCAST_ACTIONS.SET_PODCAST> & {
   payload: PodcastState;
 };
 
+export type SetPodcastsAction = Action<PODCAST_ACTIONS.SET_PODCASTS> & {
+  payload: PodcastData[];
+};
+
 export type ResetPodcastAction = Action<PODCAST_ACTIONS.RESET_PODCAST>;
 
 export type LoadPodcastsAction = Action<PODCAST_ACTIONS.LOAD_PODCASTS> & {
   payload: PodcastData[];
 };
 
-export type PausePodcastAction = Action<PODCAST_ACTIONS.PAUSE_PODCAST>;
+export type SetPodcastVolume = Action<PODCAST_ACTIONS.SET_VOLUME> & {
+  payload: number;
+};
 
-export type PlayPodcastAction = Action<PODCAST_ACTIONS.PLAY_PODCAST>;
+export type SetPodcastPlay = Action<PODCAST_ACTIONS.SET_PLAY> & {
+  payload: boolean;
+};
 
-export type PreviousTrackAction = Action<PODCAST_ACTIONS.PREVIOUS_TRACK>;
+export type SelectPodcastAction = Action<PODCAST_ACTIONS.SELECT_PODCAST> & {
+  payload: PodcastData;
+};
 
-export type NextTrackAction = Action<PODCAST_ACTIONS.NEXT_TRACK>;
+export type SelectPodcastByNumber = Action<PODCAST_ACTIONS.SELECT_PODCAST> & {
+  payload: PodcastData;
+};
 
 export type PodcastActions =
   | ResetPodcastAction
   | SetPodcastAction
+  | SetPodcastsAction
   | LoadPodcastsAction
-  | PausePodcastAction
-  | PlayPodcastAction
-  | PreviousTrackAction
-  | NextTrackAction;
+  | SetPodcastPlay
+  | SetPodcastVolume
+  | SelectPodcastAction
+  | SelectPodcastByNumber;
