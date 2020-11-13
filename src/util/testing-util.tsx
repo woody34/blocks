@@ -1,5 +1,4 @@
 import { Matcher, MatcherOptions, waitFor } from '@testing-library/react';
-import PodcastTable from '../podcast/components/PodcastTable';
 import redux from '../store';
 import { render, fireEvent, screen } from './testing-library';
 import { Provider } from 'react-redux';
@@ -15,16 +14,16 @@ export interface TestUtilOptions extends MatcherOptions {
   provideStore?: boolean
 }
 
-export const testUtil = (
+export const testUtil = async (
   component: JSX.Element,
   options: TestUtilOptions,
-): TestingUtil => {
+): Promise<TestingUtil> => {
 
   const wrappedComponent = (): JSX.Element => {
     return options.provideStore ? (<Provider store={redux.store}>{component}</Provider>) : component;
   };
 
-  const { getByDataCy, getAllByDataCy } = render(wrappedComponent(), options);
+  const { getByDataCy, getAllByDataCy } = await render(wrappedComponent(), options);
 
   const util: TestingUtil = {
     getByDataCy:  <E extends HTMLElement>(value: string): E => getByDataCy(value),

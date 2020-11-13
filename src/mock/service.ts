@@ -3,7 +3,7 @@ import { BaseData } from '../common/base';
 import { AxiosResponse } from 'axios';
 import { ServiceWrite, makeBaseService } from '../services/service';
 
-const fakeResonseWrapper = <T>(object?: T) =>
+export const fakeResonseWrapper = <T>(object?: T): Promise<AxiosResponse<T>> =>
   (Promise.resolve(object) as unknown) as Promise<AxiosResponse<T>>;
 
 export const mockService = <T extends BaseData>(docs: T[]): ServiceWrite<T> => {

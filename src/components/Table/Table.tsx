@@ -9,7 +9,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
-import { getComparator, Order, stableSort } from './util';
+import { getComparator, Order, stableSort, cyTable } from './util';
 import { BaseData } from '../../common/base';
 
 export interface Headers<D> {
@@ -98,7 +98,7 @@ const BlocksTableRows = <D extends BaseData>(props: MakeTableRowsProps<D>): JSX.
                 hover
                 tabIndex={i}
                 key={`BlocksTableRow-${i}-${Math.random()}`}
-                data-cy={`BlocksTableRow-${i}`}
+                data-cy={cyTable.row}
               >
                 { prepend && prepend(row)}
                 { headers.map((header, i) => !header.hide && (
@@ -108,6 +108,7 @@ const BlocksTableRows = <D extends BaseData>(props: MakeTableRowsProps<D>): JSX.
                     id={header.id}
                     scope={header.scope}
                     padding={header.padding}
+                    data-cy={cyTable.cell}
                   >
                     { header.filter && header.filter(row)}
                     { !header.filter && row[header.value]}

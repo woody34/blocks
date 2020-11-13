@@ -33,3 +33,8 @@ export function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
   });
   return stabilizedThis.map((el) => el[0]);
 }
+
+export const cyTable = {
+  row: 'base-table-row',
+  cell: 'base-table-cell',
+};

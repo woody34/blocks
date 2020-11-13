@@ -9,7 +9,7 @@ const Thing: React.FC = () => {
   const username = useSelector<State, string>((state) => state.user.username);
   const dispatch = useDispatch();
   const podcasts = useSelector<State, PodcastData[]>((state) => state.podcast.podcasts);
-  const loadPodcasts = () => {
+  const filterPublishDate = () => {
     dispatch(PodcastActions.loadPodcasts());
     console.log(podcasts);
   };
@@ -24,7 +24,7 @@ const Thing: React.FC = () => {
   return (
     <>
       <h1>useSelector, username: {username}</h1>
-      <Button onClick={loadPodcasts} variant="contained" color="primary">
+      <Button onClick={filterPublishDate} variant="contained" color="primary">
         Set username state
       </Button>
       <h1>useState, local state example: {input}</h1>

@@ -1,10 +1,11 @@
 import { Button, TableCell } from '@material-ui/core';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { PodcastData } from '../../common/podcast';
 import { BlocksTable, Headers } from '../../components/Table/Table';
 import { State } from '../../store/types';
-import moment from 'moment';
+import { loadPodcasts } from '../store/actions';
+import { filterDuration, filterPublishDate } from './util';
 
 export const headers: Headers<PodcastData>[] = [
   {
@@ -29,12 +30,12 @@ export const headers: Headers<PodcastData>[] = [
     value: 'duration',
     label: 'Length',
     sortable: true,
-    filter: (item: PodcastData): string => new Date(item.duration * 1000).toISOString().substr(11, 8),
+    filter: filterDuration,
   },
   {
     value: 'published',
     label: 'Published On',
-    filter: (item: PodcastData): string => moment(item.published).format('MMM. Do, YYYY'),
+    filter: filterPublishDate,
   },
 ];
 
@@ -46,6 +47,10 @@ const prepend = (data: PodcastData) => (
   </TableCell>);
 
 const PodcastTable: React.FC = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadPodcasts());
+  }, []);
   const rows = useSelector<State, PodcastData[]>((state) => state.podcast.podcasts);
   return (
     <BlocksTable headers={headers} rows={rows} prepend={prepend} dense/>
