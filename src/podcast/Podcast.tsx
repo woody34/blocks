@@ -1,36 +1,24 @@
-import React from 'react';
-import PodcastTable from './components/PodcastTable';
+import { Drawer, Grid, IconButton } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
-import {
-  Drawer,
-  Grid,
-  IconButton,
-  makeStyles,
-} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/CloseOutlined';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../store/types';
-import PodcastPlayer from './components/PodcastPlayer';
 import PodcastDetails from './components/PodcastDetails';
-import CloseIcon from '@material-ui/icons/CloseOutlined';
-import { PodcastState } from './store/types';
+import PodcastPlayer from './components/PodcastPlayer';
+import PodcastTable from './components/PodcastTable';
+import { styles } from './Podcast.styles';
 import { selectPodcast } from './store/actions';
-
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {},
-});
+import { PodcastState } from './store/types';
 
 const Podcast: React.FC = () => {
-  const { selectedPodcast } = useSelector<State, PodcastState>(({ podcast }) => podcast);
-
+  const { selectedPodcast } = useSelector<State, PodcastState>(
+    ({ podcast }) => podcast
+  );
   const shouldShowPlayer = () => Boolean(selectedPodcast);
-
   const dispatch = useDispatch();
-
   const closePlayer = () => dispatch(selectPodcast(undefined));
-  const { paper } = useStyles();
+  const classes: ReturnType<typeof styles> = styles();
 
   return (
     <React.Fragment key={'bottom'}>
@@ -38,22 +26,27 @@ const Podcast: React.FC = () => {
         <PodcastTable />
       </Container>
       <Drawer
+        className={classes.drawer}
         anchor="bottom"
         open={shouldShowPlayer()}
         onClose={closePlayer}
         variant="persistent"
         color="success"
-        classes={{ paper }}
       >
-        <Grid container item xs={12}>
+        <Grid className={classes.grid} container item xs={12}>
           <Grid item xs={6}>
             <PodcastDetails />
           </Grid>
           <Grid item xs={5}>
             <PodcastPlayer />
           </Grid>
-          <Grid item xs={1}>
-            <IconButton aria-label="close" size="small" onClick={closePlayer}>
+          <Grid item xs={1} className={classes.closeContainer}>
+            <IconButton
+              className={classes.closeButton}
+              aria-label="close"
+              size="small"
+              onClick={closePlayer}
+            >
               <CloseIcon />
             </IconButton>
           </Grid>

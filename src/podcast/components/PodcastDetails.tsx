@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'inline-block',
+      background: 'transparent',
     },
     controls: {
       flexDirection: 'row',
@@ -32,7 +33,9 @@ const useStyles = makeStyles((theme: Theme) =>
 const PodcastDetails: React.FC = () => {
   const classes = useStyles();
 
-  const { selectedPodcast } = useSelector<State, PodcastState>(state => state.podcast);
+  const { selectedPodcast } = useSelector<State, PodcastState>(
+    (state) => state.podcast
+  );
 
   return (
     <Card className={classes.root} elevation={0}>
@@ -40,7 +43,12 @@ const PodcastDetails: React.FC = () => {
         <Typography gutterBottom variant="body1" component="h2">
           {selectedPodcast?.title || ''}
         </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          component="p"
+          align="justify"
+        >
           {selectedPodcast?.description}
         </Typography>
       </CardContent>
