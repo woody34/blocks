@@ -42,9 +42,8 @@ export const headers: Headers<PodcastData>[] = [
   },
 ];
 
-const makePrepend =(playing: boolean, selectedPodcast?: PodcastData,) => {
+const makePrepend =(dispatch: Dispatch<PodcastActions>, playing: boolean, selectedPodcast?: PodcastData) => {
   const prepend = (podcast: PodcastData) => {
-    const dispatch = useDispatch();
     const currentlySelected = selectedPodcast?.number === podcast.number;
   
     const playPodcast = () => {
@@ -77,34 +76,6 @@ const PodcastTable: React.FC = () => {
   useEffect(() => {
     dispatch(loadPodcasts());
   }, []);
-
-  const makePrepend =(dispatch: Dispatch<PodcastActions>, playing: boolean, selectedPodcast?: PodcastData) => {
-    const prepend = (podcast: PodcastData) => {
-      const currentlySelected = selectedPodcast?.number === podcast.number;
-    
-      const playPodcast = () => {
-        dispatch(selectPodcast(podcast));
-      };
-    
-      const pausePodcast = () => {
-        dispatch(setPodcastPlay(false));
-      };
-    
-      return (
-        <TableCell key={Math.random()}>
-          {currentlySelected && playing ? 
-            <Fab onClick={pausePodcast} color="primary" data-cy={cyPodcastTable.pauseButton}>
-              <PauseIcon />
-            </Fab> :
-            <Fab onClick={playPodcast} color="primary" data-cy={cyPodcastTable.playButton}>
-              <PlayArrowIcon />
-            </Fab>
-          }
-        </TableCell>
-      );
-    };
-    return prepend;
-  };
   
   return (
     <BlocksTable headers={headers} rows={podcasts} prepend={makePrepend(dispatch, playing, selectedPodcast)}/>
