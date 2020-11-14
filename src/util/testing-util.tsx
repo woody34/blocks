@@ -3,6 +3,9 @@ import redux from '../store';
 import { render, fireEvent, screen } from './testing-library';
 import { Provider } from 'react-redux';
 import React from 'react';
+import { actionMiddleware } from '../podcast/util';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
 export interface TestingUtil {
   getByDataCy: <E extends HTMLElement>(value: string) => E;
@@ -34,4 +37,19 @@ export const testUtil = async (
   return util ;
 };
 
+export const mockStore = <T extends any>(state: T, actionLogger: (a: any[]) => any): any => {
+  const mock = configureMockStore<T>([thunk, actionMiddleware(actionLogger)]);
+  return mock(state);
+};
+
+export const strictEquals = <R, E>(received: R, expected: E): void => {
+  return expect(received).toStrictEqual(expected);
+};
+
+export const makeAction = <T, P>(type: T, payload?: P): { type: T, payload?: P } => {
+  if (payload) return { type, payload };
+  return { type };
+};
+
 export { screen, fireEvent, waitFor };
+

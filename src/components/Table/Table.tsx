@@ -1,194 +1,152 @@
-import React from 'react';
+import Paper from '@material-ui/core/Paper';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
+import TableCell, { TableCellBaseProps } from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Paper from '@material-ui/core/Paper';
-import { getComparator, Order, stableSort, cyTable } from './util';
+import React from 'react';
 import { BaseData } from '../../common/base';
-
+import { cyTable, Order } from './util';
+import { orderBy } from 'lodash';
 export interface Headers<D> {
   label: string;
-  value?: keyof D;
+  value: string | 'prepend' | 'append';
   filter?: (data: D) => string;
   sortable?: boolean;
-  sortBy?: keyof D;
-  component?: 'th' | 'div';
-  id?: string;
+  order?: Order,
+  component?: React.ElementType<TableCellBaseProps>;
   scope?: string;
   padding?: 'none' | 'default';
   align?: 'right' | 'left';
-  hide?: boolean;
 }
 
-export interface BlocksTableHeaderProps<D> {
-  headers: Headers<D>[];
+interface BlocksTableHeadProps<D extends BaseData> {
   classes: ReturnType<typeof useStyles>;
-  onRequestSort: (
-    event: React.MouseEvent<unknown>,
-    property: keyof D
-  ) => void;
+  onRequestSort: (event: React.MouseEvent<unknown>, property: string) => void;
   order: Order;
-  orderBy: keyof D;
+  sortBy: string;
+  rowCount: number;
+  headers: Headers<D>[];
 }
 
-const BlocksTableHeader = <D extends BaseData>(props: BlocksTableHeaderProps<D>) => {
-  const { classes, order, orderBy, onRequestSort, headers } = props;
-  const createSortHandler = (property: keyof D) => (
-    event: React.MouseEvent<unknown>
-  ) => {
+function BlocksTableHead<D extends BaseData>(props: BlocksTableHeadProps<D>) {
+  const { headers, classes, order, sortBy, onRequestSort } = props;
+  const createSortHandler = (property: string) => (event: React.MouseEvent<unknown>) => {
     onRequestSort(event, property);
   };
 
   return (
     <TableHead>
       <TableRow>
-        {headers.map((header, i) => (
+        {headers.map(header => (
           <TableCell
-            key={`BlocksTableHeader-${i}-${Math.random()}`}
+            key={String(header.value)}
             align={header.align}
-            padding={header.padding}
-            sortDirection={orderBy === header.value ? order : false}
+            sortDirection={sortBy === header.value ? order : false}
           >
-            {header.sortable ? 
-              (<TableSortLabel
-                active={orderBy === header.value}
-                direction={orderBy === header.value ? order : 'asc'}
-                onClick={createSortHandler(header.value as any)}
-              >
-                {header.label}
-                {orderBy === header.value ? (
-                  <span className={classes.visuallyHidden}>
-                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                  </span>
-                ) : null}
-              </TableSortLabel>) :
-              (<> { header.label } </>)}
+            <TableSortLabel
+              active={sortBy === header.value}
+              direction={sortBy === header.value ? order : Order.asc}
+              onClick={createSortHandler(header.value)}
+            >
+              {header.label}
+              {sortBy === header.value ? (
+                <span className={classes.visuallyHidden}>
+                  {order === Order.desc ? 'sorted descending' : 'sorted ascending'}
+                </span>
+              ) : null}
+            </TableSortLabel>
           </TableCell>
         ))}
       </TableRow>
     </TableHead>
   );
-};
-
-interface MakeTableRowsProps<D extends BaseData> extends BlocksTableProps<D> {
-  orderBy: keyof D;
-  order: Order;
-  page: number;
-  rowsPerPage: number;
 }
 
-const BlocksTableRows = <D extends BaseData>(props: MakeTableRowsProps<D>): JSX.Element => {
-  const { headers, rows, orderBy, order, page, rowsPerPage, prepend, append, dense } = props;
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-  return (
-    <>
-      { 
-        stableSort<any>(rows, getComparator(orderBy as any, order))
-          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-          .map((row, i) => {
-  
-            return (
-              <TableRow
-                hover
-                tabIndex={i}
-                key={`BlocksTableRow-${i}-${Math.random()}`}
-                data-cy={cyTable.row}
-              >
-                { prepend && prepend(row)}
-                { headers.map((header, i) => !header.hide && (
-                  <TableCell
-                    key={`BlocksTableCell-${i}`}
-                    component={header.component}
-                    id={header.id}
-                    scope={header.scope}
-                    padding={header.padding}
-                    data-cy={cyTable.cell}
-                  >
-                    { header.filter && header.filter(row)}
-                    { !header.filter && row[header.value]}
-                  </TableCell>
-                ))}
-                { append && append(row)}
-              </TableRow>
-            );
-          })}
-      {emptyRows > 0 && (
-        <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-          <TableCell colSpan={6} />
-        </TableRow>
-      )}
-    </>
-  );
-};
-
-interface BlocksTableProps<D> {
+interface BlocksTableProps<D extends BaseData> {
+  rows: D[],
   headers: Headers<D>[];
-  rows: D[];
   prepend?: (item: D) => JSX.Element;
   append?: (item: D) => JSX.Element;
-  dense: boolean;
 }
 
-export const BlocksTable = <D extends BaseData>(
-  props: BlocksTableProps<D>
-): JSX.Element => {
-  const { headers, rows, prepend, append } = props;
-  const classes = useStyles();
-  const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof D>('id');
+export function BlocksTable<D extends BaseData>(props: BlocksTableProps<D>): JSX.Element {
+  const { rows, headers, prepend, append } = props;
+  const [order, setOrder] = React.useState<Order>(Order.asc);
+  const [sortBy, setSortBy] = React.useState<string>('');
   const [page, setPage] = React.useState(0);
-  const [dense] = React.useState(props.dense);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const classes = useStyles();
 
-  const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
-    property: keyof D
-  ) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
+  const handleRequestSort = (event: React.MouseEvent<unknown>, property: string) => {
+    const isAsc = sortBy === property && order === Order.asc;
+    setOrder(isAsc ? Order.desc : Order.asc);
+    setSortBy(property);
   };
 
-
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = (newPage: number) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+  const sortedRows = orderBy(rows, sortBy, [order]).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <TableContainer>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-            aria-label="enhanced table"
-            data-cy={cyTable.table}
-          >
-            <BlocksTableHeader
+          <Table className={classes.table} size="small">
+            <BlocksTableHead
               headers={headers}
               classes={classes}
               order={order}
-              orderBy={orderBy}
+              sortBy={String(sortBy)}
               onRequestSort={handleRequestSort}
+              rowCount={rows.length}
             />
             <TableBody>
-              <BlocksTableRows { ...{ headers, rows, prepend, append ,dense, orderBy, order, page, rowsPerPage } }/>
+              {sortedRows.map((row, i) => {
+                return (
+                  <TableRow
+                    hover
+                    tabIndex={i}
+                    key={i}
+                  >
+                    { headers.map((header, k) => {
+                      if (prepend && header.value === 'prepend') return prepend(row);
+                      if (append && header.value === 'append') return append(row);
+                        
+                      return (
+                        <TableCell
+                          key={`${i}-${k}`}
+                          component={header.component}
+                          padding={header.padding}
+                          data-cy={cyTable.cell}
+                        >
+                          { header.filter ? header.filter(row) : row[header.value as keyof D]}
+                        </TableCell>
+                      );
+                    })}
+                    { append && append(row)}
+                  </TableRow>
+                );
+              })}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 33 * emptyRows }}>
+                  {/* TODO: Figure out colspan */}
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
@@ -198,13 +156,13 @@ export const BlocksTable = <D extends BaseData>(
           count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
-          onChangePage={handleChangePage}
+          onChangePage={($e, page) => handleChangePage(page)}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
     </div>
   );
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -229,5 +187,5 @@ const useStyles = makeStyles((theme: Theme) =>
       top: 20,
       width: 1,
     },
-  })
+  }),
 );

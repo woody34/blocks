@@ -1,17 +1,17 @@
-import { ActionCreator } from '@reduxjs/toolkit';
+import { ActionCreator, Dispatch } from '@reduxjs/toolkit';
 import { PodcastData } from '../../common/podcast';
 import { podcastService } from '../../services/podcast';
-import { AppThunkAsync } from '../../store/types';
+import { AppThunkAsync, State } from '../../store/types';
 import {
   ResetPodcastAction,
   SetPodcastAction,
   PodcastState,
   PODCAST_ACTIONS,
-  LoadPodcastsAction,
   SelectPodcastAction,
   SetPodcastVolume,
   SetPodcastPlay,
   SelectPodcastByNumber,
+  SetPodcastsAction,
 } from './types';
 import { store } from '../../store';
 
@@ -22,10 +22,10 @@ export const setPodcast: ActionCreator<SetPodcastAction> = (
   payload,
 });
 
-export const setPodcasts: ActionCreator<LoadPodcastsAction> = (
+export const setPodcasts: ActionCreator<SetPodcastsAction> = (
   payload: PodcastData[]
 ) => ({
-  type: PODCAST_ACTIONS.LOAD_PODCASTS,
+  type: PODCAST_ACTIONS.SET_PODCASTS,
   payload,
 });
 
@@ -36,17 +36,6 @@ export const selectPodcast: ActionCreator<SelectPodcastAction> = (
   return {
     type: PODCAST_ACTIONS.SELECT_PODCAST,
     payload,
-  };
-};
-
-export const selectPodCastByNumber: ActionCreator<SelectPodcastByNumber> = (
-  payload: number
-) => {
-  const state = store.getState().podcast;
-  const podcast = state.podcasts.find(p => p.number === payload) || state.selectedPodcast as PodcastData;
-  return  {
-    type: PODCAST_ACTIONS.SELECT_PODCAST,
-    payload: podcast,
   };
 };
 
@@ -76,9 +65,9 @@ export const loadPodcasts = (): AppThunkAsync => async (
     dispatch(setPodcasts(podcasts));
     return;
   } catch (err) {
-    // TODO: Present error with a message
+    // TODO: Present error with a modal
     return;
   }
 };
 
-export default { setPodcast, setPodcasts, setPodcastPlay, selectPodcast, reset, loadPodcasts, selectPodCastByNumber };
+export default { setPodcast, setPodcasts, setPodcastPlay, selectPodcast, reset, loadPodcasts };

@@ -19,7 +19,7 @@ export const podcastReducer: Reducer<PodcastState, PodcastActions> = (
     return { ...state, ...action.payload };
   }
 
-  case PODCAST_ACTIONS.LOAD_PODCASTS: {
+  case PODCAST_ACTIONS.SET_PODCASTS: {
     return { ...state, podcasts: action.payload };
   }
 
