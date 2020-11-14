@@ -26,15 +26,15 @@ describe('PodcastTable', () => {
     });
   });
 
-  it('should display 5 rows podcasts by default', async () => {
+  it('should display 5 podcasts by default', async () => {
     const { getAllByDataCy } = await setup();
-    expect.assertions(26);
+    expect.assertions(31);
     
     const rows = getAllByDataCy<HTMLTableRowElement>(cyTable.row);
     expect(rows.length).toEqual(5);
     rows.forEach((row, i) => {
-      headers.filter(h => h.value).forEach(header => {
-        let value = String(mockPodcastDocs[i][header.value!]);
+      headers.forEach(header => {
+        let value = String(mockPodcastDocs[i][header.value]);
         if (header.value === 'duration') {
           value = filterDuration(mockPodcastDocs[i]);
         }

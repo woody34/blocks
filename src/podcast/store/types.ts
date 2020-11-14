@@ -5,7 +5,6 @@ export enum PODCAST_ACTIONS {
   SET_PODCAST = 'podcast/set',
   SET_PODCASTS = 'podcasts/set',
   RESET_PODCAST = 'podcast/reset',
-  LOAD_PODCASTS = 'podcast/load',
   SET_PLAY = 'podcast/playing',
   SET_VOLUME = 'podcast/set-volume',
   SELECT_PODCAST = 'podcast/select-podcast',
@@ -36,10 +35,6 @@ export type SetPodcastsAction = Action<PODCAST_ACTIONS.SET_PODCASTS> & {
 
 export type ResetPodcastAction = Action<PODCAST_ACTIONS.RESET_PODCAST>;
 
-export type LoadPodcastsAction = Action<PODCAST_ACTIONS.LOAD_PODCASTS> & {
-  payload: PodcastData[];
-};
-
 export type SetPodcastVolume = Action<PODCAST_ACTIONS.SET_VOLUME> & {
   payload: number;
 };
@@ -60,7 +55,6 @@ export type PodcastActions =
   | ResetPodcastAction
   | SetPodcastAction
   | SetPodcastsAction
-  | LoadPodcastsAction
   | SetPodcastPlay
   | SetPodcastVolume
   | SelectPodcastAction

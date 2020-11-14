@@ -16,7 +16,7 @@ import { VolumeDown, VolumeUp } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../store/types';
 import {
-  selectPodCastByNumber,
+  selectPodcast,
   setPodcastPlay,
   setPodcastVolume,
 } from '../store/actions';
@@ -58,7 +58,8 @@ const PodcastPlayer: React.FC = () => {
 
   const nextTrack = () => {
     const number = selectedPodcast ? selectedPodcast.number + 1 : 0;
-    dispatch(selectPodCastByNumber(number));
+    const podcast = podcasts.find(p => p.number === number) || selectedPodcast;
+    dispatch(selectPodcast(podcast));
   };
 
   const togglePlay = () => {
@@ -67,7 +68,8 @@ const PodcastPlayer: React.FC = () => {
 
   const previousTrack = () => {
     const number = selectedPodcast ? selectedPodcast.number - 1 : 0;
-    dispatch(selectPodCastByNumber(number));
+    const podcast = podcasts.find(p => p.number === number) || selectedPodcast;
+    dispatch(selectPodcast(podcast));
   };
 
   const shouldDisablePrevious = () => {

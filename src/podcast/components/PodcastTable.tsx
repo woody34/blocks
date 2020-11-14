@@ -13,6 +13,7 @@ import { PodcastState } from '../store/types';
 export const headers: Headers<PodcastData>[] = [
   {
     label: 'Action',
+    value: 'id',
     hide: true,
   },
   {

@@ -14,7 +14,7 @@ import { BaseData } from '../../common/base';
 
 export interface Headers<D> {
   label: string;
-  value?: keyof D;
+  value: keyof D;
   filter?: (data: D) => string;
   sortable?: boolean;
   sortBy?: keyof D;
