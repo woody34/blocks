@@ -2,7 +2,7 @@ import { Fab, TableCell } from '@material-ui/core';
 import React, { Dispatch, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PodcastData } from '../../common/podcast';
-import { BlocksTable, Headers } from '../../components/Table/Table';
+import { BlocksTable, Headers } from '../../components/Table/table';
 import { State } from '../../store/types';
 import { loadPodcasts, selectPodcast, setPodcastPlay } from '../store/actions';
 import { cyPodcastTable, filterDuration, filterPublishDate } from './util';

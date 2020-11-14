@@ -1,7 +1,9 @@
 import { createUseStyles } from 'react-jss';
 
-export const styles = createUseStyles({
+const useStyles = createUseStyles({
   fart: {
     maxHeight: 150,
   },
 });
+
+export const styles = useStyles();

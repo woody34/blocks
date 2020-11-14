@@ -12,6 +12,7 @@ import React from 'react';
 import { BaseData } from '../../common/base';
 import { cyTable, Order } from './util';
 import { orderBy } from 'lodash';
+import { styles } from './table.styles';
 export interface Headers<D> {
   label: string;
   value: string | 'prepend' | 'append';
@@ -118,6 +119,7 @@ export function BlocksTable<D extends BaseData>(props: BlocksTableProps<D>): JSX
               {sortedRows.map((row, i) => {
                 return (
                   <TableRow
+                    className={styles.fart}
                     hover
                     tabIndex={i}
                     key={i}
@@ -143,7 +145,6 @@ export function BlocksTable<D extends BaseData>(props: BlocksTableProps<D>): JSX
               })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 33 * emptyRows }}>
-                  {/* TODO: Figure out colspan */}
                   <TableCell colSpan={6} />
                 </TableRow>
               )}
