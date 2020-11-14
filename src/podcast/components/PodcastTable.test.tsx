@@ -8,7 +8,7 @@ import mockPodcastDocs from '../../mock/data/podcast';
 import { mockAxiosResponse } from '../../mock/service';
 import { filterDuration, filterPublishDate } from './util';
 
-const setup = async (): Promise<TestingUtil> => {
+const wrapper = async (): Promise<TestingUtil> => {
   return testUtil(< PodcastTable/>, { provideStore: true });
 };
 
@@ -17,7 +17,7 @@ describe('PodcastTable', () => {
   jest.spyOn(podcastService, 'getAll').mockResolvedValue(mockAxiosResponse(mockPodcastDocs));
 
   it('should display all labels', async () => {
-    const { getByText } = await setup();
+    const { getByText } = await wrapper();
     expect.assertions(headers.length);
     
     headers.forEach(header => {
@@ -27,7 +27,7 @@ describe('PodcastTable', () => {
   });
 
   it('should display 5 podcasts by default', async () => {
-    const { getAllByDataCy } = await setup();
+    const { getAllByDataCy } = await wrapper();
     expect.assertions(31);
     
     const rows = getAllByDataCy<HTMLTableRowElement>(cyTable.row);

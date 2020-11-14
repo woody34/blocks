@@ -28,6 +28,7 @@
         "tabWidth": 2
       }
     ],
+    "no-debugger": "warn",
     "quotes": ["error", "single"],
     "semi": ["error", "always"]
   }

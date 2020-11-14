@@ -10,7 +10,10 @@ export function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   return 0;
 }
 
-export type Order = 'asc' | 'desc';
+export enum Order {
+  asc = 'asc',
+  desc = 'desc'
+}
 
 export function getComparator<Key extends keyof any>(
   order: Order,

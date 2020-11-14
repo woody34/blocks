@@ -1,5 +1,5 @@
 import { Fab, TableCell } from '@material-ui/core';
-import React, { useEffect } from 'react';
+import React, { Dispatch, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PodcastData } from '../../common/podcast';
 import { BlocksTable, Headers } from '../../components/Table/Table';
@@ -8,17 +8,16 @@ import { loadPodcasts, selectPodcast, setPodcastPlay } from '../store/actions';
 import { cyPodcastTable, filterDuration, filterPublishDate } from './util';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
-import { PodcastState } from '../store/types';
+import { PodcastActions, PodcastState } from '../store/types';
 
 export const headers: Headers<PodcastData>[] = [
   {
-    label: 'Action',
-    value: 'id',
-    hide: true,
+    label: '',
+    value: 'prepend',
   },
   {
     value: 'number',
-    label: 'Number',
+    label: 'Track',
     align: 'left',
     sortable: true,
   },
@@ -38,46 +37,77 @@ export const headers: Headers<PodcastData>[] = [
   },
   {
     value: 'published',
-    label: 'Published On',
+    label: 'Published',
     filter: filterPublishDate,
   },
 ];
 
-const prepend = (podcast: PodcastData) => {
-  const dispatch = useDispatch();
-  const { selectedPodcast, playing } = useSelector<State, PodcastState>(({ podcast }) => podcast);
-  const currentlySelected = selectedPodcast?.number === podcast.number;
-
-  const playPodcast = () => {
-    dispatch(selectPodcast(podcast));
+const makePrepend =(playing: boolean, selectedPodcast?: PodcastData,) => {
+  const prepend = (podcast: PodcastData) => {
+    const dispatch = useDispatch();
+    const currentlySelected = selectedPodcast?.number === podcast.number;
+  
+    const playPodcast = () => {
+      dispatch(selectPodcast(podcast));
+    };
+  
+    const pausePodcast = () => {
+      dispatch(setPodcastPlay(false));
+    };
+  
+    return (
+      <TableCell key={Math.random()}>
+        {currentlySelected && playing ? 
+          <Fab onClick={pausePodcast} color="primary" data-cy={cyPodcastTable.pauseButton}>
+            <PauseIcon />
+          </Fab> :
+          <Fab onClick={playPodcast} color="primary" data-cy={cyPodcastTable.playButton}>
+            <PlayArrowIcon />
+          </Fab>
+        }
+      </TableCell>
+    );
   };
-
-  const pausePodcast = () => {
-    dispatch(setPodcastPlay(false));
-  };
-
-  return (
-    <TableCell>
-      {currentlySelected && playing ? 
-        <Fab onClick={pausePodcast} color="primary" data-cy={cyPodcastTable.pauseButton}>
-          <PauseIcon />
-        </Fab> :
-        <Fab onClick={playPodcast} color="primary" data-cy={cyPodcastTable.playButton}>
-          <PlayArrowIcon />
-        </Fab>
-      }
-    </TableCell>
-  );
+  return prepend;
 };
 
 const PodcastTable: React.FC = () => {
+  const { selectedPodcast, playing, podcasts } = useSelector<State, PodcastState>(({ podcast }) => podcast);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadPodcasts());
   }, []);
-  const rows = useSelector<State, PodcastData[]>((state) => state.podcast.podcasts);
+
+  const makePrepend =(dispatch: Dispatch<PodcastActions>, playing: boolean, selectedPodcast?: PodcastData) => {
+    const prepend = (podcast: PodcastData) => {
+      const currentlySelected = selectedPodcast?.number === podcast.number;
+    
+      const playPodcast = () => {
+        dispatch(selectPodcast(podcast));
+      };
+    
+      const pausePodcast = () => {
+        dispatch(setPodcastPlay(false));
+      };
+    
+      return (
+        <TableCell key={Math.random()}>
+          {currentlySelected && playing ? 
+            <Fab onClick={pausePodcast} color="primary" data-cy={cyPodcastTable.pauseButton}>
+              <PauseIcon />
+            </Fab> :
+            <Fab onClick={playPodcast} color="primary" data-cy={cyPodcastTable.playButton}>
+              <PlayArrowIcon />
+            </Fab>
+          }
+        </TableCell>
+      );
+    };
+    return prepend;
+  };
+  
   return (
-    <BlocksTable headers={headers} rows={rows} prepend={prepend} dense/>
+    <BlocksTable headers={headers} rows={podcasts} prepend={makePrepend(dispatch, playing, selectedPodcast)}/>
   );
 };
 
