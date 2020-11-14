@@ -9,8 +9,7 @@ import { State } from '../../store/types';
 import { loadPodcasts, selectPodcast, setPodcastPlay } from '../store/actions';
 import { PodcastActions, PodcastState } from '../store/types';
 import { cyPodcastTable, filterDuration, filterPublishDate } from './util';
-import { useStyles } from './podcast-table.styles';
-
+import { usePodcastTableStyles } from '../Podcast.styles';
 
 export const headers: Headers<PodcastData>[] = [
   {
@@ -47,7 +46,7 @@ export const headers: Headers<PodcastData>[] = [
 const makePrepend =(dispatch: Dispatch<PodcastActions>, playing: boolean, selectedPodcast?: PodcastData) => {
   const prepend = (podcast: PodcastData) => {
     const currentlySelected = selectedPodcast?.number === podcast.number;
-    const classes = useStyles();
+    const classes = usePodcastTableStyles();
   
     const playPodcast = () => {
       dispatch(selectPodcast(podcast));
@@ -60,10 +59,10 @@ const makePrepend =(dispatch: Dispatch<PodcastActions>, playing: boolean, select
     return (
       <TableCell key={Math.random()}>
         {currentlySelected && playing ? 
-          <IconButton onClick={pausePodcast} data-cy={cyPodcastTable.pauseButton}>
+          <IconButton className={classes.root} onClick={pausePodcast} data-cy={cyPodcastTable.pauseButton}>
             <PauseIcon />
           </IconButton> :
-          <IconButton onClick={playPodcast} data-cy={cyPodcastTable.playButton}>
+          <IconButton className={classes.root} onClick={playPodcast} data-cy={cyPodcastTable.playButton}>
             <PlayArrowIcon />
           </IconButton>
         }

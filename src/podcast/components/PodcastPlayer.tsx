@@ -1,13 +1,4 @@
-import {
-  Card,
-  CardContent,
-  createStyles,
-  Grid,
-  IconButton,
-  makeStyles,
-  Slider,
-  Theme,
-} from '@material-ui/core';
+import { Card, CardContent, Grid, IconButton, Slider } from '@material-ui/core';
 import React, { BaseSyntheticEvent } from 'react';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
@@ -22,11 +13,11 @@ import {
 } from '../store/actions';
 import { PodcastState } from '../store/types';
 import PauseIcon from '@material-ui/icons/Pause';
-import { useStyles } from './podcast-player.stlyes';
+import { usePodcastPlayerStyles } from '../Podcast.styles';
 
 const PodcastPlayer: React.FC = () => {
   const dispatch = useDispatch();
-  const classes = useStyles();
+  const classes = usePodcastPlayerStyles();
 
   const { volume, selectedPodcast, playing, podcasts } = useSelector<
     State,
@@ -39,7 +30,8 @@ const PodcastPlayer: React.FC = () => {
 
   const nextTrack = () => {
     const number = selectedPodcast ? selectedPodcast.number + 1 : 0;
-    const podcast = podcasts.find(p => p.number === number) || selectedPodcast;
+    const podcast =
+      podcasts.find((p) => p.number === number) || selectedPodcast;
     dispatch(selectPodcast(podcast));
   };
 
@@ -49,7 +41,8 @@ const PodcastPlayer: React.FC = () => {
 
   const previousTrack = () => {
     const number = selectedPodcast ? selectedPodcast.number - 1 : 0;
-    const podcast = podcasts.find(p => p.number === number) || selectedPodcast;
+    const podcast =
+      podcasts.find((p) => p.number === number) || selectedPodcast;
     dispatch(selectPodcast(podcast));
   };
 

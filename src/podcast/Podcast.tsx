@@ -7,7 +7,6 @@ import { State } from '../store/types';
 import PodcastDetails from './components/PodcastDetails';
 import PodcastPlayer from './components/PodcastPlayer';
 import PodcastTable from './components/PodcastTable';
-import { styles } from './Podcast.styles';
 import { selectPodcast } from './store/actions';
 import { PodcastState } from './store/types';
 

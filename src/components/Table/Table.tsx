@@ -1,5 +1,4 @@
 import Paper from '@material-ui/core/Paper';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell, { TableCellBaseProps } from '@material-ui/core/TableCell';
@@ -12,7 +11,7 @@ import React from 'react';
 import { BaseData } from '../../common/base';
 import { cyTable, Order } from './util';
 import { orderBy } from 'lodash';
-import { useStyles } from './table.styles';
+import { useTableStyles } from './Table.styles';
 
 export interface Headers<D> {
   label: string;
@@ -81,7 +80,7 @@ export function BlocksTable<D extends BaseData>(props: BlocksTableProps<D>): JSX
   const [sortBy, setSortBy] = React.useState<string>('');
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const classes = useStyles();
+  const classes = useTableStyles();
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: string) => {
     const isAsc = sortBy === property && order === Order.asc;
