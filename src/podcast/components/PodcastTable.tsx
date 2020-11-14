@@ -1,14 +1,16 @@
-import { Fab, TableCell } from '@material-ui/core';
+import { IconButton, TableCell } from '@material-ui/core';
+import PauseIcon from '@material-ui/icons/Pause';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import React, { Dispatch, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PodcastData } from '../../common/podcast';
 import { BlocksTable, Headers } from '../../components/Table/Table';
 import { State } from '../../store/types';
 import { loadPodcasts, selectPodcast, setPodcastPlay } from '../store/actions';
-import { cyPodcastTable, filterDuration, filterPublishDate } from './util';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
 import { PodcastActions, PodcastState } from '../store/types';
+import { cyPodcastTable, filterDuration, filterPublishDate } from './util';
+import { useStyles } from './podcast-table.styles';
+
 
 export const headers: Headers<PodcastData>[] = [
   {
@@ -45,6 +47,7 @@ export const headers: Headers<PodcastData>[] = [
 const makePrepend =(dispatch: Dispatch<PodcastActions>, playing: boolean, selectedPodcast?: PodcastData) => {
   const prepend = (podcast: PodcastData) => {
     const currentlySelected = selectedPodcast?.number === podcast.number;
+    const classes = useStyles();
   
     const playPodcast = () => {
       dispatch(selectPodcast(podcast));
@@ -57,12 +60,12 @@ const makePrepend =(dispatch: Dispatch<PodcastActions>, playing: boolean, select
     return (
       <TableCell key={Math.random()}>
         {currentlySelected && playing ? 
-          <Fab onClick={pausePodcast} color="primary" data-cy={cyPodcastTable.pauseButton}>
+          <IconButton onClick={pausePodcast} data-cy={cyPodcastTable.pauseButton}>
             <PauseIcon />
-          </Fab> :
-          <Fab onClick={playPodcast} color="primary" data-cy={cyPodcastTable.playButton}>
+          </IconButton> :
+          <IconButton onClick={playPodcast} data-cy={cyPodcastTable.playButton}>
             <PlayArrowIcon />
-          </Fab>
+          </IconButton>
         }
       </TableCell>
     );

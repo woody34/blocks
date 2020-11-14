@@ -12,6 +12,8 @@ import React from 'react';
 import { BaseData } from '../../common/base';
 import { cyTable, Order } from './util';
 import { orderBy } from 'lodash';
+import { useStyles } from './table.styles';
+
 export interface Headers<D> {
   label: string;
   value: string | 'prepend' | 'append';
@@ -25,7 +27,6 @@ export interface Headers<D> {
 }
 
 interface BlocksTableHeadProps<D extends BaseData> {
-  classes: ReturnType<typeof useStyles>;
   onRequestSort: (event: React.MouseEvent<unknown>, property: string) => void;
   order: Order;
   sortBy: string;
@@ -34,7 +35,7 @@ interface BlocksTableHeadProps<D extends BaseData> {
 }
 
 function BlocksTableHead<D extends BaseData>(props: BlocksTableHeadProps<D>) {
-  const { headers, classes, order, sortBy, onRequestSort } = props;
+  const { headers, order, sortBy, onRequestSort } = props;
   const createSortHandler = (property: string) => (event: React.MouseEvent<unknown>) => {
     onRequestSort(event, property);
   };
@@ -55,7 +56,7 @@ function BlocksTableHead<D extends BaseData>(props: BlocksTableHeadProps<D>) {
             >
               {header.label}
               {sortBy === header.value ? (
-                <span className={classes.visuallyHidden}>
+                <span>
                   {order === Order.desc ? 'sorted descending' : 'sorted ascending'}
                 </span>
               ) : null}
@@ -102,13 +103,12 @@ export function BlocksTable<D extends BaseData>(props: BlocksTableProps<D>): JSX
   const sortedRows = orderBy(rows, sortBy, [order]).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
+    <div >
+      <Paper >
         <TableContainer>
-          <Table className={classes.table} size="small">
+          <Table  size="small">
             <BlocksTableHead
               headers={headers}
-              classes={classes}
               order={order}
               sortBy={String(sortBy)}
               onRequestSort={handleRequestSort}
@@ -118,6 +118,7 @@ export function BlocksTable<D extends BaseData>(props: BlocksTableProps<D>): JSX
               {sortedRows.map((row, i) => {
                 return (
                   <TableRow
+                    className={classes.fart}
                     hover
                     tabIndex={i}
                     key={i}
@@ -143,7 +144,6 @@ export function BlocksTable<D extends BaseData>(props: BlocksTableProps<D>): JSX
               })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 33 * emptyRows }}>
-                  {/* TODO: Figure out colspan */}
                   <TableCell colSpan={6} />
                 </TableRow>
               )}
@@ -163,29 +163,3 @@ export function BlocksTable<D extends BaseData>(props: BlocksTableProps<D>): JSX
     </div>
   );
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: '100%',
-    },
-    paper: {
-      width: '100%',
-      marginBottom: theme.spacing(2),
-    },
-    table: {
-      minWidth: 750,
-    },
-    visuallyHidden: {
-      border: 0,
-      clip: 'rect(0 0 0 0)',
-      height: 1,
-      margin: -1,
-      overflow: 'hidden',
-      padding: 0,
-      position: 'absolute',
-      top: 20,
-      width: 1,
-    },
-  }),
-);
