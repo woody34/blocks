@@ -70,6 +70,10 @@ You will also see any lint errors in the console.
 
 Performs linting operations against the project using the `./eslintrc.json` config
 
+### `npm prettier:conflicts`
+
+Performs a check against your eslint and prettier rules to find conflicts
+
 ### `npm test`
 
 Launches the jest unit test runner in watch mode.\

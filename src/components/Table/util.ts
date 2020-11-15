@@ -1,16 +1,16 @@
-import { TableCellBaseProps } from '@material-ui/core';
-import { BaseData } from '../../common/base';
+import { TableCellBaseProps } from "@material-ui/core";
+import { BaseData } from "../../common/base";
 
 export interface Headers<D> {
   label: string;
-  value: string | 'prepend' | 'append';
+  value: string | "prepend" | "append";
   filter?: (data: D) => string;
   sortable?: boolean;
-  order?: Order,
+  order?: Order;
   component?: React.ElementType<TableCellBaseProps>;
   scope?: string;
-  padding?: 'none' | 'default';
-  align?: 'right' | 'left';
+  padding?: "none" | "default";
+  align?: "right" | "left";
 }
 
 export interface BlocksTableHeadProps<D extends BaseData> {
@@ -22,20 +22,20 @@ export interface BlocksTableHeadProps<D extends BaseData> {
 }
 
 export interface BlocksTableProps<D extends BaseData> {
-  rows: D[],
+  rows: D[];
   headers: Headers<D>[];
   prepend?: (item: D) => JSX.Element;
   append?: (item: D) => JSX.Element;
 }
 
 export enum Order {
-  asc = 'asc',
-  desc = 'desc'
+  asc = "asc",
+  desc = "desc",
 }
 
 export const cyTable = {
-  table: 'blocks-table',
-  header: 'blocks-table-header',
-  row: 'blocks-table-row',
-  cell: 'blocks-table-cell',
+  table: "blocks-table",
+  header: "blocks-table-header",
+  row: "blocks-table-row",
+  cell: "blocks-table-cell",
 };

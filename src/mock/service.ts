@@ -1,13 +1,13 @@
-import { random } from 'faker';
-import { BaseData } from '../common/base';
-import { AxiosResponse } from 'axios';
-import { ServiceWrite, makeBaseService } from '../services/service';
+import { random } from "faker";
+import { BaseData } from "../common/base";
+import { AxiosResponse } from "axios";
+import { ServiceWrite, makeBaseService } from "../services/service";
 
 export const mockAxiosResponse = <T>(object?: T): Promise<AxiosResponse<T>> =>
   (Promise.resolve(object) as unknown) as Promise<AxiosResponse<T>>;
 
 export const mockService = <T extends BaseData>(docs: T[]): ServiceWrite<T> => {
-  const baseRoute = 'mock';
+  const baseRoute = "mock";
   const { http } = makeBaseService<T>(baseRoute);
   const service = {
     baseRoute,

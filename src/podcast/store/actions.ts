@@ -1,7 +1,7 @@
-import { ActionCreator, Dispatch } from '@reduxjs/toolkit';
-import { PodcastData } from '../../common/podcast';
-import { podcastService } from '../../services/podcast';
-import { AppThunkAsync, State } from '../../store/types';
+import { ActionCreator } from "@reduxjs/toolkit";
+import { PodcastData } from "../../common/podcast";
+import { podcastService } from "../../services/podcast";
+import { AppThunkAsync } from "../../store/types";
 import {
   ResetPodcastAction,
   SetPodcastAction,
@@ -10,10 +10,9 @@ import {
   SelectPodcastAction,
   SetPodcastVolume,
   SetPodcastPlay,
-  SelectPodcastByNumber,
   SetPodcastsAction,
-} from './types';
-import { store } from '../../store';
+} from "./types";
+import { store } from "../../store";
 
 export const setPodcast: ActionCreator<SetPodcastAction> = (
   payload: PodcastState
@@ -70,4 +69,11 @@ export const loadPodcasts = (): AppThunkAsync => async (
   }
 };
 
-export default { setPodcast, setPodcasts, setPodcastPlay, selectPodcast, reset, loadPodcasts };
+export default {
+  setPodcast,
+  setPodcasts,
+  setPodcastPlay,
+  selectPodcast,
+  reset,
+  loadPodcasts,
+};

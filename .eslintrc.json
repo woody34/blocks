@@ -5,36 +5,32 @@
     "node": true
   },
   "extends": [
-    "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 12,
+    "ecmaVersion": 2020,
     "sourceType": "module"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   },
   "plugins": ["react", "@typescript-eslint", "jest"],
   "rules": {
-    "linebreak-style": ["error", "unix"],
-    "indent": ["error", 2],
-    "max-len": [
-      "error",
-      {
-        "code": 120,
-        "tabWidth": 2
-      }
-    ],
     "no-debugger": "warn",
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
     "jest/prefer-to-have-length": "warn",
-    "jest/valid-expect": "error"
+    "jest/valid-expect": "error",
+    "camelcase": ["error", { "properties": "always"}]
   }
 }

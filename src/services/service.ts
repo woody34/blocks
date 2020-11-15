@@ -1,5 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { BaseData } from '../common/base';
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { BaseData } from "../common/base";
 
 export interface Http<TYPE extends BaseData> {
   baseRoute: string;
@@ -99,7 +99,7 @@ export const makeService = <T extends BaseData>(
     baseRoute,
     http,
     getById: (id: number) => http.get(`/by-id/${id}`),
-    getAll: () => http.getMany('/'),
+    getAll: () => http.getMany("/"),
     create: (payload: T) => http.post(`/${payload.id}`, payload),
     update: (payload: T) => http.put(`/${payload.id}`, payload),
     delete: (id: number) => http.delete(`/${id}`),

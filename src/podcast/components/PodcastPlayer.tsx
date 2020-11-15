@@ -1,19 +1,19 @@
-import { Card, CardContent, Grid, IconButton, Slider } from '@material-ui/core';
-import React, { BaseSyntheticEvent } from 'react';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import { VolumeDown, VolumeUp } from '@material-ui/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { State } from '../../store/types';
+import { Card, CardContent, Grid, IconButton, Slider } from "@material-ui/core";
+import React, { BaseSyntheticEvent } from "react";
+import SkipNextIcon from "@material-ui/icons/SkipNext";
+import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import { VolumeDown, VolumeUp } from "@material-ui/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "../../store/types";
 import {
   selectPodcast,
   setPodcastPlay,
   setPodcastVolume,
-} from '../store/actions';
-import { PodcastState } from '../store/types';
-import PauseIcon from '@material-ui/icons/Pause';
-import { usePodcastPlayerStyles } from '../Podcast.styles';
+} from "../store/actions";
+import { PodcastState } from "../store/types";
+import PauseIcon from "@material-ui/icons/Pause";
+import { usePodcastPlayerStyles } from "../Podcast.styles";
 
 const PodcastPlayer: React.FC = () => {
   const dispatch = useDispatch();

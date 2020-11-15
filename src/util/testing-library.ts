@@ -3,56 +3,52 @@ import {
   queries,
   Matcher,
   MatcherOptions,
-} from '@testing-library/react';
-import { queryHelpers, buildQueries } from '@testing-library/react';
+  Queries,
+} from "@testing-library/react";
+import { queryHelpers, buildQueries } from "@testing-library/react";
 
-// The queryAllByAttribute is a shortcut for attribute-based matchers
-// You can also use document.querySelector or a combination of existing
-// testing library utilities to find matching nodes for your query
 const queryAllByDataCy = (
   container: HTMLElement,
   id: Matcher,
   options: MatcherOptions
 ): HTMLElement[] =>
-  queryHelpers.queryAllByAttribute('data-cy', container, id, options);
+  queryHelpers.queryAllByAttribute("data-cy", container, id, options);
 
 const getMultipleError = (c: HTMLElement, dataCyValue: Matcher) =>
   `Found multiple elements with the data-cy attribute of: ${dataCyValue}`;
 const getMissingError = (c: HTMLElement, dataCyValue: Matcher) =>
   `Unable to find an element with the data-cy attribute of: ${dataCyValue}`;
 
-const [
-  queryByDataCy,
-  getAllByDataCy,
-  getByDataCy,
-  findAllByDataCy,
-  findByDataCy,
-] = buildQueries(queryAllByDataCy, getMultipleError, getMissingError);
-
-export {
-  queryByDataCy,
+const [, getAllByDataCy, getByDataCy] = buildQueries(
   queryAllByDataCy,
-  getByDataCy,
-  getAllByDataCy,
-  findAllByDataCy,
-  findByDataCy,
-};
+  getMultipleError,
+  getMissingError
+);
+
+export { getByDataCy, getAllByDataCy };
+
+interface CustomerRender extends Queries {
+  getByDataCy: typeof getByDataCy;
+  getAllByDataCy: typeof getAllByDataCy;
+}
 
 const customRender = <E extends React.ReactElement>(
   ui: E,
   options: MatcherOptions
-): any => render(ui, { queries: { 
-    ...queries,
-    queryByDataCy,
-    queryAllByDataCy,
-    getByDataCy,
-    getAllByDataCy,
-    findAllByDataCy,
-    findByDataCy 
-  }, ...options });
+): CustomerRender => {
+  const renderer = render(ui, {
+    queries: {
+      ...queries,
+      getByDataCy,
+      getAllByDataCy,
+    },
+    ...options,
+  });
+  return (renderer as unknown) as CustomerRender;
+};
 
 // re-export everything
-export * from '@testing-library/react';
+export * from "@testing-library/react";
 
 // override render method
 export { customRender as render };

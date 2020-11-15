@@ -1,18 +1,18 @@
-import { cyTable } from '../components/Table/util';
-import { cyPodcast } from '../podcast/util';
-import { authRoutes } from '../routes';
+import { cyTable } from "../components/Table/util";
+import { cyPodcast } from "../podcast/util";
+import { authRoutes } from "../routes";
 
 export const values = {
   components: {
     table: cyTable,
   },
   features: {
-    podcast: cyPodcast
+    podcast: cyPodcast,
   },
   links: {
     home: authRoutes.home,
-    podcasts: authRoutes.podcast
-  }
+    podcasts: authRoutes.podcast,
+  },
 };
 
 const makeValueSelector = (_value: string): string => {
@@ -26,10 +26,10 @@ interface DataCySelector {
 export const generateSelectors = (_values: DataCySelector): DataCySelector => {
   const selectors = { ..._values };
   for (const prop in selectors) {
-    if (typeof selectors[prop] === 'string') {
+    if (typeof selectors[prop] === "string") {
       selectors[prop] = makeValueSelector(selectors[prop] as string);
     }
-    if (typeof selectors[prop] === 'object') {
+    if (typeof selectors[prop] === "object") {
       selectors[prop] = generateSelectors(selectors[prop] as DataCySelector);
     }
   }

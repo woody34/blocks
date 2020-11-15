@@ -1,15 +1,15 @@
-import { Drawer, Grid, IconButton } from '@material-ui/core';
-import Container from '@material-ui/core/Container';
-import CloseIcon from '@material-ui/icons/CloseOutlined';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { State } from '../store/types';
-import PodcastDetails from './components/PodcastDetails';
-import PodcastPlayer from './components/PodcastPlayer';
-import PodcastTable from './components/PodcastTable';
-import { usePodcastStyles } from './Podcast.styles';
-import { selectPodcast } from './store/actions';
-import { PodcastState } from './store/types';
+import { Drawer, Grid, IconButton } from "@material-ui/core";
+import Container from "@material-ui/core/Container";
+import CloseIcon from "@material-ui/icons/CloseOutlined";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "../store/types";
+import PodcastDetails from "./components/PodcastDetails";
+import PodcastPlayer from "./components/PodcastPlayer";
+import PodcastTable from "./components/PodcastTable";
+import { usePodcastStyles } from "./Podcast.styles";
+import { selectPodcast } from "./store/actions";
+import { PodcastState } from "./store/types";
 
 const Podcast: React.FC = () => {
   const { selectedPodcast } = useSelector<State, PodcastState>(
@@ -21,7 +21,7 @@ const Podcast: React.FC = () => {
   const classes: ReturnType<typeof usePodcastStyles> = usePodcastStyles();
 
   return (
-    <React.Fragment key={'bottom'}>
+    <React.Fragment key={"bottom"}>
       <Container maxWidth="md">
         <PodcastTable />
       </Container>

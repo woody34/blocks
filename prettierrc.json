@@ -1,0 +1,8 @@
+{
+  "sime": true,
+  "trailingComma": true,
+  "singleQuote": true,
+  "printWidth": true,
+  "tabWidth":2,
+  "indent": true
+}

@@ -1,24 +1,24 @@
-import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
-import PodcastTable from './PodcastTable';
-import { cyTable } from '../../components/Table/util';
-import { TestingUtil, testUtil } from '../../util/testing-util';
-import { podcastService } from '../../services/podcast';
-import mockPodcastDocs from '../../mock/data/podcast';
-import { mockAxiosResponse } from '../../mock/service';
-import { get } from 'lodash';
-import { headers } from './util';
+import React from "react";
+import "@testing-library/jest-dom/extend-expect";
+import PodcastTable from "./PodcastTable";
+import { cyTable } from "../../components/Table/util";
+import { TestingUtil, testUtil } from "../../util/testing-util";
+import { podcastService } from "../../services/podcast";
+import mockPodcastDocs from "../../mock/data/podcast";
+import { mockAxiosResponse } from "../../mock/service";
+import { get } from "lodash";
+import { headers } from "./util";
 const wrapper = async (): Promise<TestingUtil> => {
   return testUtil(<PodcastTable />, { provideStore: true });
 };
 
-describe('PodcastTable', () => {
+describe("PodcastTable", () => {
   beforeEach(jest.restoreAllMocks);
   jest
-    .spyOn(podcastService, 'getAll')
+    .spyOn(podcastService, "getAll")
     .mockResolvedValue(mockAxiosResponse(mockPodcastDocs));
 
-  it('should display all labels', async () => {
+  it("should display all labels", async () => {
     const { getAllByDataCy } = await wrapper();
     expect.assertions(headers.length);
 
@@ -28,20 +28,20 @@ describe('PodcastTable', () => {
     });
   });
 
-  it('should display 5 podcasts by default', async () => {
+  it("should display 5 podcasts by default", async () => {
     const { getAllByDataCy } = await wrapper();
     expect.assertions(36);
 
     const rows = getAllByDataCy<HTMLTableRowElement>(cyTable.row);
     expect(rows).toHaveLength(5);
     rows.forEach((row, i) => {
-      const cells = row.querySelectorAll('td');
+      const cells = row.querySelectorAll("td");
       expect(cells).toHaveLength(6);
       headers.forEach((header, k) => {
         const received = cells[k].textContent;
         const expected = header.filter
           ? header.filter(mockPodcastDocs[i])
-          : get(mockPodcastDocs[i], header.value, '');
+          : get(mockPodcastDocs[i], header.value, "");
         expect(received).toContain(expected);
       });
     });
