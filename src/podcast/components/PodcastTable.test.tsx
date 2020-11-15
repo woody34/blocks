@@ -1,15 +1,15 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import PodcastTable, { headers } from './PodcastTable';
+import PodcastTable from './PodcastTable';
 import { cyTable } from '../../components/Table/util';
 import { TestingUtil, testUtil } from '../../util/testing-util';
 import { podcastService } from '../../services/podcast';
 import mockPodcastDocs from '../../mock/data/podcast';
 import { mockAxiosResponse } from '../../mock/service';
-import { filterDuration, filterPublishDate } from './util';
-
-const wrapper = async (): Promise<TestingUtil> => {
-  return testUtil(< PodcastTable/>, { provideStore: true });
+import { get } from 'lodash';
+import { headers } from './util';
+const wrapper = (): TestingUtil => {
+  return testUtil(<PodcastTable />, { provideStore: true });
 };
 
 describe('PodcastTable', () => {
@@ -17,34 +17,28 @@ describe('PodcastTable', () => {
   jest.spyOn(podcastService, 'getAll').mockResolvedValue(mockAxiosResponse(mockPodcastDocs));
 
   it('should display all labels', async () => {
-    const { getByText } = await wrapper();
+    const { getAllByDataCy } = wrapper();
     expect.assertions(headers.length);
-    
-    headers.forEach(header => {
-      const cell = getByText<HTMLTableCellElement>(header.label);
-      expect(cell).toBeDefined();
+
+    const cells = getAllByDataCy<HTMLTableCellElement>(cyTable.header);
+    headers.forEach((header, i) => {
+      expect(cells[i].textContent).toEqual(header.label);
     });
   });
 
   it('should display 5 podcasts by default', async () => {
-    const { getAllByDataCy } = await wrapper();
-    expect.assertions(31);
-    
-    const rows = getAllByDataCy<HTMLTableRowElement>(cyTable.row);
-    expect(rows.length).toEqual(5);
-    rows.forEach((row, i) => {
-      headers.forEach(header => {
-        let value = String(mockPodcastDocs[i][header.value]);
-        if (header.value === 'duration') {
-          value = filterDuration(mockPodcastDocs[i]);
-        }
-        if (header.value === 'published') {
-          value = filterPublishDate(mockPodcastDocs[i]);
-        }
+    const { getAllByDataCy } = wrapper();
+    expect.assertions(36);
 
-        const cells = Array.from(row.childNodes).filter(cell => !cell.textContent?.includes('Play'));
-        const hasValue = cells.some(c => c.textContent?.includes(value));
-        expect(hasValue).toBe(true);
+    const rows = getAllByDataCy<HTMLTableRowElement>(cyTable.row);
+    expect(rows).toHaveLength(5);
+    rows.forEach((row, i) => {
+      const cells = row.querySelectorAll('td');
+      expect(cells).toHaveLength(6);
+      headers.forEach((header, k) => {
+        const received = cells[k].textContent;
+        const expected = header.filter ? header.filter(mockPodcastDocs[i]) : get(mockPodcastDocs[i], header.value, '');
+        expect(received).toContain(expected);
       });
     });
   });

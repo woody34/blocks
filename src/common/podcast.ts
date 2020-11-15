@@ -5,5 +5,5 @@ export interface PodcastData extends BaseData {
   title: string;
   description: string;
   duration: number;
-  published: Date;
+  published: string;
 }

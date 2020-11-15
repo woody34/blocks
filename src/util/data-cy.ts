@@ -1,13 +1,18 @@
 import { cyTable } from '../components/Table/util';
 import { cyPodcast } from '../podcast/util';
+import { authRoutes } from '../routes';
 
 export const values = {
   components: {
     table: cyTable,
   },
   features: {
-    podcast: cyPodcast
-  }
+    podcast: cyPodcast,
+  },
+  links: {
+    home: authRoutes.home,
+    podcasts: authRoutes.podcast,
+  },
 };
 
 const makeValueSelector = (_value: string): string => {

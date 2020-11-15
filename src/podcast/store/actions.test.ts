@@ -1,5 +1,13 @@
 import { initialPodcastState, PodcastActions, PodcastState, PODCAST_ACTIONS } from './types';
-import { loadPodcasts, reset, selectPodcast, setPodcast, setPodcastPlay, setPodcasts, setPodcastVolume } from './actions';
+import {
+  loadPodcasts,
+  reset,
+  selectPodcast,
+  setPodcast,
+  setPodcastPlay,
+  setPodcasts,
+  setPodcastVolume,
+} from './actions';
 import mockPodcastDocs from '../../mock/data/podcast';
 import { makeAction, mockStore, strictEquals } from '../../util/testing-util';
 import { podcastService } from '../../services/podcast';
@@ -7,11 +15,11 @@ import { mockAxiosResponse } from '../../mock/service';
 
 const received: PodcastActions[] = [];
 
-const grabActions = (action: any) => {
+const grabActions = (action: PodcastActions) => {
   received.push(action);
 };
 
-const slice: PodcastState = { 
+const slice: PodcastState = {
   podcasts: mockPodcastDocs,
   showPlayer: true,
   playing: true,
@@ -63,9 +71,7 @@ describe('Podcast Actions', () => {
   it('should call setPodcasts on loadPodcasts', async () => {
     jest.spyOn(podcastService, 'getAll').mockResolvedValue(mockAxiosResponse(mockPodcastDocs));
     await dispatch(loadPodcasts());
-    const expected = [
-      makeAction(PODCAST_ACTIONS.SET_PODCASTS, mockPodcastDocs)
-    ];
+    const expected = [makeAction(PODCAST_ACTIONS.SET_PODCASTS, mockPodcastDocs)];
     strictEquals(received, expected);
   });
 });

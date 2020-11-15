@@ -1,6 +1,7 @@
+import { makeStyles } from '@material-ui/core';
 import { createUseStyles } from 'react-jss';
 
-export const styles = createUseStyles({
+export const usePodcastStyles = createUseStyles({
   grid: {
     background: 'rgb(244 244 244)',
   },
@@ -19,8 +20,38 @@ export const styles = createUseStyles({
   },
 });
 
-export const detailsStyles = createUseStyles({
+export const usePodcastDetailStyles = createUseStyles({
   grid: {
     background: 'transparent',
+  },
+});
+
+export const usePodcastTableStyles = createUseStyles({
+  root: {
+    display: 'inline-block',
+    background: 'transparent',
+  },
+  controls: {
+    flexDirection: 'row',
+    display: 'flex',
+  },
+  playIcon: {
+    height: 38,
+    width: 38,
+  },
+});
+
+export const usePodcastPlayerStyles = makeStyles({
+  root: {
+    display: 'inline-block',
+    background: 'transparent',
+  },
+  controls: {
+    flexDirection: 'row',
+    display: 'flex',
+  },
+  playIcon: {
+    height: 38,
+    width: 38,
   },
 });

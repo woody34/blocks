@@ -12,17 +12,15 @@ export const mockService = <T extends BaseData>(docs: T[]): ServiceWrite<T> => {
   const service = {
     baseRoute,
     http,
-    getById: (id: number) =>
-      mockAxiosResponse(docs.find((doc) => doc.id === id)),
+    getById: (id: number) => mockAxiosResponse(docs.find(doc => doc.id === id)),
     getAll: () => mockAxiosResponse(docs),
-    create: (payload: T) =>
-      mockAxiosResponse({ id: random.number(), ...payload } as T),
+    create: (payload: T) => mockAxiosResponse({ id: random.number(), ...payload } as T),
     update: (payload: T) => {
-      const doc = docs.find((doc) => doc.id === payload.id);
+      const doc = docs.find(doc => doc.id === payload.id);
       return mockAxiosResponse({ ...doc, ...payload });
     },
     delete: (id: number) => {
-      const doc = docs.find((doc) => doc.id === id);
+      const doc = docs.find(doc => doc.id === id);
       const index = docs.indexOf(doc as T);
       docs.splice(index, 1);
       return mockAxiosResponse<void>();

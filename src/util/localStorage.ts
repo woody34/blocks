@@ -8,7 +8,7 @@ export const saveState = (state: State): void => {
     // ignore write errors
   }
 };
-  
+
 export const loadState = (): State | undefined => {
   try {
     const serializedState = localStorage.getItem('state');
@@ -19,4 +19,4 @@ export const loadState = (): State | undefined => {
   } catch (err) {
     return undefined;
   }
-}; 
+};

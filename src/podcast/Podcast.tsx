@@ -7,18 +7,16 @@ import { State } from '../store/types';
 import PodcastDetails from './components/PodcastDetails';
 import PodcastPlayer from './components/PodcastPlayer';
 import PodcastTable from './components/PodcastTable';
-import { styles } from './Podcast.styles';
+import { usePodcastStyles } from './Podcast.styles';
 import { selectPodcast } from './store/actions';
 import { PodcastState } from './store/types';
 
 const Podcast: React.FC = () => {
-  const { selectedPodcast } = useSelector<State, PodcastState>(
-    ({ podcast }) => podcast
-  );
+  const { selectedPodcast } = useSelector<State, PodcastState>(({ podcast }) => podcast);
   const shouldShowPlayer = () => Boolean(selectedPodcast);
   const dispatch = useDispatch();
   const closePlayer = () => dispatch(selectPodcast(undefined));
-  const classes: ReturnType<typeof styles> = styles();
+  const classes: ReturnType<typeof usePodcastStyles> = usePodcastStyles();
 
   return (
     <React.Fragment key={'bottom'}>
@@ -31,8 +29,7 @@ const Podcast: React.FC = () => {
         open={shouldShowPlayer()}
         onClose={closePlayer}
         variant="persistent"
-        color="success"
-      >
+        color="success">
         <Grid className={classes.grid} container item xs={12}>
           <Grid item xs={6}>
             <PodcastDetails />
@@ -41,12 +38,7 @@ const Podcast: React.FC = () => {
             <PodcastPlayer />
           </Grid>
           <Grid item xs={1} className={classes.closeContainer}>
-            <IconButton
-              className={classes.closeButton}
-              aria-label="close"
-              size="small"
-              onClick={closePlayer}
-            >
+            <IconButton className={classes.closeButton} aria-label="close" size="small" onClick={closePlayer}>
               <CloseIcon />
             </IconButton>
           </Grid>
