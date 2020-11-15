@@ -5,8 +5,7 @@ import { authRoutes } from '../routes';
 const Home: React.FC = () => {
   return (
     <>
-      <Link to={authRoutes.thing}>Thing</Link>
-      <Link to={authRoutes.podcast}>Podcast</Link>
+      <Link to={authRoutes.podcast} data-cy={authRoutes.podcast}>Podcast</Link>
     </>
   );
 };

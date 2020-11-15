@@ -1,3 +1,4 @@
+import { makeStyles } from '@material-ui/core';
 import { createUseStyles } from 'react-jss';
 
 export const usePodcastStyles = createUseStyles({
@@ -19,7 +20,7 @@ export const usePodcastStyles = createUseStyles({
   },
 });
 
-export const usePodcastDetailStyle = createUseStyles({
+export const usePodcastDetailStyles = createUseStyles({
   grid: {
     background: 'transparent',
   },
@@ -40,7 +41,7 @@ export const usePodcastTableStyles = createUseStyles({
   },
 });
 
-export const usePodcastPlayerStyles = createUseStyles({
+export const usePodcastPlayerStyles = makeStyles({
   root: {
     display: 'inline-block',
     background: 'transparent',

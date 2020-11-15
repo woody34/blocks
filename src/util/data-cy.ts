@@ -1,5 +1,6 @@
 import { cyTable } from '../components/Table/util';
 import { cyPodcast } from '../podcast/util';
+import { authRoutes } from '../routes';
 
 export const values = {
   components: {
@@ -7,6 +8,10 @@ export const values = {
   },
   features: {
     podcast: cyPodcast
+  },
+  links: {
+    home: authRoutes.home,
+    podcasts: authRoutes.podcast
   }
 };
 

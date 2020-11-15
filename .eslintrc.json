@@ -17,7 +17,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": ["react", "@typescript-eslint", "jest"],
   "rules": {
     "linebreak-style": ["error", "unix"],
     "indent": ["error", 2],
@@ -30,6 +30,11 @@
     ],
     "no-debugger": "warn",
     "quotes": ["error", "single"],
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
   }
 }

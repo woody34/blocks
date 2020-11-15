@@ -36,6 +36,7 @@ React JS
 │   │   ├── components # Feature specific components
 │   │   │   ├── Component.tsx
 │   │   ├── Page.tsx # Feature page (routable)
+│   │   ├── Page.styles.ts # Feature styles: usePageStyles, useComponentStyles
 │   │   ├── util.ts
 │   │   └── store # Feature specific store module
 │   │       ├── actions.ts

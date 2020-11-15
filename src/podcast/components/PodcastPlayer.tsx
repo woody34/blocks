@@ -61,56 +61,58 @@ const PodcastPlayer: React.FC = () => {
   };
 
   return (
-    <Card className={classes.root} elevation={0}>
-      <CardContent className={classes.controls}>
-        <IconButton
-          aria-label="previous"
-          onClick={previousTrack}
-          disabled={shouldDisablePrevious()}
-        >
-          <SkipPreviousIcon />
-        </IconButton>
-        {playing ? (
+    <div className={classes.root}>
+      <Card className={classes.root} elevation={0}>
+        <CardContent className={classes.controls}>
           <IconButton
-            aria-label="play/pause"
-            onClick={togglePlay}
-            disabled={shouldDisablePlay()}
+            aria-label="previous"
+            onClick={previousTrack}
+            disabled={shouldDisablePrevious()}
           >
-            <PauseIcon className={classes.playIcon} />
+            <SkipPreviousIcon />
           </IconButton>
-        ) : (
+          {playing ? (
+            <IconButton
+              aria-label="play/pause"
+              onClick={togglePlay}
+              disabled={shouldDisablePlay()}
+            >
+              <PauseIcon className={classes.playIcon} />
+            </IconButton>
+          ) : (
+            <IconButton
+              aria-label="play/pause"
+              onClick={togglePlay}
+              disabled={shouldDisablePlay()}
+            >
+              <PlayArrowIcon className={classes.playIcon} />
+            </IconButton>
+          )}
           <IconButton
-            aria-label="play/pause"
-            onClick={togglePlay}
-            disabled={shouldDisablePlay()}
+            aria-label="next"
+            onClick={nextTrack}
+            disabled={shouldDisableNext()}
           >
-            <PlayArrowIcon className={classes.playIcon} />
+            <SkipNextIcon />
           </IconButton>
-        )}
-        <IconButton
-          aria-label="next"
-          onClick={nextTrack}
-          disabled={shouldDisableNext()}
-        >
-          <SkipNextIcon />
-        </IconButton>
-      </CardContent>
-      <Grid container spacing={2}>
-        <Grid item>
-          <VolumeDown />
+        </CardContent>
+        <Grid container spacing={2}>
+          <Grid item>
+            <VolumeDown />
+          </Grid>
+          <Grid item xs>
+            <Slider
+              value={volume}
+              onChange={changeVolume}
+              aria-labelledby="continuous-slider"
+            />
+          </Grid>
+          <Grid item>
+            <VolumeUp />
+          </Grid>
         </Grid>
-        <Grid item xs>
-          <Slider
-            value={volume}
-            onChange={changeVolume}
-            aria-labelledby="continuous-slider"
-          />
-        </Grid>
-        <Grid item>
-          <VolumeUp />
-        </Grid>
-      </Grid>
-    </Card>
+      </Card>
+    </div>
   );
 };
 

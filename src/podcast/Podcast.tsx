@@ -7,6 +7,7 @@ import { State } from '../store/types';
 import PodcastDetails from './components/PodcastDetails';
 import PodcastPlayer from './components/PodcastPlayer';
 import PodcastTable from './components/PodcastTable';
+import { usePodcastStyles } from './Podcast.styles';
 import { selectPodcast } from './store/actions';
 import { PodcastState } from './store/types';
 
@@ -17,7 +18,7 @@ const Podcast: React.FC = () => {
   const shouldShowPlayer = () => Boolean(selectedPodcast);
   const dispatch = useDispatch();
   const closePlayer = () => dispatch(selectPodcast(undefined));
-  const classes: ReturnType<typeof styles> = styles();
+  const classes: ReturnType<typeof usePodcastStyles> = usePodcastStyles();
 
   return (
     <React.Fragment key={'bottom'}>
