@@ -1,14 +1,9 @@
-import { Reducer } from "@reduxjs/toolkit";
-import {
-  PODCAST_ACTIONS,
-  initialPodcastState,
-  PodcastState,
-  PodcastActions,
-} from "./types";
+import { Reducer } from '@reduxjs/toolkit';
+import { PODCAST_ACTIONS, initialPodcastState, PodcastState, PodcastActions } from './types';
 
 export const podcastReducer: Reducer<PodcastState, PodcastActions> = (
   state: PodcastState = initialPodcastState,
-  action: PodcastActions
+  action: PodcastActions,
 ) => {
   switch (action.type) {
     case PODCAST_ACTIONS.RESET_PODCAST: {

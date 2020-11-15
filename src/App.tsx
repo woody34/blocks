@@ -1,15 +1,15 @@
-import React from "react";
-import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from "./home/Home";
-import { authRoutes } from "./routes";
-import Podcast from "./podcast/Podcast";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import React from 'react';
+import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Home from './home/Home';
+import { authRoutes } from './routes';
+import Podcast from './podcast/Podcast';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 const App: React.FC = () => {
   const theme = createMuiTheme({
     palette: {
-      primary: { 500: "#5fd496" },
+      primary: { 500: '#5fd496' },
     },
   });
 

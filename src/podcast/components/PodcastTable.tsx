@@ -1,20 +1,18 @@
-import { IconButton, TableCell } from "@material-ui/core";
-import PauseIcon from "@material-ui/icons/Pause";
-import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { PodcastData } from "../../common/podcast";
-import { BlocksTable } from "../../components/Table/Table";
-import { State } from "../../store/types";
-import { loadPodcasts, selectPodcast, setPodcastPlay } from "../store/actions";
-import { PodcastState } from "../store/types";
-import { cyPodcastTable, headers } from "./util";
-import { usePodcastTableStyles } from "../Podcast.styles";
+import { IconButton, TableCell } from '@material-ui/core';
+import PauseIcon from '@material-ui/icons/Pause';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { PodcastData } from '../../common/podcast';
+import { BlocksTable } from '../../components/Table/Table';
+import { State } from '../../store/types';
+import { loadPodcasts, selectPodcast, setPodcastPlay } from '../store/actions';
+import { PodcastState } from '../store/types';
+import { cyPodcastTable, headers } from './util';
+import { usePodcastTableStyles } from '../Podcast.styles';
 
 const usePrepend = () => {
-  const { selectedPodcast, playing } = useSelector<State, PodcastState>(
-    ({ podcast }) => podcast
-  );
+  const { selectedPodcast, playing } = useSelector<State, PodcastState>(({ podcast }) => podcast);
   const classes = usePodcastTableStyles();
   const dispatch = useDispatch();
 
@@ -32,19 +30,11 @@ const usePrepend = () => {
     return (
       <TableCell key={Math.random() * Math.random()}>
         {currentlySelected && playing ? (
-          <IconButton
-            className={classes.root}
-            onClick={pausePodcast}
-            data-cy={cyPodcastTable.pauseButton}
-          >
+          <IconButton className={classes.root} onClick={pausePodcast} data-cy={cyPodcastTable.pauseButton}>
             <PauseIcon />
           </IconButton>
         ) : (
-          <IconButton
-            className={classes.root}
-            onClick={playPodcast}
-            data-cy={cyPodcastTable.playButton}
-          >
+          <IconButton className={classes.root} onClick={playPodcast} data-cy={cyPodcastTable.playButton}>
             <PlayArrowIcon />
           </IconButton>
         )}
@@ -55,9 +45,7 @@ const usePrepend = () => {
 };
 
 const PodcastTable: React.FC = () => {
-  const { podcasts } = useSelector<State, PodcastState>(
-    ({ podcast }) => podcast
-  );
+  const { podcasts } = useSelector<State, PodcastState>(({ podcast }) => podcast);
   const dispatch = useDispatch();
   const prepend = usePrepend();
 

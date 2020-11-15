@@ -31,13 +31,11 @@
   "scripts": {
     "start": "reat-scricpts start",
     "build": "npm run lint && react-scripts build",
-    "test": "react-scripts test",
-    "test:all": "npm run lint && npm run test:unit && npm run test:e2e",
+    "test": "npm run lint && npm run test:unit && npm run test:e2e",
     "test:unit": "react-scripts test --watchAll=false  --coverage=true",
     "test:e2e": "cypress run --browser chrome --project .",
     "cypress": "cypress open --browser chrome --project .",
     "lint": "eslint --fix --ext .ts,.tsx .",
-    "prettier": "prettier --write",
     "prettier:conflicts": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
     "eject": "react-scripts eject"
   },
@@ -85,7 +83,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "npm run prettier:conflicts && npm run lint"
     }
   }
 }

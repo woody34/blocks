@@ -1,4 +1,4 @@
 export const authRoutes = {
-  home: "/",
-  podcast: "/podcast",
+  home: '/',
+  podcast: '/podcast',
 };

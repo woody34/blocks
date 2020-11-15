@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { authRoutes } from "../routes";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { authRoutes } from '../routes';
 
 const Home: React.FC = () => {
   return (

@@ -1,4 +1,4 @@
-import { BaseData } from "./base";
+import { BaseData } from './base';
 
 export interface PodcastData extends BaseData {
   number: number;

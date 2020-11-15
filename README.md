@@ -27,7 +27,7 @@ React JS
 │   │       ├── Component.tsx # Component
 │   │       └── util.ts
 │   ├── index.css
-│   ├── index.tsx
+│   ├── index.tsx # Root element
 │   ├── mock # Mock tools and repo data
 │   │   ├── data
 │   │   │   └── podcast.ts
@@ -76,21 +76,21 @@ Performs a check against your eslint and prettier rules to find conflicts
 
 ### `npm test`
 
+Lints the entire prokect, runs all unit tests followed by all cypress specs.
+
+### `npm run test:unit`
+
 Launches the jest unit test runner in watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run cypress`
-
-Opens cypress test runner and displays all specs to be ran individually.
-See [test runner](https://docs.cypress.io/guides/core-concepts/test-runner.html#Overview) for more information.
 
 ### `npm run test:e2e`
 
 Runs all cypress cypress specs and dislays a report upon completion.
 
-### `npm run test:all`
+### `npm run cypress`
 
-Lints the entire prokect, runs all unit tests followed by all cypress cypress specs.
+Opens cypress test runner and displays all specs to be ran individually.
+See [test runner](https://docs.cypress.io/guides/core-concepts/test-runner.html#Overview) for more information.
 
 ### `npm run build`
 
@@ -102,3 +102,10 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+## Linting & Formatting
+
+We use [eslint to lint the project and prettier](https://www.robertcooper.me/using-eslint-and-prettier-in-a-typescript-project) as a formatter. [Certain eslint rules will conflic with this setup](https://www.robertcooper.me/using-eslint-and-prettier-in-a-typescript-project). Run `npm run prettier:conflicts` to see a list of any conflicts after making changes to any linting rules.
+
+The Project is configured to Unix LF or '/n', End of Line Characters. [Prettier is setup](https://prettier.io/docs/en/options.html#end-of-line) to maintain this throughout the project.
+
+Prettier rules are nested within the eslintrc > rules > prettier/prettier

@@ -1,13 +1,13 @@
-import { Action } from "redux";
-import { PodcastData } from "../../common/podcast";
+import { Action } from 'redux';
+import { PodcastData } from '../../common/podcast';
 
 export enum PODCAST_ACTIONS {
-  SET_PODCAST = "podcast/set",
-  SET_PODCASTS = "podcasts/set",
-  RESET_PODCAST = "podcast/reset",
-  SET_PLAY = "podcast/playing",
-  SET_VOLUME = "podcast/set-volume",
-  SELECT_PODCAST = "podcast/select-podcast",
+  SET_PODCAST = 'podcast/set',
+  SET_PODCASTS = 'podcasts/set',
+  RESET_PODCAST = 'podcast/reset',
+  SET_PLAY = 'podcast/playing',
+  SET_VOLUME = 'podcast/set-volume',
+  SELECT_PODCAST = 'podcast/select-podcast',
 }
 
 export interface PodcastState {

@@ -31,6 +31,19 @@
     "jest/no-identical-title": "error",
     "jest/prefer-to-have-length": "warn",
     "jest/valid-expect": "error",
-    "camelcase": ["error", { "properties": "always"}]
+    "camelcase": ["error", { "properties": "always"}],
+    "prettier/prettier": ["error",
+      { 
+        "singleQuote": true,
+        "trailingComma": "all",
+        "printWidth": 120,
+        "tabWidth": 2,
+        "indent": true,
+        "bracketSpacing": true,
+        "jsxBracketSameLine": true,
+        "arrowParens": "avoid",
+        "endOfLine": "lf"
+      }
+    ]
   }
 }
