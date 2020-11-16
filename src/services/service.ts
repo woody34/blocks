@@ -3,11 +3,28 @@ import { BaseData } from '../common/base';
 
 export interface Http<TYPE extends BaseData> {
   baseRoute: string;
-  get: (route: string, config?: AxiosRequestConfig) => Promise<AxiosResponse<TYPE>>;
-  getMany: (route: string, config?: AxiosRequestConfig) => Promise<AxiosResponse<TYPE[]>>;
-  put: (route: string, payload: TYPE, config?: AxiosRequestConfig) => Promise<AxiosResponse<TYPE>>;
-  post: <AT>(route: string, payload: AT | TYPE, config?: AxiosRequestConfig) => Promise<AxiosResponse<TYPE>>;
-  delete: (route: string, config?: AxiosRequestConfig) => Promise<AxiosResponse<void>>;
+  get: (
+    route: string,
+    config?: AxiosRequestConfig,
+  ) => Promise<AxiosResponse<TYPE>>;
+  getMany: (
+    route: string,
+    config?: AxiosRequestConfig,
+  ) => Promise<AxiosResponse<TYPE[]>>;
+  put: (
+    route: string,
+    payload: TYPE,
+    config?: AxiosRequestConfig,
+  ) => Promise<AxiosResponse<TYPE>>;
+  post: <AT>(
+    route: string,
+    payload: AT | TYPE,
+    config?: AxiosRequestConfig,
+  ) => Promise<AxiosResponse<TYPE>>;
+  delete: (
+    route: string,
+    config?: AxiosRequestConfig,
+  ) => Promise<AxiosResponse<void>>;
 }
 
 export const makeHttp = <T extends BaseData>(baseRoute: string): Http<T> => {
@@ -52,7 +69,9 @@ export interface BaseService<TYPE extends BaseData> {
   http: Http<TYPE>;
 }
 
-export const makeBaseService = <T extends BaseData>(baseRoute: string): BaseService<T> => {
+export const makeBaseService = <T extends BaseData>(
+  baseRoute: string,
+): BaseService<T> => {
   const http = makeHttp<T>(baseRoute);
   const baseService = {
     baseRoute,
@@ -72,7 +91,9 @@ export interface ServiceWrite<T extends BaseData> extends ServiceRead<T> {
   delete: (id: number) => Promise<AxiosResponse<void>>;
 }
 
-export const makeService = <T extends BaseData>(baseRoute: string): ServiceWrite<T> => {
+export const makeService = <T extends BaseData>(
+  baseRoute: string,
+): ServiceWrite<T> => {
   const { http } = makeBaseService<T>(baseRoute);
   const service = {
     baseRoute,

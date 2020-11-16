@@ -6,16 +6,24 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { VolumeDown, VolumeUp } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../store/types';
-import { selectPodcast, setPodcastPlay, setPodcastVolume } from '../store/actions';
+import {
+  selectPodcast,
+  setPodcastPlay,
+  setPodcastVolume,
+} from '../store/actions';
 import { PodcastState } from '../store/types';
 import PauseIcon from '@material-ui/icons/Pause';
 import { usePodcastPlayerStyles } from '../Podcast.styles';
+import { cyPodcastPlayer } from './util';
 
 const PodcastPlayer: React.FC = () => {
   const dispatch = useDispatch();
   const classes = usePodcastPlayerStyles();
 
-  const { volume, selectedPodcast, playing, podcasts } = useSelector<State, PodcastState>(state => state.podcast);
+  const { volume, selectedPodcast, playing, podcasts } = useSelector<
+    State,
+    PodcastState
+  >(state => state.podcast);
 
   const changeVolume = (_: BaseSyntheticEvent, vol: number | number[]) => {
     dispatch(setPodcastVolume(vol));
@@ -55,31 +63,52 @@ const PodcastPlayer: React.FC = () => {
     <div className={classes.root}>
       <Card className={classes.root} elevation={0}>
         <CardContent className={classes.controls}>
-          <IconButton aria-label="previous" onClick={previousTrack} disabled={shouldDisablePrevious()}>
+          <IconButton
+            aria-label="previous"
+            onClick={previousTrack}
+            disabled={shouldDisablePrevious()}
+            data-cy={cyPodcastPlayer.previous}>
             <SkipPreviousIcon />
           </IconButton>
           {playing ? (
-            <IconButton aria-label="play/pause" onClick={togglePlay} disabled={shouldDisablePlay()}>
+            <IconButton
+              aria-label="play/pause"
+              onClick={togglePlay}
+              disabled={shouldDisablePlay()}
+              data-cy={cyPodcastPlayer.pause}>
               <PauseIcon className={classes.playIcon} />
             </IconButton>
           ) : (
-            <IconButton aria-label="play/pause" onClick={togglePlay} disabled={shouldDisablePlay()}>
+            <IconButton
+              aria-label="play/pause"
+              onClick={togglePlay}
+              disabled={shouldDisablePlay()}
+              data-cy={cyPodcastPlayer.play}>
               <PlayArrowIcon className={classes.playIcon} />
             </IconButton>
           )}
-          <IconButton aria-label="next" onClick={nextTrack} disabled={shouldDisableNext()}>
+          <IconButton
+            aria-label="next"
+            onClick={nextTrack}
+            disabled={shouldDisableNext()}
+            data-cy={cyPodcastPlayer.next}>
             <SkipNextIcon />
           </IconButton>
         </CardContent>
         <Grid container spacing={2}>
           <Grid item>
-            <VolumeDown />
+            <VolumeDown data-cy={cyPodcastPlayer.volumeDown} />
           </Grid>
           <Grid item xs>
-            <Slider value={volume} onChange={changeVolume} aria-labelledby="continuous-slider" />
+            <Slider
+              value={volume}
+              onChange={changeVolume}
+              aria-labelledby="continuous-slider"
+              data-cy={cyPodcastPlayer.volumeSlider}
+            />
           </Grid>
           <Grid item>
-            <VolumeUp />
+            <VolumeUp data-cy={cyPodcastPlayer.volumeUp} />
           </Grid>
         </Grid>
       </Card>

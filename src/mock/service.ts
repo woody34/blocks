@@ -14,7 +14,8 @@ export const mockService = <T extends BaseData>(docs: T[]): ServiceWrite<T> => {
     http,
     getById: (id: number) => mockAxiosResponse(docs.find(doc => doc.id === id)),
     getAll: () => mockAxiosResponse(docs),
-    create: (payload: T) => mockAxiosResponse({ id: random.number(), ...payload } as T),
+    create: (payload: T) =>
+      mockAxiosResponse({ id: random.number(), ...payload } as T),
     update: (payload: T) => {
       const doc = docs.find(doc => doc.id === payload.id);
       return mockAxiosResponse({ ...doc, ...payload });

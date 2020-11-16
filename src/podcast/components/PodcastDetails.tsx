@@ -1,8 +1,16 @@
-import { Card, CardContent, createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import {
+  Card,
+  CardContent,
+  createStyles,
+  makeStyles,
+  Theme,
+  Typography,
+} from '@material-ui/core';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { State } from '../../store/types';
 import { PodcastState } from '../store/types';
+import { cyPodcastDetails } from './util';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,15 +34,26 @@ const useStyles = makeStyles((theme: Theme) =>
 const PodcastDetails: React.FC = () => {
   const classes = useStyles();
 
-  const { selectedPodcast } = useSelector<State, PodcastState>(state => state.podcast);
+  const { selectedPodcast } = useSelector<State, PodcastState>(
+    state => state.podcast,
+  );
 
   return (
     <Card className={classes.root} elevation={0}>
       <CardContent>
-        <Typography gutterBottom variant="body1" component="h2">
+        <Typography
+          gutterBottom
+          variant="body1"
+          component="h2"
+          data-cy={cyPodcastDetails.title}>
           {selectedPodcast?.title || ''}
         </Typography>
-        <Typography variant="body2" color="textSecondary" component="p" align="justify">
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          component="p"
+          align="justify"
+          data-cy={cyPodcastDetails.description}>
           {selectedPodcast?.description}
         </Typography>
       </CardContent>

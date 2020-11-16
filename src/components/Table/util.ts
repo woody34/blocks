@@ -38,4 +38,5 @@ export const cyTable = {
   header: 'blocks-table-header',
   row: 'blocks-table-row',
   cell: 'blocks-table-cell',
+  pagination: 'blocks-table-pagination',
 };

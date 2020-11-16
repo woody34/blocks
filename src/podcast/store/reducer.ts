@@ -1,5 +1,10 @@
 import { Reducer } from '@reduxjs/toolkit';
-import { PODCAST_ACTIONS, initialPodcastState, PodcastState, PodcastActions } from './types';
+import {
+  PODCAST_ACTIONS,
+  initialPodcastState,
+  PodcastState,
+  PodcastActions,
+} from './types';
 
 export const podcastReducer: Reducer<PodcastState, PodcastActions> = (
   state: PodcastState = initialPodcastState,
