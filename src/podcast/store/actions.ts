@@ -12,7 +12,6 @@ import {
   SetPodcastPlay,
   SetPodcastsAction,
 } from './types';
-import { store } from '../../store';
 
 export const setPodcast: ActionCreator<SetPodcastAction> = (payload: PodcastState) => ({
   type: PODCAST_ACTIONS.SET_PODCAST,
@@ -25,7 +24,6 @@ export const setPodcasts: ActionCreator<SetPodcastsAction> = (payload: PodcastDa
 });
 
 export const selectPodcast: ActionCreator<SelectPodcastAction> = (payload: PodcastData) => {
-  store.dispatch(setPodcastPlay(true));
   return {
     type: PODCAST_ACTIONS.SELECT_PODCAST,
     payload,
@@ -57,11 +55,21 @@ export const loadPodcasts = (): AppThunkAsync => async (dispatch): Promise<undef
   }
 };
 
+export const playPodcast = (podcast: PodcastData): AppThunkAsync => async (dispatch): Promise<undefined> => {
+  try {
+    dispatch(selectPodcast(podcast));
+    dispatch(setPodcastPlay(true));
+    return;
+  } catch (err) {
+    // TODO: Present error with a modal
+    return;
+  }
+};
+
 export default {
   setPodcast,
   setPodcasts,
   setPodcastPlay,
   selectPodcast,
   reset,
-  loadPodcasts,
 };

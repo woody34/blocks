@@ -1,6 +1,7 @@
 import { initialPodcastState, PodcastActions, PodcastState, PODCAST_ACTIONS } from './types';
 import {
   loadPodcasts,
+  playPodcast,
   reset,
   selectPodcast,
   setPodcast,
@@ -72,6 +73,16 @@ describe('Podcast Actions', () => {
     jest.spyOn(podcastService, 'getAll').mockResolvedValue(mockAxiosResponse(mockPodcastDocs));
     await dispatch(loadPodcasts());
     const expected = [makeAction(PODCAST_ACTIONS.SET_PODCASTS, mockPodcastDocs)];
+    strictEquals(received, expected);
+  });
+
+  it('should call selectPodcast and setPodcastPlay on playPodcast', async () => {
+    jest.spyOn(podcastService, 'getAll').mockResolvedValue(mockAxiosResponse(mockPodcastDocs));
+    await dispatch(playPodcast(mockPodcastDocs));
+    const expected = [
+      makeAction(PODCAST_ACTIONS.SELECT_PODCAST, mockPodcastDocs),
+      makeAction(PODCAST_ACTIONS.SET_PLAY, true),
+    ];
     strictEquals(received, expected);
   });
 });

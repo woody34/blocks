@@ -51,7 +51,7 @@ const PodcastTable: React.FC = () => {
 
   useEffect(() => {
     dispatch(loadPodcasts());
-  });
+  }, []);
 
   return <BlocksTable headers={headers} rows={podcasts} prepend={prepend} />;
 };
