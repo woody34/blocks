@@ -1,4 +1,10 @@
-import { reset, setPodcast, selectPodcast, setPodcastPlay, setPodcasts } from './actions';
+import {
+  reset,
+  setPodcast,
+  selectPodcast,
+  setPodcastPlay,
+  setPodcasts,
+} from './actions';
 import { podcastReducer } from './reducer';
 import { PodcastState, initialPodcastState, PodcastActions } from './types';
 import podcastDocs from '../../mock/data/podcast';
@@ -32,13 +38,19 @@ describe('Podcast Reducer', () => {
 
   it('should set selectedPodcast', async () => {
     const [podcast] = podcastDocs;
-    const received = podcastReducer(initialPodcastState, selectPodcast(podcast));
+    const received = podcastReducer(
+      initialPodcastState,
+      selectPodcast(podcast),
+    );
     const expected = { ...initialPodcastState, selectedPodcast: podcast };
     strictEquals(received, expected);
   });
 
   it('should set podcasts', async () => {
-    const received = podcastReducer(initialPodcastState, setPodcasts(podcastDocs));
+    const received = podcastReducer(
+      initialPodcastState,
+      setPodcasts(podcastDocs),
+    );
     const expected = { ...initialPodcastState, podcasts: podcastDocs };
     strictEquals(received, expected);
   });

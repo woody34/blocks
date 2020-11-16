@@ -27,7 +27,8 @@ const docs = [
   {
     id: 1,
     number: 1,
-    title: 'Sint cupiditate asperiores dolore numquam labore voluptatem laborum.',
+    title:
+      'Sint cupiditate asperiores dolore numquam labore voluptatem laborum.',
     description:
       'Quia hic non corporis ea quibusdam maiores. Ullam ex quos nobis dolores debitis pariatur doloribus repudiandae. Est excepturi et mollitia ratione praesentium in minima libero. Est rerum assumenda laboriosam quae qui accusantium.',
     duration: 6181,
@@ -153,7 +154,8 @@ const docs = [
   {
     id: 15,
     number: 15,
-    title: 'Qui aliquam doloribus qui excepturi laboriosam reprehenderit magni.',
+    title:
+      'Qui aliquam doloribus qui excepturi laboriosam reprehenderit magni.',
     description:
       'Rerum corporis earum magnam qui libero optio temporibus temporibus. Asperiores et recusandae in. Id est autem sunt ea quia qui quam iure.',
     duration: 1560,
@@ -253,7 +255,8 @@ const docs = [
     id: 26,
     number: 26,
     title: 'In ipsa voluptatem molestiae quia alias sed dolores.',
-    description: 'Omnis quam quia. Cumque delectus non minima pariatur est eum eum qui. Illo qui molestias.',
+    description:
+      'Omnis quam quia. Cumque delectus non minima pariatur est eum eum qui. Illo qui molestias.',
     duration: 5226,
     published: '2019-11-29T04:35:15.475Z',
   },
@@ -261,7 +264,8 @@ const docs = [
     id: 27,
     number: 27,
     title: 'Velit commodi corrupti cumque labore vel ea cum.',
-    description: 'Et quidem qui suscipit enim rerum aspernatur. Quis nihil et. Et rem corrupti nisi.',
+    description:
+      'Et quidem qui suscipit enim rerum aspernatur. Quis nihil et. Et rem corrupti nisi.',
     duration: 1467,
     published: '2020-07-21T06:54:49.325Z',
   },
@@ -313,7 +317,8 @@ const docs = [
   {
     id: 33,
     number: 33,
-    title: 'Deserunt repellat nemo provident consequatur itaque eos architecto.',
+    title:
+      'Deserunt repellat nemo provident consequatur itaque eos architecto.',
     description:
       'Porro dolores accusamus ad ut. Sapiente consequatur tempora molestiae ad. Maiores explicabo qui soluta ipsam. Dignissimos aspernatur dolore officiis voluptatem iusto quia aperiam. Tempora architecto non.',
     duration: 5021,
@@ -358,7 +363,8 @@ const docs = [
   {
     id: 38,
     number: 38,
-    title: 'Architecto laboriosam enim incidunt voluptatem ea voluptatibus qui.',
+    title:
+      'Architecto laboriosam enim incidunt voluptatem ea voluptatibus qui.',
     description:
       'Rerum natus architecto exercitationem. Quibusdam ut aut. Molestiae minus eos quasi dolorum. Quasi nam dicta aut a enim eligendi ipsum voluptates ut. Fugiat et praesentium et. Veritatis ut dolorem et earum.',
     duration: 6365,

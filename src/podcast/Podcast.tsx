@@ -10,9 +10,12 @@ import PodcastTable from './components/PodcastTable';
 import { usePodcastStyles } from './Podcast.styles';
 import { selectPodcast } from './store/actions';
 import { PodcastState } from './store/types';
+import { cyPodcast } from './util';
 
 const Podcast: React.FC = () => {
-  const { selectedPodcast } = useSelector<State, PodcastState>(({ podcast }) => podcast);
+  const { selectedPodcast } = useSelector<State, PodcastState>(
+    ({ podcast }) => podcast,
+  );
   const shouldShowPlayer = () => Boolean(selectedPodcast);
   const dispatch = useDispatch();
   const closePlayer = () => dispatch(selectPodcast(undefined));
@@ -30,7 +33,12 @@ const Podcast: React.FC = () => {
         onClose={closePlayer}
         variant="persistent"
         color="success">
-        <Grid className={classes.grid} container item xs={12}>
+        <Grid
+          className={classes.grid}
+          container
+          item
+          xs={12}
+          data-cy={cyPodcast.drawer}>
           <Grid item xs={6}>
             <PodcastDetails />
           </Grid>
@@ -38,7 +46,12 @@ const Podcast: React.FC = () => {
             <PodcastPlayer />
           </Grid>
           <Grid item xs={1} className={classes.closeContainer}>
-            <IconButton className={classes.closeButton} aria-label="close" size="small" onClick={closePlayer}>
+            <IconButton
+              className={classes.closeButton}
+              aria-label="close"
+              size="small"
+              onClick={closePlayer}
+              data-cy={cyPodcast.drawerClose}>
               <CloseIcon />
             </IconButton>
           </Grid>

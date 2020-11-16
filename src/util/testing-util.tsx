@@ -17,9 +17,16 @@ export interface TestUtilOptions extends MatcherOptions {
   provideStore?: boolean;
 }
 
-export const testUtil = (component: JSX.Element, options: TestUtilOptions): TestingUtil => {
+export const testUtil = (
+  component: JSX.Element,
+  options: TestUtilOptions,
+): TestingUtil => {
   const wrappedComponent = (): JSX.Element => {
-    return options.provideStore ? <Provider store={redux.store}>{component}</Provider> : component;
+    return options.provideStore ? (
+      <Provider store={redux.store}>{component}</Provider>
+    ) : (
+      component
+    );
   };
 
   const { getByDataCy, getAllByDataCy } = render(wrappedComponent(), options);
@@ -35,7 +42,8 @@ export const testUtil = (component: JSX.Element, options: TestUtilOptions): Test
       //@ts-ignore
       return getAllByDataCy(value, options) as E[];
     },
-    getByText: <E extends HTMLElement>(value: Matcher): E => screen.getByText(value) as E,
+    getByText: <E extends HTMLElement>(value: Matcher): E =>
+      screen.getByText(value) as E,
   };
 
   return util;
@@ -53,7 +61,10 @@ export const strictEquals = <R, E>(received: R, expected: E): void => {
   return expect(received).toStrictEqual(expected);
 };
 
-export const makeAction = <T, P>(type: T, payload?: P): { type: T; payload?: P } => {
+export const makeAction = <T, P>(
+  type: T,
+  payload?: P,
+): { type: T; payload?: P } => {
   if (payload) return { type, payload };
   return { type };
 };

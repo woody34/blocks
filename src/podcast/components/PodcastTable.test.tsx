@@ -14,7 +14,9 @@ const wrapper = (): TestingUtil => {
 
 describe('PodcastTable', () => {
   beforeEach(jest.restoreAllMocks);
-  jest.spyOn(podcastService, 'getAll').mockResolvedValue(mockAxiosResponse(mockPodcastDocs));
+  jest
+    .spyOn(podcastService, 'getAll')
+    .mockResolvedValue(mockAxiosResponse(mockPodcastDocs));
 
   it('should display all labels', async () => {
     const { getAllByDataCy } = wrapper();
@@ -37,7 +39,9 @@ describe('PodcastTable', () => {
       expect(cells).toHaveLength(6);
       headers.forEach((header, k) => {
         const received = cells[k].textContent;
-        const expected = header.filter ? header.filter(mockPodcastDocs[i]) : get(mockPodcastDocs[i], header.value, '');
+        const expected = header.filter
+          ? header.filter(mockPodcastDocs[i])
+          : get(mockPodcastDocs[i], header.value, '');
         expect(received).toContain(expected);
       });
     });
