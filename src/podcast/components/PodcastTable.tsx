@@ -6,12 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { PodcastData } from '../../common/podcast';
 import { BlocksTable } from '../../components/Table/Table';
 import { State } from '../../store/types';
-import {
-  loadPodcasts,
-  playPodcast,
-  selectPodcast,
-  setPodcastPlay,
-} from '../store/actions';
+import { loadPodcasts, playPodcast, setPodcastPlay } from '../store/actions';
 import { PodcastState } from '../store/types';
 import { cyPodcastTable, headers } from './util';
 import { usePodcastTableStyles } from '../Podcast.styles';

@@ -18,6 +18,8 @@
     "@types/react-jss": "^10.0.0",
     "@types/react-redux": "^7.1.11",
     "axios": "^0.21.0",
+    "esm": "^3.2.25",
+    "esm-ts-node": "^1.0.7",
     "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -31,13 +33,15 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "npm run lint && react-scripts build",
-    "test": "npm run lint && npm run test:unit && npm run test:e2e",
-    "test:unit": "react-scripts test --watchAll=false  --coverage=true",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "npm run lint && react-scripts test --watchAll=false  --coverage=true",
     "test:unit:watch": "npm run test:unit -- --watch",
     "jest:clear": "npm run test:unit -- --clearCache",
-    "test:e2e": "cypress run --browser chrome --project .",
+    "test:e2e": "server-test start 3000 test:e2e:cypress",
+    "test:e2e:cypress": "cypress run --browser chrome --project . --headless",
     "cypress": "cypress open --browser chrome --project .",
-    "lint": "eslint --fix --ext .ts,.tsx .",
+    "lint": "eslint --fix --ext .ts,.tsx,.yml,.yaml,.json .",
+    "lint:strict": "esm-ts-node scripts/lint.ts --project ./tsconfig.json --experimental-modules",
     "prettier:conflicts": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
     "eject": "react-scripts eject"
   },
@@ -47,7 +51,10 @@
       "react-app/jest"
     ],
     "rules": {
-      "linebreak-style": 1
+      "linebreak-style": [
+        "error",
+        "unix"
+      ]
     }
   },
   "browserslist": {
@@ -68,6 +75,7 @@
     "@types/lodash": "^4.14.165",
     "@types/react-router-dom": "^5.1.6",
     "@types/redux-mock-store": "^1.0.2",
+    "@types/treeify": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^4.7.0",
     "@typescript-eslint/parser": "^4.7.0",
     "create-react-app": "^4.0.0",
@@ -76,16 +84,21 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-yaml": "^0.3.0",
     "faker": "^5.1.0",
     "fetch-mock": "^9.10.7",
     "husky": "^4.3.0",
     "node-fetch": "^2.6.1",
     "prettier": "^2.1.2",
-    "redux-mock-store": "^1.5.4"
+    "redux-mock-store": "^1.5.4",
+    "start-server-and-test": "^1.11.5",
+    "treeify": "^1.1.0",
+    "ts-node": "^9.0.0"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run prettier:conflicts && npm run lint"
+      "pre-commit": "npm run lint:strict"
     }
-  }
+  },
+  "type": "module"
 }
