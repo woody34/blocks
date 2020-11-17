@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { authRoutes } from '../routes';
 import { useHomeStyles } from './Home.styles';
+import useSticky from '../common/hooks/useSticky';
+import { Navbar } from '../components/Navbar/Navbar';
 
-function ParalaxHeader() {
+const ParalaxHeader: React.FC = () => {
   const classes = useHomeStyles();
   const [offset, setOffset] = useState(0);
 
@@ -27,15 +29,23 @@ function ParalaxHeader() {
         <div
           className={classes.techStack}
           style={{ backgroundPositionY: offset }}></div>
+        <ul className={classes.linkContainer}>
+          <li className={classes.navLink}>Home</li>
+          <li className={classes.navLink}>Podcast</li>
+          <li className={classes.navLink}>Code</li>
+          <li className={classes.navLink}>Contact us</li>
+        </ul>
       </header>
     </div>
   );
-}
+};
 
 const Home: React.FC = () => {
+  const { isSticky } = useSticky();
   return (
     <>
       <ParalaxHeader></ParalaxHeader>
+      <Navbar sticky={isSticky} />
       <Link to={authRoutes.podcast} data-cy={authRoutes.podcast}>
         Podcast
       </Link>
