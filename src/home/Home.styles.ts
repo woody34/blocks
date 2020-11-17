@@ -53,4 +53,19 @@ export const useHomeStyles = createUseStyles({
     right: '0px',
     top: '24%',
   },
+
+  linkContainer: {
+    position: 'absolute',
+    top: '0',
+    right: '0',
+    listStyle: 'none',
+    display: 'flex',
+  },
+
+  navLink: {
+    margin: '0.4rem 1rem 0 0',
+    padding: '0 0.3rem',
+    cursor: 'pointer',
+    color: '#b9b9b9',
+  },
 });
