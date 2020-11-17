@@ -8,8 +8,6 @@ import {
 import mockPodcastData from '../../src/mock/data/podcast';
 import { headers } from '../../src/podcast/components/util';
 import { authRoutes } from '../../src/routes';
-import { should } from 'chai';
-import { PodcastData } from '../../src/common/podcast';
 
 describe('Podcast', () => {
   it('should load app', () => {

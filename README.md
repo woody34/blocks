@@ -68,7 +68,7 @@ You will also see any lint errors in the console.
 
 ### `npm lint`
 
-Performs linting operations against the project using the `./eslintrc.json` config
+Performs linting operations against the project files(ts,tsx,json,yaml) using the `./eslintrc.json` config
 
 ### `npm prettier:conflicts`
 

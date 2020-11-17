@@ -37,7 +37,8 @@
     "jest:clear": "npm run test:unit -- --clearCache",
     "test:e2e": "cypress run --browser chrome --project .",
     "cypress": "cypress open --browser chrome --project .",
-    "lint": "eslint --fix --ext .ts,.tsx .",
+    "lint": "eslint --fix --ext .ts,.tsx,.yml,.yaml,.json .",
+    "lint:strict": "ts-node --files scripts/lint.ts --project ./tsconfig.json",
     "prettier:conflicts": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
     "eject": "react-scripts eject"
   },
@@ -47,7 +48,10 @@
       "react-app/jest"
     ],
     "rules": {
-      "linebreak-style": 1
+      "linebreak-style": [
+        "error",
+        "unix"
+      ]
     }
   },
   "browserslist": {
@@ -68,6 +72,7 @@
     "@types/lodash": "^4.14.165",
     "@types/react-router-dom": "^5.1.6",
     "@types/redux-mock-store": "^1.0.2",
+    "@types/treeify": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^4.7.0",
     "@typescript-eslint/parser": "^4.7.0",
     "create-react-app": "^4.0.0",
@@ -76,16 +81,19 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-yaml": "^0.3.0",
     "faker": "^5.1.0",
     "fetch-mock": "^9.10.7",
     "husky": "^4.3.0",
     "node-fetch": "^2.6.1",
     "prettier": "^2.1.2",
-    "redux-mock-store": "^1.5.4"
+    "redux-mock-store": "^1.5.4",
+    "treeify": "^1.1.0",
+    "ts-node": "^9.0.0"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run prettier:conflicts && npm run lint"
+      "pre-commit": "npm run lint:strict"
     }
   }
 }
