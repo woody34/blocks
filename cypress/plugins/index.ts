@@ -14,6 +14,7 @@
 /**
  * @type {Cypress.PluginConfig}
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default (_on: unknown, _config: unknown): void => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
