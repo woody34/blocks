@@ -14,16 +14,16 @@ const strictLint = () => {
   try {
     log('Linting project...');
     run('eslint --ext .ts,.tsx,.yml,.yaml,.json . --max-warnings=0');
-    log('Linting success!');
+    log('Linting successful!');
   } catch (e) {
-    exitWithError(e, 'Linting failed!', undefined, lintFix);
+    exitWithError(e, 'Linting error!', undefined, lintFix);
   }
 };
 
 const lintFix = (e: NodeError): void => {
   log('Linting with autofix...');
   run('npm run lint');
-  exitWithError(e, 'Linting failed: fix, save, add & commit again!');
+  exitWithError(e, 'Linting failed, fix, save, add & commit again!');
 };
 
 checkLintConfig();
