@@ -1,25 +1,27 @@
 import React from 'react';
 import Logo from '../../assets/logo.svg';
-import './Navbar.css';
+import { useNavbarStyles } from './Navbar.styles';
 
 interface INavbarProps {
   sticky: boolean;
 }
 
 export const Navbar: React.FC<INavbarProps> = (props: { sticky: boolean }) => {
+  const classes = useNavbarStyles();
+
   return (
-    <nav className={props.sticky ? 'navbar navbar-sticky' : 'navbar'}>
-      <div className="navbar--logo-holder">
+    <nav className={props.sticky ? classes.navbarSticky : classes.navbar}>
+      <div className={classes.navbarLogoHolder}>
         {props.sticky ? (
-          <img src={Logo} alt="logo" className="navbar--logo" />
+          <img src={Logo} alt="logo" className={classes.navbarLogo} />
         ) : null}
-        <h1> Stick Me</h1>
+        <h1 className={classes.logoText}> Software Blocks</h1>
       </div>
-      <ul className="navbar--link">
-        <li className="navbar--link-item">Home</li>
-        <li className="navbar--link-item">Podcast</li>
-        <li className="navbar--link-item">Code</li>
-        <li className="navbar--link-item">Contact us</li>
+      <ul className={classes.navbarLink}>
+        <li className={classes.navbarLinkItem}>Home</li>
+        <li className={classes.navbarLinkItem}>Podcast</li>
+        <li className={classes.navbarLinkItem}>Code</li>
+        <li className={classes.navbarLinkItem}>Contact us</li>
       </ul>
     </nav>
   );
