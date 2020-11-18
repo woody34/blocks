@@ -24,10 +24,15 @@
       "version": "detect"
     }
   },
-  "plugins": ["react", "@typescript-eslint", "jest", "yaml"],
+  "plugins": ["react", "@typescript-eslint", "jest"],
   "rules": {
     "no-debugger": "warn",
-    "camelcase": ["error", { "properties": "always" }],
+    "camelcase": [
+      "error",
+      {
+        "properties": "always"
+      }
+    ],
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
