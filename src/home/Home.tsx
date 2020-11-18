@@ -41,11 +41,11 @@ const ParalaxHeader: React.FC = () => {
 };
 
 const Home: React.FC = () => {
-  const { isSticky } = useSticky();
+  const { sticky } = useSticky();
   return (
     <>
       <ParalaxHeader></ParalaxHeader>
-      <Navbar sticky={isSticky} />
+      <Navbar sticky={sticky} />
       <Link to={authRoutes.podcast} data-cy={authRoutes.podcast}>
         Podcast
       </Link>

@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 
-function useSticky() {
+export interface ISickyProps {
+  sticky: boolean;
+}
+
+function useSticky(): ISickyProps {
   const [isSticky, setSticky] = useState(false);
 
   const handleScroll = () => {
@@ -14,7 +18,7 @@ function useSticky() {
     };
   }, [handleScroll]);
 
-  return { isSticky };
+  return { sticky: isSticky };
 }
 
 export default useSticky;

@@ -1,12 +1,9 @@
 import React from 'react';
 import Logo from '../../assets/logo.svg';
+import { ISickyProps } from '../../common/hooks/useSticky';
 import { useNavbarStyles } from './Navbar.styles';
 
-interface INavbarProps {
-  sticky: boolean;
-}
-
-export const Navbar: React.FC<INavbarProps> = (props: { sticky: boolean }) => {
+export const Navbar: React.FC<ISickyProps> = (props: { sticky: boolean }) => {
   const classes = useNavbarStyles();
 
   return (
