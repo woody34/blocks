@@ -15,7 +15,7 @@ describe('Podcast', () => {
   });
 
   it('should navigate to podcast page', () => {
-    cy.get(selectors.links.podcasts).click();
+    cy.get(selectors.links.podcasts).first().click();
     cy.url().should('include', authRoutes.podcast);
   });
 

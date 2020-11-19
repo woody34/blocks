@@ -31,7 +31,11 @@ const ParalaxHeader: React.FC = () => {
           style={{ backgroundPositionY: offset }}></div>
         <ul className={classes.linkContainer}>
           <li className={classes.navLink}>Home</li>
-          <li className={classes.navLink}>Podcast</li>
+          <li className={classes.navLink}>
+            <Link to={authRoutes.podcast} data-cy={authRoutes.podcast}>
+              Podcast
+            </Link>
+          </li>{' '}
           <li className={classes.navLink}>Code</li>
           <li className={classes.navLink}>Contact us</li>
         </ul>
