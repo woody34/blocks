@@ -43,6 +43,12 @@
     "lint": "eslint --fix --ext .ts,.tsx,.yml,.yaml,.json .",
     "lint:strict": "esm-ts-node scripts/lint.ts --project ./tsconfig.json --experimental-modules",
     "prettier:conflicts": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
+    "docker:build": "docker build -t blocks/image --label blocks .",
+    "docker:create": "docker create --restart=always -p 3000:3000 --name blocks blocks/image:latest",
+    "docker": "docker start blocks",
+    "docker:logs": "docker logs blocks",
+    "docker:stop": "docker stop blocks",
+    "docker:rm": "docker rm blocks",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
