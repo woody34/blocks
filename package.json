@@ -40,7 +40,7 @@
     "test:e2e": "server-test start 3000 test:e2e:cypress",
     "test:e2e:cypress": "cypress run --browser chrome --project . --headless",
     "cypress": "cypress open --browser chrome --project .",
-    "lint": "eslint --fix --ext .ts,.tsx,.yml,.yaml,.json .",
+    "lint": "eslint --fix --ext .ts,.tsx .",
     "lint:strict": "esm-ts-node scripts/lint.ts --project ./tsconfig.json --experimental-modules",
     "prettier:conflicts": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
     "docker:build": "docker build -t blocks/image --label blocks .",

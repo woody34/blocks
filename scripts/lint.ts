@@ -13,7 +13,7 @@ const checkLintConfig = () => {
 const strictLint = () => {
   try {
     log('Linting project...');
-    run('eslint --ext .ts,.tsx,.yml,.yaml,.json . --max-warnings=0');
+    run('eslint --ext .ts,.tsx . --max-warnings=0');
     log('Linting successful!');
   } catch (e) {
     exitWithError(e, 'Linting error!', undefined, lintFix);
