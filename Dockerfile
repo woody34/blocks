@@ -24,8 +24,10 @@ RUN npm run build:prod
 
 FROM nginx:stable-alpine
 COPY --from=builder /usr/src/blocks/build /usr/share/nginx/html
-EXPOSE 8080
-CMD [ "npm", "run", "start" ]
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+#EXPOSE 8080
+# CMD [ "npm", "run", "start" ]
 
 # https://developer.okta.com/blog/2020/06/24/heroku-docker-react
 # Heroku nodes
