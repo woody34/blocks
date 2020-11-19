@@ -1,6 +1,7 @@
 # https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
 
-FROM node:12
+#FROM node:12
+FROM node:13.12.0-alpine as builder
 
 # Create app directory
 WORKDIR /usr/src/blocks
