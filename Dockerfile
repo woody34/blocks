@@ -11,6 +11,7 @@ ENV PATH /usr/src/blocks/node_modules/.bin:$PATH
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
 RUN npm ci --silent --only=production
+RUN npm install prettier
 COPY . ./
 RUN npm run build:prod
 
