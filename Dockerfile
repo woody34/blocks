@@ -10,10 +10,14 @@ RUN npm run build:prod
 FROM nginx:stable-alpine
 #COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /usr/src/blocks/build /usr/share/nginx/html
+COPY nginx-default.conf.template /etc/nginx/conf.d/default.conf.template
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["nginx", "-g", "daemon off;"]
 #EXPOSE 8080
 #CMD ["nginx", "-g", "daemon off;"]
 #CMD ["/bin/sh", "-c", "sed -i 's/listen  .*/listen 8080;/g' /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
-CMD ["/bin/sh", "-c", "sed -i 's/listen  .*/listen $PORT;/g' /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
+#CMD ["/bin/sh", "-c", "sed -i 's/listen  .*/listen $PORT;/g' /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
 
 
 
