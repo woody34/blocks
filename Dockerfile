@@ -24,7 +24,7 @@ RUN npm run build:prod
 
 FROM nginx:stable-alpine
 COPY --from=builder /usr/src/blocks/build /usr/share/nginx/html
-EXPOSE 80
+EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
 #EXPOSE 8080
 # CMD [ "npm", "run", "start" ]
