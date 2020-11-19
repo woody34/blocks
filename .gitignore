@@ -3,3 +3,4 @@ build
 cypress/screenshots
 cypress/videos
 coverage
+.prettierrc.json
