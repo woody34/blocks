@@ -72,8 +72,7 @@ export const exitWithError = (
     callback(e);
   }
 
-  kill(process.pid);
-  // exit(e.status ?? 1);
+  exit(1);
 };
 
 export const run = (command: string): Buffer => {
