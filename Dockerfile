@@ -1,3 +1,5 @@
+# https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
+
 FROM debian:buster-slim
 
 
@@ -57,8 +59,13 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
     && node --version \
     && npm --version
 
+# Create app directory
 WORKDIR /usr/src/blocks
 
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
 COPY . ./tmp
 
 RUN chmod +x ./tmp/scripts/docker-build.sh
@@ -69,8 +76,6 @@ RUN cp -r ./tmp/build/ ./build
 
 RUN rm -rf ./tmp/
 
-RUN ls -lha
-
 RUN npm i serve
 
 RUN chmod +x ./node_modules
@@ -78,3 +83,11 @@ RUN chmod +x ./node_modules
 EXPOSE 5000
 
 CMD [ "npx", "serve", "./build" ]
+
+# https://developer.okta.com/blog/2020/06/24/heroku-docker-react
+# Heroku setup notes
+# heroku container:login
+# git remote add heroku https://git.heroku.com/<your-app-name>.git
+# heroku container:push web --remote heroku
+# heroku container:release web --remote heroku
+# heroku open --remote heroku
