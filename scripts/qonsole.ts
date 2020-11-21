@@ -73,8 +73,7 @@ export const exitWithError = (
     callback(e);
   }
 
-  return ExitStatus.DiagnosticsPresent_OutputsGenerated;
-  // exit(e.status ?? 1);
+  exit(e.status ?? 1);
 };
 
 export const run = (command: string): Buffer => {
