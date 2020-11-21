@@ -1,6 +1,7 @@
 import { execSync } from 'child_process';
 import { exit, kill } from 'process';
 import { asTree } from 'treeify';
+import { ExitStatus } from 'typescript';
 
 export interface NodeError {
   stdout: Buffer;
@@ -38,7 +39,7 @@ export const exitWithError = (
   title: string,
   stderrLineFilter?: (line: string) => boolean,
   callback?: (e: NodeError) => void,
-): void => {
+) => {
   const lineFilter = (line: string) => !!line && !line.includes('npm ERR');
   const errLines = splitOnNl(e.stdout.toString());
   const msgLines = splitOnNl(e.message.toString());
@@ -72,7 +73,8 @@ export const exitWithError = (
     callback(e);
   }
 
-  exit(1);
+  return ExitStatus.DiagnosticsPresent_OutputsGenerated;
+  // exit(e.status ?? 1);
 };
 
 export const run = (command: string): Buffer => {
