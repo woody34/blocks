@@ -38,7 +38,7 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts --max-old-space-size=512 start",
+    "start": "react-scripts start",
     "build": "npm run lint && react-scripts build",
     "build:prod": "react-scripts build",
     "test": "npm run test:unit && npm run test:e2e",
