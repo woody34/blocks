@@ -1,7 +1,5 @@
 import { execSync } from 'child_process';
-import { exit, kill } from 'process';
 import { asTree } from 'treeify';
-import { ExitStatus } from 'typescript';
 
 export interface NodeError {
   stdout: Buffer;
@@ -73,7 +71,7 @@ export const exitWithError = (
     callback(e);
   }
 
-  exit(e.status ?? 1);
+  process.exit(e.status ?? 1);
 };
 
 export const run = (command: string): Buffer => {
