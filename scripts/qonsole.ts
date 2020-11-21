@@ -37,7 +37,7 @@ export const exitWithError = (
   title: string,
   stderrLineFilter?: (line: string) => boolean,
   callback?: (e: NodeError) => void,
-) => {
+): void => {
   const lineFilter = (line: string) => !!line && !line.includes('npm ERR');
   const errLines = splitOnNl(e.stdout.toString());
   const msgLines = splitOnNl(e.message.toString());
