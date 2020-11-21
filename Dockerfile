@@ -62,18 +62,29 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
 # Create app directory
 WORKDIR /usr/src/blocks
 
-# Install app dependencies
-RUN npm i serve
-
-RUN chmod +x node_modules
 # If you are building your code for production
 # RUN npm ci --only=production
 
 # Bundle app source
-COPY ./build ./build
+COPY . ./tmp
+
+RUN chmod +x ./tmp/scripts/docker-build.sh
+
+RUN cd ./tmp && ./scripts/docker-build.sh
+
+RUN cp -r ./tmp/build/ ./build
+
+RUN rm -rf ./tmp/
+
+RUN ls -lha
+
+RUN npm i serve
+
+RUN chmod +x ./node_modules
 
 EXPOSE 5000
-CMD [ "npm", "serve", "./build" ]
+
+CMD [ "npx", "serve", "./build" ]
 
 # https://developer.okta.com/blog/2020/06/24/heroku-docker-react
 # Heroku setup notes
