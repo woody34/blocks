@@ -57,7 +57,7 @@
     "docker:logs": "docker logs blocks",
     "docker:stop": "docker stop blocks",
     "docker:rm": "docker rm blocks",
-    "heroku:build": "heroku container:login && heroku container:push web --remote heroku --arg='--memory=512m --memory-swap=1025m --memory-swappiness=50'",
+    "heroku:build": "heroku container:login && heroku container:push web --remote heroku",
     "heroku:release": "heroku container:release web --remote heroku",
     "heroku:open": "heroku open --remote heroku",
     "eject": "react-scripts eject"
