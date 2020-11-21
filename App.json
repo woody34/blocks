@@ -1,5 +1,5 @@
 {
-    "image": "blocks/image",
-    "name": "Software Blocks",
-    "stack": "container"
+  "image": "blocks/image",
+  "name": "Software Blocks",
+  "stack": "container"
 }

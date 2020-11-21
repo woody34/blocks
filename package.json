@@ -48,7 +48,7 @@
     "test:e2e": "server-test start 3000 test:e2e:cypress",
     "test:e2e:cypress": "cypress run --browser chrome --project . --headless",
     "cypress": "cypress open --browser chrome --project .",
-    "lint": "eslint --fix --ext .ts,.tsx .",
+    "lint": "eslint --fix --ext .ts,.tsx,.yaml,.json .",
     "lint:strict": "esm-ts-node scripts/lint.ts --project ./tsconfig.json --experimental-modules",
     "prettier:conflicts": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
     "docker:build": "docker build -t blocks/image --label blocks .",
@@ -57,7 +57,7 @@
     "docker:logs": "docker logs blocks",
     "docker:stop": "docker stop blocks",
     "docker:rm": "docker rm blocks",
-    "heroku:build": "npm run build && heroku container:login && heroku container:push web --remote heroku --arg='--memory=512m --memory-swap=1025m --memory-swappiness=50'",
+    "heroku:build": "heroku container:login && heroku container:push web --remote heroku --arg='--memory=512m --memory-swap=1025m --memory-swappiness=50'",
     "heroku:release": "heroku container:release web --remote heroku",
     "heroku:open": "heroku open --remote heroku",
     "eject": "react-scripts eject"
