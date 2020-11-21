@@ -23,6 +23,7 @@ const strictLint = () => {
 const lintFix = (e: NodeError): void => {
   log('Linting with autofix...');
   run('npm run lint');
+  run('HUSKY=0');
   exitWithError(e, 'Linting failed, fix, save, add & commit again!');
 };
 

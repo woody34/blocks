@@ -1,5 +1,4 @@
 import { execSync } from 'child_process';
-import { exit } from 'process';
 import { asTree } from 'treeify';
 
 export interface NodeError {
@@ -72,7 +71,7 @@ export const exitWithError = (
     callback(e);
   }
 
-  exit(e.status ?? 1);
+  process.exit(e.status ?? 1);
 };
 
 export const run = (command: string): Buffer => {

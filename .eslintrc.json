@@ -24,7 +24,7 @@
       "version": "detect"
     }
   },
-  "plugins": ["react", "@typescript-eslint", "jest"],
+  "plugins": ["react", "@typescript-eslint", "jest", "yaml"],
   "rules": {
     "no-debugger": "warn",
     "camelcase": [

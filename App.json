@@ -1,5 +1,5 @@
 {
-    "image": "blocks/image",
-    "name": "Software Blocks",
-    "stack": "heroku-20"
+  "image": "blocks/image",
+  "name": "Software Blocks",
+  "stack": "container"
 }
