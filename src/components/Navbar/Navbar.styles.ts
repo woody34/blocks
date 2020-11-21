@@ -69,4 +69,28 @@ export const useNavbarStyles = createUseStyles({
     '0%': { transform: 'rotateY(360deg)' },
     '100%': { transform: 'rotateY(0rem)' },
   },
+
+  // MOBILE STYLES
+  '@media (max-width: 540px)': {
+    navbarSticky: {
+      flexDirection: 'column',
+      padding: 0,
+    },
+    navbarLogoHolder: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    logoText: {
+      margin: '10px 0px',
+    },
+    navbarLink: {
+      alignContent: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      width: '100%',
+      padding: 0,
+      margin: '0px 0px 10px 0px',
+    },
+  },
 });

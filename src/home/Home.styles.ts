@@ -73,4 +73,31 @@ export const useHomeStyles = createUseStyles({
     color: '#b9b9b9 !important',
     cursor: 'pointer !imporant',
   },
+
+  // MOBILE STYLES
+  '@media (max-width: 540px)': {
+    headerBackground: {
+      height: '100vh',
+      alignItems: 'center',
+    },
+    typography: {
+      width: '75vw',
+      top: '25%',
+      bottom: 'unset',
+    },
+    techStack: {
+      top: 'unset',
+      width: '100%',
+      bottom: '-37%',
+      height: 'inherit',
+      margin: 'auto',
+      position: 'absolute',
+      background: 'url(../assets/techStacks.png) no-repeat',
+      backgroundSize: '100%',
+      right: 'unset',
+    },
+    linkContainer: {
+      right: 'unset',
+    },
+  },
 });
