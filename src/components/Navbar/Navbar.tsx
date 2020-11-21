@@ -17,14 +17,31 @@ export const Navbar: React.FC<ISickyProps> = (props: { sticky: boolean }) => {
         <h1 className={classes.logoText}> Software Blocks</h1>
       </div>
       <ul className={classes.navbarLink}>
-        <li className={classes.navbarLinkItem}>Home</li>
-        <li className={classes.navbarLinkItem}>
-          <Link to={authRoutes.podcast} data-cy={authRoutes.podcast}>
+        <li className={classes.navLinkContainer}>
+          <Link className={classes.navbarLinkItem} to={authRoutes.home}>
+            Home
+          </Link>
+        </li>
+        <li className={classes.navLinkContainer}>
+          <Link
+            className={classes.navbarLinkItem}
+            to={authRoutes.podcast}
+            data-cy={authRoutes.podcast}>
             Podcast
           </Link>
         </li>
-        <li className={classes.navbarLinkItem}>Code</li>
-        <li className={classes.navbarLinkItem}>Contact us</li>
+        <li className={classes.navLinkContainer}>
+          {' '}
+          <Link className={classes.navbarLinkItem} to={authRoutes.home}>
+            Code
+          </Link>
+        </li>
+        <li className={classes.navLinkContainer}>
+          {' '}
+          <Link className={classes.navbarLinkItem} to={authRoutes.home}>
+            Contact Us
+          </Link>
+        </li>
       </ul>
     </nav>
   );

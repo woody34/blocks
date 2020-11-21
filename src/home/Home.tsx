@@ -8,7 +8,6 @@ import { Navbar } from '../components/Navbar/Navbar';
 const ParalaxHeader: React.FC = () => {
   const classes = useHomeStyles();
   const [offset, setOffset] = useState(0);
-
   const parallaxShift = () => {
     setOffset(window.pageYOffset);
   };
@@ -30,14 +29,29 @@ const ParalaxHeader: React.FC = () => {
           className={classes.techStack}
           style={{ backgroundPositionY: offset }}></div>
         <ul className={classes.linkContainer}>
-          <li className={classes.navLink}>Home</li>
-          <li className={classes.navLink}>
-            <Link to={authRoutes.podcast} data-cy={authRoutes.podcast}>
+          <li className={classes.navLinkContainer}>
+            <Link className={classes.navLink} to={authRoutes.home}>
+              Home
+            </Link>
+          </li>
+          <li className={classes.navLinkContainer}>
+            <Link
+              className={classes.navLink}
+              to={authRoutes.podcast}
+              data-cy={authRoutes.podcast}>
               Podcast
             </Link>
-          </li>{' '}
-          <li className={classes.navLink}>Code</li>
-          <li className={classes.navLink}>Contact us</li>
+          </li>
+          <li className={classes.navLinkContainer}>
+            <Link className={classes.navLink} to={authRoutes.home}>
+              Code
+            </Link>
+          </li>
+          <li className={classes.navLinkContainer}>
+            <Link className={classes.navLink} to={authRoutes.home}>
+              Contact Us
+            </Link>
+          </li>
         </ul>
       </header>
     </div>
@@ -50,9 +64,6 @@ const Home: React.FC = () => {
     <>
       <ParalaxHeader></ParalaxHeader>
       <Navbar sticky={sticky} />
-      <Link to={authRoutes.podcast} data-cy={authRoutes.podcast}>
-        Podcast
-      </Link>
     </>
   );
 };

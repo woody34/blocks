@@ -62,10 +62,15 @@ export const useHomeStyles = createUseStyles({
     display: 'flex',
   },
 
-  navLink: {
+  navLinkContainer: {
     margin: '0.4rem 1rem 0 0',
     padding: '0 0.3rem',
-    cursor: 'pointer',
-    color: '#b9b9b9',
+  },
+
+  navLink: {
+    textDecoration: 'unset',
+    outline: 'unset',
+    color: '#b9b9b9 !important',
+    cursor: 'pointer !imporant',
   },
 });

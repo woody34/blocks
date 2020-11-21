@@ -43,11 +43,17 @@ export const useNavbarStyles = createUseStyles({
     listStyle: 'none',
   },
 
-  navbarLinkItem: {
+  navLinkContainer: {
     margin: '0.4rem 1rem 0 0',
     padding: '0 0.3rem',
-    cursor: 'pointer',
-    color: '#6a6a6a',
+  },
+
+  navbarLinkItem: {
+    textDecoration: 'unset',
+    outline: 'unset',
+    color: '#b9b9b9 !important',
+    cursor: 'pointer !imporant',
+    fontSize: '17px',
   },
 
   logoText: {
