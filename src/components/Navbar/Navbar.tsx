@@ -1,17 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/logo.svg';
-import { ISickyProps } from '../../common/hooks/useSticky';
+import useSticky from '../../common/hooks/useSticky';
 import { authRoutes } from '../../routes';
 import { useNavbarStyles } from './Navbar.styles';
+import { useLocation } from 'react-router-dom';
 
-export const Navbar: React.FC<ISickyProps> = (props: { sticky: boolean }) => {
+export const Navbar: React.FC = () => {
   const classes = useNavbarStyles();
+  const location = useLocation();
+  const { sticky, home, locationUpdate } = useSticky();
+
+  useEffect(() => {
+    locationUpdate();
+  }, [location]);
 
   return (
-    <nav className={props.sticky ? classes.navbarSticky : classes.navbar}>
+    <nav
+      className={
+        sticky
+          ? home
+            ? classes.navbarStickyHome
+            : classes.navbarSticky
+          : classes.navbar
+      }>
       <div className={classes.navbarLogoHolder}>
-        {props.sticky ? (
+        {sticky ? (
           <img src={Logo} alt="logo" className={classes.navbarLogo} />
         ) : null}
         <h1 className={classes.logoText}> Software Blocks</h1>

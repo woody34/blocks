@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { authRoutes } from '../routes';
 import { useHomeStyles } from './Home.styles';
-import useSticky from '../common/hooks/useSticky';
-import { Navbar } from '../components/Navbar/Navbar';
 
 const ParalaxHeader: React.FC = () => {
   const classes = useHomeStyles();
@@ -59,11 +57,9 @@ const ParalaxHeader: React.FC = () => {
 };
 
 const Home: React.FC = () => {
-  const { sticky } = useSticky();
   return (
     <>
       <ParalaxHeader></ParalaxHeader>
-      <Navbar sticky={sticky} />
     </>
   );
 };

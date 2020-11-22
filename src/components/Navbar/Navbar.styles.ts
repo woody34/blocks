@@ -1,17 +1,25 @@
+import { unset } from 'lodash';
 import { createUseStyles } from 'react-jss';
 
 export const useNavbarStyles = createUseStyles({
   navbar: {
+    position: 'absolute',
+    top: '-100%',
+  },
+
+  navbarSticky: {
+    top: 0,
+    position: 'fixed',
+    background: '#f1f1f1',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '0.5rem 2.5rem',
-    position: 'absolute',
     zIndex: '1',
     width: '-webkit-fill-available',
   },
 
-  navbarSticky: {
+  navbarStickyHome: {
     background: '#f1f1f1',
     position: 'fixed',
     top: '0',
@@ -76,6 +84,10 @@ export const useNavbarStyles = createUseStyles({
       flexDirection: 'column',
       padding: 0,
     },
+    navbarStickyHome: {
+      flexDirection: 'column',
+      padding: 0,
+    },
     navbarLogoHolder: {
       display: 'flex',
       alignItems: 'center',
@@ -91,6 +103,9 @@ export const useNavbarStyles = createUseStyles({
       width: '100%',
       padding: 0,
       margin: '0px 0px 10px 0px',
+    },
+    navbarLogo: {
+      animation: 'unset',
     },
   },
 });

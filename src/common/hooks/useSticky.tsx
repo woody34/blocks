@@ -1,14 +1,20 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { authRoutes } from '../../routes';
 
-export interface ISickyProps {
-  sticky: boolean;
-}
-
-function useSticky(): ISickyProps {
-  const [isSticky, setSticky] = useState(false);
+function useSticky() {
+  const [sticky, setSticky] = useState(false);
+  const [home, setHome] = useState(false);
+  const location = useLocation();
 
   const handleScroll = () => {
-    window.scrollY > 765 ? setSticky(true) : setSticky(false);
+    if (location.pathname != authRoutes.home) {
+      setSticky(true);
+      setHome(false);
+    } else {
+      setHome(true);
+      window.scrollY > 765 ? setSticky(true) : setSticky(false);
+    }
   };
 
   useEffect(() => {
@@ -18,7 +24,11 @@ function useSticky(): ISickyProps {
     };
   }, [handleScroll]);
 
-  return { sticky: isSticky };
+  const locationUpdate = () => {
+    handleScroll();
+  };
+
+  return { sticky, home, locationUpdate };
 }
 
 export default useSticky;
