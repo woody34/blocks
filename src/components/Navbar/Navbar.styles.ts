@@ -1,4 +1,3 @@
-import { unset } from 'lodash';
 import { createUseStyles } from 'react-jss';
 
 export const useNavbarStyles = createUseStyles({
