@@ -4,7 +4,8 @@ export const useHomeStyles = createUseStyles({
   App: {
     fontFamily: 'sans-serif',
     textAlign: 'center',
-    height: '500rem',
+    height: 'auto',
+    minHiehg: '1000px',
     overflow: 'hidden',
   },
 
@@ -72,6 +73,32 @@ export const useHomeStyles = createUseStyles({
     outline: 'unset',
     color: '#b9b9b9 !important',
     cursor: 'pointer !imporant',
+  },
+
+  contentContainer: {
+    backgroundColor: '#9cc8ff40',
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+
+  contentStage: {
+    backgroundColor: 'white',
+    margin: ' 0 15%',
+    minHeight: '1500px',
+    width: '100%',
+  },
+
+  mediaBar: {
+    position: 'absolute',
+    top: '21%',
+    left: '3.5%',
+  },
+
+  stickyMediaBar: {
+    position: 'fixed',
+    top: '30%',
+    left: '3.5%',
   },
 
   // MOBILE STYLES

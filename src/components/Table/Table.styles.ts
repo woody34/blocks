@@ -1,7 +1,7 @@
 import { createUseStyles } from 'react-jss';
 
 export const useTableStyles = createUseStyles({
-  fart: {
+  tableRow: {
     maxHeight: 150,
   },
 });
