@@ -10,9 +10,7 @@ import {
 } from './SocialMediaBar.styles';
 
 function MediaButton(props: MediaButtonProps) {
-  const classes: ReturnType<
-    typeof useMediaButtonStyles
-  > = useMediaButtonStyles();
+  const classes: ReturnType<typeof useMediaButtonStyles> = useMediaButtonStyles();
 
   return (
     <IconButton
