@@ -23,7 +23,7 @@ const Podcast: React.FC = () => {
 
   return (
     <React.Fragment key={'bottom'}>
-      <Container maxWidth="md">
+      <Container className={classes.podcastContainer} maxWidth="md">
         <PodcastTable />
       </Container>
       <Drawer

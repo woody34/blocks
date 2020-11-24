@@ -4,7 +4,6 @@ import { IconButton } from '@material-ui/core';
 import LinkedIn from '@material-ui/icons/LinkedIn';
 import YouTube from '@material-ui/icons/YouTube';
 import QueueMusic from '@material-ui/icons/QueueMusic';
-
 import {
   useMediaBarStyles,
   useMediaButtonStyles,
@@ -25,7 +24,7 @@ function MediaButton(props: MediaButtonProps) {
   );
 }
 
-export function SocialMediaBar() {
+export function SocialMediaBar(): JSX.Element {
   const classes: ReturnType<typeof useMediaBarStyles> = useMediaBarStyles();
   return (
     <div className={classes.buttonContainer}>

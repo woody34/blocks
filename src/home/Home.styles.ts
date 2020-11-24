@@ -76,17 +76,31 @@ export const useHomeStyles = createUseStyles({
   },
 
   contentContainer: {
-    backgroundColor: '#9cc8ff40',
+    // backgroundColor: '#9cc8ff40',
+    background: 'linear-gradient(#DBDBDC,#ffffff)',
     position: 'relative',
     display: 'flex',
     flexDirection: 'row',
   },
 
   contentStage: {
-    backgroundColor: 'white',
-    margin: ' 0 15%',
+    background: 'linear-gradient(#DBDBDC,#ffffff)',
+    // backgroundColor: 'white',
+    margin: ' 0 16%',
     minHeight: '1500px',
     width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  stubbedContent: {
+    height: '200px',
+    width: '100%',
+    maxWidth: '800px',
+    backgroundColor: '#34495e',
+    margin: '25px 0px',
   },
 
   mediaBar: {
@@ -99,6 +113,24 @@ export const useHomeStyles = createUseStyles({
     position: 'fixed',
     top: '30%',
     left: '3.5%',
+  },
+
+  subBox: {
+    backgroundColor: '#fefefe',
+    position: 'absolute',
+    top: '21%',
+    right: '0.5%',
+    maxWidth: '15%',
+    borderRadius: '3px',
+  },
+
+  stickySubBox: {
+    backgroundColor: '#fefefe',
+    position: 'fixed',
+    top: '30%',
+    right: '0.5%',
+    maxWidth: '15%',
+    borderRadius: '3px',
   },
 
   // MOBILE STYLES

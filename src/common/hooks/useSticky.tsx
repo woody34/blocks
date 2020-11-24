@@ -2,7 +2,13 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { authRoutes } from '../../routes';
 
-function useSticky() {
+export interface ISticky {
+  sticky: boolean;
+  home: boolean;
+  locationUpdate: () => void;
+}
+
+function useSticky(): ISticky {
   const [sticky, setSticky] = useState(false);
   const [home, setHome] = useState(false);
   const location = useLocation();
