@@ -13,8 +13,12 @@ import { BlocksTableHeadProps, BlocksTableProps, cyTable, Order } from './util';
 import { orderBy } from 'lodash';
 import { useTableStyles } from './Table.styles';
 
-function BlocksTableHead<D extends BaseData>(props: BlocksTableHeadProps<D>) {
-  const { headers, order, sortBy, onRequestSort } = props;
+const BlocksTableHead = <D extends BaseData>({
+  headers,
+  order,
+  sortBy,
+  onRequestSort,
+}: BlocksTableHeadProps<D>) => {
   const createSortHandler = (property: string) => (
     event: React.MouseEvent<unknown>,
   ) => {
@@ -48,12 +52,14 @@ function BlocksTableHead<D extends BaseData>(props: BlocksTableHeadProps<D>) {
       </TableRow>
     </TableHead>
   );
-}
+};
 
-export function BlocksTable<D extends BaseData>(
-  props: BlocksTableProps<D>,
-): JSX.Element {
-  const { rows, headers, prepend, append } = props;
+export const BlocksTable = <D extends BaseData>({
+  rows,
+  headers,
+  prepend,
+  append,
+}: BlocksTableProps<D>): JSX.Element => {
   const [order, setOrder] = React.useState<Order>(Order.asc);
   const [sortBy, setSortBy] = React.useState<string>('');
   const [page, setPage] = React.useState(0);
@@ -152,4 +158,4 @@ export function BlocksTable<D extends BaseData>(
       </Paper>
     </div>
   );
-}
+};

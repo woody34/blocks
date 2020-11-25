@@ -1,40 +1,28 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { authRoutes } from '../../routes';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  setIsNavSticky,
+  setYOffset,
+  updateYOffset,
+} from '../../store/app/actions';
 
-export interface ISticky {
-  sticky: boolean;
-  home: boolean;
-  locationUpdate: () => void;
-}
+import { useScrollHandler } from './useScrollHandler';
 
-function useSticky(): ISticky {
-  const [sticky, setSticky] = useState(false);
-  const [home, setHome] = useState(false);
-  const location = useLocation();
+export const useSticky = (): void => {
+  const dispatch = useDispatch();
 
-  const handleScroll = () => {
-    if (location.pathname != authRoutes.home) {
-      setSticky(true);
-      setHome(false);
-    } else {
-      setHome(true);
-      window.scrollY > 765 ? setSticky(true) : setSticky(false);
-    }
+  const onScroll = () => {
+    dispatch(updateYOffset(window.scrollY));
   };
+
+  const onScrollCleanup = () => {
+    dispatch(setIsNavSticky(true));
+  };
+
+  useScrollHandler(onScroll, onScrollCleanup);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', () => handleScroll);
-    };
-  }, [handleScroll]);
-
-  const locationUpdate = () => {
-    handleScroll();
-  };
-
-  return { sticky, home, locationUpdate };
-}
-
-export default useSticky;
+    dispatch(setIsNavSticky(false));
+    dispatch(setYOffset(1));
+  }, []);
+};
