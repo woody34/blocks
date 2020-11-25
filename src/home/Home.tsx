@@ -1,36 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import useSticky from '../common/hooks/useSticky';
+import { useSticky } from '../common/hooks/useSticky';
 import { SocialMediaBar } from '../components/SocialMediaBar/SocialMediaBar';
 import { SubscriptionBox } from '../components/SubscriptionBox/SubscriptionBox';
 import { authRoutes } from '../routes';
+import { AppState } from '../store/app/types';
+import { State } from '../store/types';
 import { useHomeStyles } from './Home.styles';
 
 const ParalaxHeader: React.FC = () => {
   const classes = useHomeStyles();
-  const [offset, setOffset] = useState(0);
-  const parallaxShift = () => {
-    setOffset(window.pageYOffset);
-  };
-
-  const { sticky } = useSticky();
-
-  useEffect(() => {
-    window.addEventListener('scroll', parallaxShift);
-    return () => {
-      window.removeEventListener('scroll', parallaxShift);
-    };
-  });
+  const { yOffset, isNavSticky } = useSelector<State, AppState>(
+    ({ app }: State) => app,
+  );
+  useSticky();
 
   return (
     <div className={classes.App}>
       <header
         className={classes.headerBackground}
-        style={{ backgroundPositionY: offset }}>
+        style={{ backgroundPositionY: yOffset }}>
         <div className={classes.typography}></div>
         <div
           className={classes.techStack}
-          style={{ backgroundPositionY: offset }}></div>
+          style={{ backgroundPositionY: yOffset }}></div>
         <ul className={classes.linkContainer}>
           <li className={classes.navLinkContainer}>
             <Link className={classes.navLink} to={authRoutes.home}>
@@ -58,7 +52,8 @@ const ParalaxHeader: React.FC = () => {
         </ul>
       </header>
       <div className={classes.contentContainer}>
-        <div className={sticky ? classes.stickyMediaBar : classes.mediaBar}>
+        <div
+          className={isNavSticky ? classes.stickyMediaBar : classes.mediaBar}>
           <SocialMediaBar />
         </div>
         <div className={classes.contentStage}>
@@ -69,7 +64,7 @@ const ParalaxHeader: React.FC = () => {
           <div className={classes.stubbedContent}></div>
           <div className={classes.stubbedContent}></div>
         </div>
-        <div className={sticky ? classes.stickySubBox : classes.subBox}>
+        <div className={isNavSticky ? classes.stickySubBox : classes.subBox}>
           <SubscriptionBox />
         </div>
       </div>

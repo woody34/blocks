@@ -9,20 +9,23 @@ import {
   useMediaButtonStyles,
 } from './SocialMediaBar.styles';
 
-function MediaButton(props: MediaButtonProps) {
+const MediaButton: React.FC<MediaButtonProps> = ({
+  children,
+  url,
+}: MediaButtonProps) => {
   const classes: ReturnType<typeof useMediaButtonStyles> = useMediaButtonStyles();
 
   return (
     <IconButton
       className={classes.button}
       aria-label="close"
-      onClick={() => window.open(props.url, '_blank')}>
-      {props.children}
+      onClick={() => window.open(url, '_blank')}>
+      {children}
     </IconButton>
   );
-}
+};
 
-export function SocialMediaBar(): JSX.Element {
+export const SocialMediaBar = (): JSX.Element => {
   const classes: ReturnType<typeof useMediaBarStyles> = useMediaBarStyles();
   return (
     <div className={classes.buttonContainer}>
@@ -37,4 +40,4 @@ export function SocialMediaBar(): JSX.Element {
       </MediaButton>
     </div>
   );
-}
+};

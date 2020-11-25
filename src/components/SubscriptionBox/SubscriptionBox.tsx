@@ -4,10 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import AddAlert from '@material-ui/icons/AddAlert';
 
-export function SubscriptionBox(): JSX.Element {
-  const classes: ReturnType<
-    typeof useSubcriptionBoxStyles
-  > = useSubcriptionBoxStyles();
+export const SubscriptionBox = (): JSX.Element => {
+  const classes: ReturnType<typeof useSubcriptionBoxStyles> = useSubcriptionBoxStyles();
 
   return (
     <div className={classes.subContainer}>
@@ -31,4 +29,4 @@ export function SubscriptionBox(): JSX.Element {
       </Button>
     </div>
   );
-}
+};

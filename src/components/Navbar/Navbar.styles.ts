@@ -1,35 +1,29 @@
 import { createUseStyles } from 'react-jss';
 
+const useNavBarSticky = () => ({
+  background: '#f1f1f1',
+  position: 'fixed',
+  top: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: '0.5rem 2.5rem',
+  zIndex: '1',
+  width: '-webkit-fill-available',
+});
+
 export const useNavbarStyles = createUseStyles({
   navbar: {
     position: 'absolute',
     top: '-100%',
   },
 
-  navbarSticky: {
-    top: 0,
-    position: 'fixed',
-    background: '#f1f1f1',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '0.5rem 2.5rem',
-    zIndex: '1',
-    width: '-webkit-fill-available',
-  },
+  navbarSticky: useNavBarSticky(),
 
   navbarStickyHome: {
-    background: '#f1f1f1',
-    position: 'fixed',
-    top: '0',
-    left: '0',
+    ...useNavBarSticky(),
+    left: 0,
     animation: '$moveDown 0.5s ease-in-out',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '0.5rem 2.5rem',
-    zIndex: '1',
-    width: '-webkit-fill-available',
   },
 
   navbarLogoHolder: {
