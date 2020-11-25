@@ -2,6 +2,10 @@ import { makeStyles } from '@material-ui/core';
 import { createUseStyles } from 'react-jss';
 
 export const usePodcastStyles = createUseStyles({
+  podcastContainer: {
+    marginTop: '88px',
+  },
+
   grid: {
     background: 'rgb(244 244 244)',
   },

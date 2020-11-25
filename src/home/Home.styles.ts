@@ -4,7 +4,8 @@ export const useHomeStyles = createUseStyles({
   App: {
     fontFamily: 'sans-serif',
     textAlign: 'center',
-    height: '500rem',
+    height: 'auto',
+    minHiehg: '1000px',
     overflow: 'hidden',
   },
 
@@ -72,6 +73,64 @@ export const useHomeStyles = createUseStyles({
     outline: 'unset',
     color: '#b9b9b9 !important',
     cursor: 'pointer !imporant',
+  },
+
+  contentContainer: {
+    // backgroundColor: '#9cc8ff40',
+    background: 'linear-gradient(#DBDBDC,#ffffff)',
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+
+  contentStage: {
+    background: 'linear-gradient(#DBDBDC,#ffffff)',
+    // backgroundColor: 'white',
+    margin: ' 0 16%',
+    minHeight: '1500px',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  stubbedContent: {
+    height: '200px',
+    width: '100%',
+    maxWidth: '800px',
+    backgroundColor: '#34495e',
+    margin: '25px 0px',
+  },
+
+  mediaBar: {
+    position: 'absolute',
+    top: '21%',
+    left: '3.5%',
+  },
+
+  stickyMediaBar: {
+    position: 'fixed',
+    top: '30%',
+    left: '3.5%',
+  },
+
+  subBox: {
+    backgroundColor: '#fefefe',
+    position: 'absolute',
+    top: '21%',
+    right: '0.5%',
+    maxWidth: '15%',
+    borderRadius: '3px',
+  },
+
+  stickySubBox: {
+    backgroundColor: '#fefefe',
+    position: 'fixed',
+    top: '30%',
+    right: '0.5%',
+    maxWidth: '15%',
+    borderRadius: '3px',
   },
 
   // MOBILE STYLES

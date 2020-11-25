@@ -19,7 +19,7 @@ const App: React.FC = () => {
       <div className="App">
         <Router>
           <Navbar />
-          <div style={{ marginTop: '88px' }}>
+          <div>
             <Route exact path={authRoutes.home} component={Home} />
             <Route exact path={authRoutes.podcast} component={Podcast} />
           </div>

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useSticky from '../common/hooks/useSticky';
+import { SocialMediaBar } from '../components/SocialMediaBar/SocialMediaBar';
+import { SubscriptionBox } from '../components/SubscriptionBox/SubscriptionBox';
 import { authRoutes } from '../routes';
 import { useHomeStyles } from './Home.styles';
 
@@ -9,6 +12,8 @@ const ParalaxHeader: React.FC = () => {
   const parallaxShift = () => {
     setOffset(window.pageYOffset);
   };
+
+  const { sticky } = useSticky();
 
   useEffect(() => {
     window.addEventListener('scroll', parallaxShift);
@@ -52,6 +57,22 @@ const ParalaxHeader: React.FC = () => {
           </li>
         </ul>
       </header>
+      <div className={classes.contentContainer}>
+        <div className={sticky ? classes.stickyMediaBar : classes.mediaBar}>
+          <SocialMediaBar />
+        </div>
+        <div className={classes.contentStage}>
+          <div className={classes.stubbedContent}></div>
+          <div className={classes.stubbedContent}></div>
+          <div className={classes.stubbedContent}></div>
+          <div className={classes.stubbedContent}></div>
+          <div className={classes.stubbedContent}></div>
+          <div className={classes.stubbedContent}></div>
+        </div>
+        <div className={sticky ? classes.stickySubBox : classes.subBox}>
+          <SubscriptionBox />
+        </div>
+      </div>
     </div>
   );
 };

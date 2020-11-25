@@ -104,7 +104,7 @@ export function BlocksTable<D extends BaseData>(
               {sortedRows.map((row, i) => {
                 return (
                   <TableRow
-                    className={classes.fart}
+                    className={classes.tableRow}
                     hover
                     tabIndex={i}
                     key={i}
