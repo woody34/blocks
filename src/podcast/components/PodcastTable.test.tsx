@@ -5,7 +5,6 @@ import { cyTable } from '../../components/Table/util';
 import { TestingUtil, testUtil } from '../../util/testing-util';
 import { podcastService } from '../../services/podcast';
 import mockPodcastDocs from '../../mock/data/podcast';
-import { mockAxiosResponse } from '../../mock/service';
 import { get } from 'lodash';
 import { headers } from './util';
 const wrapper = (): TestingUtil => {

@@ -1,9 +1,4 @@
-import {
-  initialPodcastState,
-  PodcastActions,
-  PodcastState,
-  PODCAST_ACTIONS,
-} from './types';
+import { initialPodcastState, PodcastState, PODCAST_ACTIONS } from './types';
 import {
   loadPodcasts,
   playPodcast,
@@ -17,11 +12,11 @@ import {
 import mockPodcastDocs from '../../mock/data/podcast';
 import { makeAction, mockStore, strictEquals } from '../../util/testing-util';
 import { podcastService } from '../../services/podcast';
-import { mockAxiosResponse } from '../../mock/service';
+import { Actions } from '../../store/types';
 
-const received: PodcastActions[] = [];
+const received: Actions[] = [];
 
-const grabActions = (action: PodcastActions) => {
+const grabActions = (action: Actions) => {
   received.push(action);
 };
 
