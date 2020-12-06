@@ -77,9 +77,7 @@ describe('Podcast Actions', () => {
   });
 
   it('should call setPodcasts on loadPodcasts', async () => {
-    jest
-      .spyOn(podcastService, 'getAll')
-      .mockResolvedValue(mockAxiosResponse(mockPodcastDocs));
+    jest.spyOn(podcastService, 'query').mockResolvedValue(mockPodcastDocs);
     await dispatch(loadPodcasts());
     const expected = [
       makeAction(PODCAST_ACTIONS.SET_PODCASTS, mockPodcastDocs),
@@ -88,9 +86,7 @@ describe('Podcast Actions', () => {
   });
 
   it('should call selectPodcast and setPodcastPlay on playPodcast', async () => {
-    jest
-      .spyOn(podcastService, 'getAll')
-      .mockResolvedValue(mockAxiosResponse(mockPodcastDocs));
+    jest.spyOn(podcastService, 'query').mockResolvedValue(mockPodcastDocs);
     await dispatch(playPodcast(mockPodcastDocs));
     const expected = [
       makeAction(PODCAST_ACTIONS.SELECT_PODCAST, mockPodcastDocs),

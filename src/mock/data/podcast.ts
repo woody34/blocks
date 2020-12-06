@@ -469,5 +469,5 @@ const docs = [
     duration: 5898,
     published: '2020-05-13T00:32:31.734Z',
   },
-];
+] as PodcastData[];
 export default docs;

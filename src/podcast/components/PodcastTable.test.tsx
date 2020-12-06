@@ -14,9 +14,7 @@ const wrapper = (): TestingUtil => {
 
 describe('PodcastTable', () => {
   beforeEach(jest.restoreAllMocks);
-  jest
-    .spyOn(podcastService, 'getAll')
-    .mockResolvedValue(mockAxiosResponse(mockPodcastDocs));
+  jest.spyOn(podcastService, 'query').mockResolvedValue(mockPodcastDocs);
 
   it('should display all labels', async () => {
     const { getAllByDataCy } = wrapper();

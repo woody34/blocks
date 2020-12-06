@@ -1,78 +1,73 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { BaseData } from '../common/base';
+import {
+  QueryParams,
+  HttpAdapters,
+  QueryResponse,
+  BaseService,
+  Http,
+  ServiceWrite,
+} from './service.types';
 
-export interface Http<TYPE extends BaseData> {
-  baseRoute: string;
-  get: (
-    route: string,
-    config?: AxiosRequestConfig,
-  ) => Promise<AxiosResponse<TYPE>>;
-  getMany: (
-    route: string,
-    config?: AxiosRequestConfig,
-  ) => Promise<AxiosResponse<TYPE[]>>;
-  put: (
-    route: string,
-    payload: TYPE,
-    config?: AxiosRequestConfig,
-  ) => Promise<AxiosResponse<TYPE>>;
-  post: <AT>(
-    route: string,
-    payload: AT | TYPE,
-    config?: AxiosRequestConfig,
-  ) => Promise<AxiosResponse<TYPE>>;
-  delete: (
-    route: string,
-    config?: AxiosRequestConfig,
-  ) => Promise<AxiosResponse<void>>;
-}
+const adapterByPass = {
+  request: <T extends BaseData, API>(req: T) => (req as unknown) as API,
+  response: <T extends BaseData, API>(resp: API) => (resp as unknown) as T,
+};
 
-export const makeHttp = <T extends BaseData>(baseRoute: string): Http<T> => {
+const queryParams: QueryParams = {
+  includeDeleted: 'false',
+  skip: '0',
+  take: '50',
+  orderBy: 'Number',
+  desc: 'true',
+  search: '',
+};
+
+export const makeHttp = <T extends BaseData, API>(
+  baseRoute: string,
+  adapters: HttpAdapters<T, API> = adapterByPass,
+): Http<T> => {
   const http: Http<T> = {
     baseRoute,
-    get: (route, config?) => {
-      if (config) {
-        return axios.get<T>(baseRoute + route, config);
-      }
-      return axios.get<T>(baseRoute + route);
+    get: (route, config = {}) => {
+      return axios
+        .get<API>(baseRoute + route, config)
+        .then(unwrapData)
+        .then(adapters.response);
     },
-    getMany: (route, config?) => {
-      if (config) {
-        return axios.get<T[]>(baseRoute + route, config);
-      }
-      return axios.get<T[]>(baseRoute + route);
+    query: (route, config = {}) => {
+      return axios
+        .get<QueryResponse<API>>(baseRoute + route, {
+          ...config,
+          params: { ...queryParams, ...config.params },
+        })
+        .then(unwrapData)
+        .then(unwrapQuery)
+        .then(resp => resp.map<T>(adapters.response));
     },
-    put: (route, payload, config?) => {
-      if (config) {
-        return axios.put<T>(baseRoute + route, payload, config);
-      }
-      return axios.put<T>(baseRoute + route, payload);
+    put: (route, payload, config = {}) => {
+      return axios
+        .put<API>(baseRoute + route, adapters.request(payload), config)
+        .then(unwrapData)
+        .then(adapters.response);
     },
-    post: <AT>(route: string, payload: T | AT, config?: AxiosRequestConfig) => {
-      if (config) {
-        return axios.post<T>(baseRoute + route, payload, config);
-      }
-      return axios.post<T>(baseRoute + route, payload);
+    post: (route: string, payload: T, config = {}) => {
+      return axios
+        .post<API>(baseRoute + route, adapters.request(payload), config)
+        .then(unwrapData)
+        .then(adapters.response);
     },
-    delete: (route, config?) => {
-      if (config) {
-        return axios.delete(baseRoute + route, config);
-      }
-      return axios.delete(baseRoute + route);
+    delete: (route, config = {}) => {
+      return axios.delete(baseRoute + route, config);
     },
   };
   return http;
 };
 
-export interface BaseService<TYPE extends BaseData> {
-  baseRoute: string;
-  http: Http<TYPE>;
-}
-
-export const makeBaseService = <T extends BaseData>(
+export const makeBaseService = <T extends BaseData, API>(
   baseRoute: string,
 ): BaseService<T> => {
-  const http = makeHttp<T>(baseRoute);
+  const http = makeHttp<T, API>(baseRoute);
   const baseService = {
     baseRoute,
     http,
@@ -80,29 +75,33 @@ export const makeBaseService = <T extends BaseData>(
   return baseService;
 };
 
-export interface ServiceRead<T extends BaseData> extends BaseService<T> {
-  getById: (id: number) => Promise<AxiosResponse<T>>;
-  getAll: () => Promise<AxiosResponse<T[]>>;
-}
-
-export interface ServiceWrite<T extends BaseData> extends ServiceRead<T> {
-  create: (payload: T) => Promise<AxiosResponse<T>>;
-  update: (payload: T) => Promise<AxiosResponse<T>>;
-  delete: (id: number) => Promise<AxiosResponse<void>>;
-}
-
-export const makeService = <T extends BaseData>(
-  baseRoute: string,
+export const makeService = <T extends BaseData, API>(
+  baseRoute?: string,
+  adapters?: HttpAdapters<T, API>,
+  mockService?: ServiceWrite<T>,
 ): ServiceWrite<T> => {
-  const { http } = makeBaseService<T>(baseRoute);
-  const service = {
-    baseRoute,
+  if (!baseRoute && mockService) {
+    // mocking for tests
+    return mockService;
+  }
+  const route = baseRoute ?? '';
+  const http = makeHttp<T, API>(route, adapters);
+  const service: ServiceWrite<T> = {
+    baseRoute: route,
     http,
     getById: (id: number) => http.get(`/by-id/${id}`),
-    getAll: () => http.getMany('/'),
-    create: (payload: T) => http.post(`/${payload.id}`, payload),
-    update: (payload: T) => http.put(`/${payload.id}`, payload),
+    query: (params: Partial<QueryParams>) => http.query('/query', { params }),
+    create: (payload: T) => http.post(`/`, payload),
+    update: (payload: T) => http.put(`/`, payload),
     delete: (id: number) => http.delete(`/${id}`),
   };
   return service;
+};
+
+const unwrapData = <T>(response: AxiosResponse<T>) => {
+  return response.data;
+};
+
+const unwrapQuery = <T>(response: QueryResponse<T>) => {
+  return response.results;
 };

@@ -58,7 +58,7 @@ export const loadPodcasts = (): AppThunkAsync => async (
   dispatch,
 ): Promise<undefined> => {
   try {
-    const podcasts = await podcastService.getAll();
+    const podcasts = await podcastService.query({ search: '' });
     dispatch(setPodcasts(podcasts));
     return;
   } catch (err) {
