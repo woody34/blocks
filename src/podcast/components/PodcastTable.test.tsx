@@ -5,7 +5,6 @@ import { cyTable } from '../../components/Table/util';
 import { TestingUtil, testUtil } from '../../util/testing-util';
 import { podcastService } from '../../services/podcast';
 import mockPodcastDocs from '../../mock/data/podcast';
-import { mockAxiosResponse } from '../../mock/service';
 import { get } from 'lodash';
 import { headers } from './util';
 const wrapper = (): TestingUtil => {
@@ -14,9 +13,7 @@ const wrapper = (): TestingUtil => {
 
 describe('PodcastTable', () => {
   beforeEach(jest.restoreAllMocks);
-  jest
-    .spyOn(podcastService, 'getAll')
-    .mockResolvedValue(mockAxiosResponse(mockPodcastDocs));
+  jest.spyOn(podcastService, 'query').mockResolvedValue(mockPodcastDocs);
 
   it('should display all labels', async () => {
     const { getAllByDataCy } = wrapper();

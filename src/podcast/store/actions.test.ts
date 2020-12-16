@@ -1,9 +1,4 @@
-import {
-  initialPodcastState,
-  PodcastActions,
-  PodcastState,
-  PODCAST_ACTIONS,
-} from './types';
+import { initialPodcastState, PodcastState, PODCAST_ACTIONS } from './types';
 import {
   loadPodcasts,
   playPodcast,
@@ -17,11 +12,11 @@ import {
 import mockPodcastDocs from '../../mock/data/podcast';
 import { makeAction, mockStore, strictEquals } from '../../util/testing-util';
 import { podcastService } from '../../services/podcast';
-import { mockAxiosResponse } from '../../mock/service';
+import { Actions } from '../../store/types';
 
-const received: PodcastActions[] = [];
+const received: Actions[] = [];
 
-const grabActions = (action: PodcastActions) => {
+const grabActions = (action: Actions) => {
   received.push(action);
 };
 
@@ -77,9 +72,7 @@ describe('Podcast Actions', () => {
   });
 
   it('should call setPodcasts on loadPodcasts', async () => {
-    jest
-      .spyOn(podcastService, 'getAll')
-      .mockResolvedValue(mockAxiosResponse(mockPodcastDocs));
+    jest.spyOn(podcastService, 'query').mockResolvedValue(mockPodcastDocs);
     await dispatch(loadPodcasts());
     const expected = [
       makeAction(PODCAST_ACTIONS.SET_PODCASTS, mockPodcastDocs),
@@ -88,9 +81,7 @@ describe('Podcast Actions', () => {
   });
 
   it('should call selectPodcast and setPodcastPlay on playPodcast', async () => {
-    jest
-      .spyOn(podcastService, 'getAll')
-      .mockResolvedValue(mockAxiosResponse(mockPodcastDocs));
+    jest.spyOn(podcastService, 'query').mockResolvedValue(mockPodcastDocs);
     await dispatch(playPodcast(mockPodcastDocs));
     const expected = [
       makeAction(PODCAST_ACTIONS.SELECT_PODCAST, mockPodcastDocs),
